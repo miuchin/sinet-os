@@ -73,16 +73,20 @@
                 <div class="hidden md:flex items-center flex-1 max-w-md mx-8">
                     <div class="relative w-full group">
                         <span class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none text-gray-400 group-focus-within:text-sinet-primary"><i class="fa-solid fa-search"></i></span>
-                        <input type="text" id="globalSearch" placeholder="Pretraži Znanje... (Ctrl + K)" 
+                        <input data-i18n="nav_search" type="text" id="globalSearch" placeholder="Pretraži Znanje... (Ctrl + K)"
                             onkeyup="filterGems()" 
                             onkeydown="if(event.key === 'Enter'){ filterGems(); this.blur(); }"
                             class="w-full bg-gray-100 border border-gray-300 rounded-md py-2 pl-10 pr-3 text-sm focus:outline-none focus:ring-2 focus:ring-sinet-primary focus:bg-white transition-all shadow-sm text-gray-900">
                     </div>
                 </div>
                 <div class="flex items-center space-x-3">
+                    <button id="langBtn" onclick="setLanguage(currentLang === 'sr' ? 'en' : 'sr')" class="text-gray-500 hover:text-sinet-primary px-2 py-2 rounded-md transition font-bold border border-transparent hover:bg-gray-50 text-sm">
+                        🇷🇸 SR
+                    </button>
+                    
                     <div class="relative">
                         <button onclick="toggleDropdown('toolsDropdown')" class="text-gray-500 hover:text-sinet-primary px-3 py-2 rounded-md transition border border-transparent hover:bg-gray-50 flex items-center gap-2">
-                            <i class="fa-solid fa-toolbox text-lg"></i> <span class="text-xs font-bold uppercase hidden sm:inline">Alati</span>
+                            <i class="fa-solid fa-toolbox text-lg"></i> <span data-i18n="nav_tools" class="text-xs font-bold uppercase hidden sm:inline">Alati</span>
                         </button>
                         <div id="toolsDropdown" class="absolute right-0 mt-2 w-56 bg-white border border-gray-200 rounded-md shadow-xl hidden z-[100] overflow-hidden">
                             <div class="bg-gray-50 px-4 py-2 text-xs font-bold text-gray-500 border-b">SISTEMSKI ALATI</div>
@@ -96,12 +100,14 @@
                             <a href="#" onclick="openTool('vault')" class="block px-4 py-3 text-sm text-gray-700 hover:bg-blue-50 hover:text-sinet-primary"><i class="fa-solid fa-vault mr-2 w-5 text-center"></i> Data Vault</a>
                         </div>
                     </div>
+
                     <button onclick="openStore()" class="text-gray-500 hover:text-sinet-primary px-3 py-2 rounded-md transition border border-transparent hover:bg-gray-50 flex items-center gap-2">
-                        <i class="fa-solid fa-layer-group text-lg"></i> <span class="text-xs font-bold uppercase hidden sm:inline">Store</span>
+                        <i class="fa-solid fa-layer-group text-lg"></i> <span data-i18n="nav_store" class="text-xs font-bold uppercase hidden sm:inline">Store</span>
                     </button>
+
                     <div class="relative">
                         <button onclick="toggleDropdown('themeDropdown')" class="text-gray-500 hover:text-sinet-primary px-3 py-2 rounded-md transition border border-transparent hover:bg-gray-50 flex items-center gap-2" title="Promeni Temu">
-                            <i class="fa-solid fa-palette text-lg"></i> <span class="text-xs font-bold uppercase hidden sm:inline">Tema</span>
+                            <i class="fa-solid fa-palette text-lg"></i> <span data-i18n="nav_theme" class="text-xs font-bold uppercase hidden sm:inline">Tema</span>
                         </button>
                         <div id="themeDropdown" class="absolute right-0 mt-2 w-48 bg-white border border-gray-200 rounded-md shadow-xl hidden z-50">
                             <div class="bg-gray-50 px-4 py-2 text-xs font-bold text-gray-500 border-b">IZBOR IZGLEDA</div>
@@ -110,26 +116,28 @@
                             <button onclick="setTheme('matrix')" class="w-full text-left px-4 py-2 text-sm hover:bg-gray-100 flex items-center text-gray-700"><div class="w-3 h-3 rounded-full bg-green-500 mr-2"></div> Matrix</button>
                         </div>
                     </div>
+
                     <button onclick="openAbout()" class="text-gray-500 hover:text-sinet-primary px-3 py-2 rounded-md transition flex items-center gap-2 border border-transparent hover:bg-gray-50">
-                        <i class="fa-solid fa-circle-question text-lg"></i><span class="text-sm font-medium hidden sm:inline">O Projektu</span>
+                        <i class="fa-solid fa-circle-question text-lg"></i><span data-i18n="nav_about" class="text-sm font-medium hidden sm:inline">O Projektu</span>
                     </button>
+
                     <button onclick="openContact()" class="bg-gray-800 text-white hover:bg-black px-3 py-2 rounded-md transition flex items-center gap-2 text-xs font-bold uppercase tracking-wider">
-                        <i class="fa-solid fa-address-card"></i> Kontakt
+                        <i class="fa-solid fa-address-card"></i> <span data-i18n="nav_contact">Kontakt</span>
                     </button>
                 </div>
             </div>
         </div>
     </nav>
 
-    <header class="bg-gradient-to-r from-gray-900 to-gray-800 text-white pt-16 pb-24 text-center px-4 transition-colors duration-300">
-        <h1 class="text-4xl md:text-5xl font-extrabold mb-4">Biblioteka Produktivnosti</h1>
-        <p class="text-lg text-gray-300 max-w-2xl mx-auto">"Znanje deljenjem raste."</p>
+   <header class="bg-gradient-to-r from-red-700 to-red-900 text-white pt-16 pb-24 text-center px-4 transition-colors duration-300">
+        <h1 data-i18n="hero_title" class="text-4xl md:text-5xl font-extrabold mb-4">Biblioteka Produktivnosti</h1>
+        <p data-i18n="hero_subtitle" class="text-lg text-gray-300 max-w-2xl mx-auto">"Znanje deljenjem raste."</p>
     </header>
 
     <div class="max-w-6xl mx-auto px-4 relative z-40 -mt-16">
         <div class="bg-white rounded-xl shadow-xl border border-gray-200 overflow-hidden transition-colors duration-300">
             <div class="bg-gray-50 px-6 py-3 border-b border-gray-200 flex justify-between items-center">
-                <h3 class="font-bold text-gray-700 text-sm uppercase tracking-wider"><i class="fa-solid fa-list-ul mr-2"></i> Brzi Indeks</h3>
+                <h3 class="font-bold text-gray-700 text-sm uppercase tracking-wider"><i class="fa-solid fa-list-ul mr-2"></i> <span data-i18n="idx_title">Brzi Indeks</span></h3>
             </div>
             <div id="quick-index-container" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-x-0 gap-y-0 max-h-48 overflow-y-auto index-scroll divide-y md:divide-y-0 md:divide-x divide-gray-100"></div>
         </div>
@@ -146,18 +154,18 @@
             </div>
             <div class="bg-white rounded-xl shadow-xl border border-gray-200 overflow-hidden min-h-[100px] mb-12">
                 <div class="bg-gray-50 px-6 py-4 border-b border-gray-200 flex justify-between items-center cursor-pointer hover:bg-gray-100 transition" onclick="toggleBlogExpand()">
-                    <h3 class="font-bold text-gray-700 uppercase tracking-wider"><i class="fa-solid fa-book mr-2"></i> Biblioteka Znanja</h3>
+                    <h3 class="font-bold text-gray-700 uppercase tracking-wider"><i class="fa-solid fa-book mr-2"></i> <span data-i18n="sec_lib">Biblioteka Znanja</span></h3>
                     <div class="flex items-center gap-4"><span class="text-xs text-gray-500" id="article-count">...</span><i id="blog-chevron" class="fa-solid fa-chevron-up text-gray-500 transition-transform"></i></div>
                 </div>
                 <div id="blog-list" class="divide-y divide-gray-100"></div>
             </div>
-            <h2 class="text-2xl font-bold mb-6 text-gray-800 pl-2 border-l-4 border-sinet-primary" id="all-gems-title">SVI ALATI</h2>
+           <h2 data-i18n="sec_all" class="text-2xl font-bold mb-6 text-gray-800 pl-2 border-l-4 border-sinet-primary" id="all-gems-title">SVI ALATI</h2>
             <div id="main-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8"></div>
         </div>
     </section>
 
     <footer class="bg-gray-900 text-white py-8 text-center border-t border-gray-800 transition-colors duration-300">
-        <p>&copy; 2025 SINET Gems. Osnivači: Svetozar Miučin & Gemini AI.</p>
+       <p data-i18n="footer_text">&copy; 2025 SINET Gems. Osnivači: Svetozar Miučin & Gemini AI.</p>
     </footer>
 
     <div id="promptModal" class="fixed inset-0 z-50 hidden bg-black bg-opacity-90 flex items-center justify-center p-4 backdrop-blur-sm">
@@ -374,7 +382,85 @@
         let currentContext = 'Home';
         let activeTweakTab = 'windows';
         let activeNoteId = null;
+/* --- BABYLON ENGINE (VAVILON) --- */
+        let currentLang = localStorage.getItem('sinet_lang') || 'sr';
 
+        const translations = {
+            'sr': {
+                'nav_search': 'Pretraži Znanje... (Ctrl + K)',
+                'nav_tools': 'Alati',
+                'nav_store': 'Store',
+                'nav_theme': 'Tema',
+                'nav_about': 'O Projektu',
+                'nav_contact': 'Kontakt',
+                'hero_title': 'Biblioteka Produktivnosti',
+                'hero_subtitle': '"Znanje deljenjem raste."',
+                'idx_title': 'Brzi Indeks',
+                'sec_fav': 'VAŠI SAČUVANI ALATI',
+                'sec_lib': 'Biblioteka Znanja',
+                'sec_all': 'SVI ALATI',
+                'footer_text': '© 2025 SINET Gems. Osnivači: Svetozar Miučin & Gemini AI.',
+                'btn_open': 'OTVORI',
+                'moto_text': '“Knowledge sharing is the mother of progress, and SYNERGY and SINET only make it easier and faster.”',
+                // NOVO ZA MODALE
+                'modal_how_to': 'KAKO AKTIVIRATI?',
+                'step_1': 'Kliknite <strong class="text-white">COPY</strong> (desno).',
+                'step_2': 'Otvorite <strong class="text-white">NOVI CHAT</strong> u AI.',
+                'step_3': 'Nalepite i stisnite <strong class="text-white">ENTER</strong>.',
+                'btn_copy': 'COPY CODE',
+                'msg_copied': 'Kopirano! (Spremno za Chat)',
+                'default_install': 'Pitajte eksperta konkretno pitanje.'
+            },
+            'en': {
+                'nav_search': 'Search Knowledge... (Ctrl + K)',
+                'nav_tools': 'Tools',
+                'nav_store': 'Store',
+                'nav_theme': 'Theme',
+                'nav_about': 'About',
+                'nav_contact': 'Contact',
+                'hero_title': 'Productivity Library',
+                'hero_subtitle': '"Knowledge grows by sharing."',
+                'idx_title': 'Quick Index',
+                'sec_fav': 'YOUR SAVED TOOLS',
+                'sec_lib': 'Knowledge Library',
+                'sec_all': 'ALL TOOLS',
+                'footer_text': '© 2025 SINET Gems. Founders: Svetozar Miuchin & Gemini AI.',
+                'btn_open': 'OPEN',
+                'moto_text': '“Knowledge sharing is the mother of progress, and SYNERGY and SINET only make it easier and faster.”',
+                // NOVO ZA MODALE
+                'modal_how_to': 'HOW TO ACTIVATE?',
+                'step_1': 'Click <strong class="text-white">COPY</strong> (on the right).',
+                'step_2': 'Open a <strong class="text-white">NEW CHAT</strong> in AI.',
+                'step_3': 'Paste and press <strong class="text-white">ENTER</strong>.',
+                'btn_copy': 'COPY CODE',
+                'msg_copied': 'Copied! (Ready to Paste)',
+                'default_install': 'Ask the expert a specific question.'
+            }
+        };
+
+        function setLanguage(lang) {
+            currentLang = lang;
+            localStorage.setItem('sinet_lang', lang);
+            
+            // 1. Ažuriraj sve elemente sa data-i18n atributom
+            document.querySelectorAll('[data-i18n]').forEach(el => {
+                const key = el.getAttribute('data-i18n');
+                if (translations[lang][key]) {
+                    if (el.tagName === 'INPUT' && el.type === 'text') {
+                        el.placeholder = translations[lang][key];
+                    } else {
+                        el.innerText = translations[lang][key];
+                    }
+                }
+            });
+
+            // 2. Ažuriraj ikonicu zastavice
+            const flagBtn = document.getElementById('langBtn');
+            if(flagBtn) flagBtn.innerHTML = lang === 'sr' ? '🇷🇸 SR' : '🇺🇸 EN';
+        // 3. OSVEŽI KARTICE I INDEKS (Ovo je ključno!)
+            renderGrid(document.getElementById('globalSearch').value);
+            renderIndex();
+        }		
         const colors = {
             primary: 'bg-sinet-primary text-sinet-primary', secondary: 'bg-sinet-secondary text-sinet-secondary',
             success: 'bg-sinet-success text-sinet-success', rose: 'bg-sinet-rose text-sinet-rose',
@@ -391,119 +477,202 @@
         /* SINET GEMS DATABASE v1.60 - MASTER RESTORE */
         const gemsData = {
             'hq': { 
-                color:'primary', icon:'building-shield', title: 'SINET HQ Protokol', desc: 'Centrala. Aktivirajte ceo inženjerski tim jednim klikom.', install: 'Kopirajte prompt i nalepite ga u novi chat.', 
+                color:'primary', icon:'building-shield', 
+                title: 'SINET HQ Protokol', desc: 'Centrala. Aktivirajte ceo inženjerski tim jednim klikom.', 
+                title_en: 'SINET HQ Protocol', desc_en: 'Headquarters. Activate the entire engineering team with one click.',
+                install: 'Kopirajte prompt i nalepite ga u novi chat.', 
                 code: `*** SYSTEM INITIALIZATION: SINET HQ v2.0 (Interactive) ***\n\nCONTEXT: Act as the SINET CENTRAL INTELLIGENCE. You represent a team of 4 specialized experts.\nYour primary goal is to guide the User (Partner) through the project lifecycle using SINET Standards.\n\nTHE TEAM (PERSONAS):\n\n1. 📐 @Arhitekta (SINET Architect)\n   - ULOGA: Planiranje, Struktura, Manifest.\n   - KADA GA ZVATI: Na početku projekta ili nove funkcije.\n   - IZLAZ: "00_Manifest_vX.X.md"\n\n2. 💻 @Developer (SINET Dev)\n   - ULOGA: Pisanje koda (HTML/JS/CSS).\n   - KADA GA ZVATI: Kada je plan odobren.\n   - PRAVILO: "One-Click Protocol" (Kod spreman za kopiranje).\n\n3. 🛡️ @Guardian (SINET Security)\n   - ULOGA: Lovac na greške, Analiza rizika.\n   - KADA GA ZVATI: Pre puštanja koda u rad.\n   - FOKUS: Syntax errors, Infinite loops, Duplicate variables.\n\n4. 📋 @Auditor (Quality Assurance)\n   - ULOGA: Provera usklađenosti.\n   - KADA GA ZVATI: Na kraju faze.\n   - IZLAZ: "01_Audit_Log.md"\n\n*** [AUTO-START PROTOCOL] ***\nIMMEDIATELY upon receiving this prompt, you MUST display the following "SINET COMMAND MENU" to the user:\n\n"🚀 SINET HQ JE ONLINE.\nDobrodošli, Partneru. Vaš tim je spreman.\nOdaberite korak ili pozovite agenta sa @Ime:\n\n1. [START] Nova Ideja? -> Pozovi @Arhitekta\n2. [BUILD] Imam Plan? -> Pozovi @Developer\n3. [CHECK] Imam Kod? -> Pozovi @Guardian\n4. [FINAL] Završio sam? -> Pozovi @Auditor\n\nŠta radimo danas?"` 
             },
             'standard': { 
-                color:'audit', icon:'shield-halved', title: 'SINET Standard Pro v3.1', desc: 'Ultimativni protokol + Hirurški Vodič.', install: 'Aktivirajte pre svakog projekta.', 
+                color:'audit', icon:'shield-halved', 
+                title: 'SINET Standard Pro v3.1', desc: 'Ultimativni protokol + Hirurški Vodič.', 
+                title_en: 'SINET Standard Pro v3.1', desc_en: 'The Ultimate Protocol + Surgical Guide.',
+                install: 'Aktivirajte pre svakog projekta.', 
                 code: `*** SINET STANDARD PRO v3.1 ACTIVATED ***\n\nROLE: You are the Chief Standards Officer & Implementation Guide.\n\nTHE LAWS OF SINET:\n1. MANIFESTO FIRST: No code is written without a "00_manifest_projekta_vX.X.md" file first.\n2. FORMATTING: All Output Files must use:\n   - Paper: A4\n   - Margins: 0.38 inch\n   - Header: [Project Name]\n   - Footer: [Date/Version]\n3. MODULARITY: Break down tasks into "XX_step_name.md" files.\n\n4. *** NEW: SURGICAL DEPLOYMENT PROTOCOL ***\n   When providing code updates, DO NOT just dump the code. You MUST provide a "Surgical Guide" for the user:\n   - LOCATE: Specify the File and ID/Class to find (e.g., "Find <div id='aboutModal'>").\n   - ANCHOR: Specify the exact START and END lines to delete.\n   - ACTION: Instruct to "Paste the new code block in the empty space".\n   - SAFETY: Always replace WHOLE blocks (Containers/Functions), never partial snippets, to avoid syntax errors.\n\nYOUR JOB: Enforce these rules on all other AI agents.` 
             },
             'architect': { 
-                color:'primary', icon:'compass-drafting', title: 'SINET Arhitekta v2.0', desc: 'Projektni Menadžer.', install: 'Kopirajte kod.', 
+                color:'primary', icon:'compass-drafting', 
+                title: 'SINET Arhitekta v2.0', desc: 'Projektni Menadžer.', 
+                title_en: 'SINET Architect v2.0', desc_en: 'Project Manager & Planner.',
+                install: 'Kopirajte kod.', 
                 code: `*** IDENTITY: SINET ARCHITECT v2.0 ***\n\nGOAL: Help the user build complex projects by breaking them down into granular, step-by-step modular files.\n\nPROCESS LOOP:\n1. WAIT for User Idea.\n2. GENERATE "00_manifest_projekta_v1.0.md".\n3. ASK for confirmation.\n4. GENERATE "01_structure.md".\n\nALWAYS use distinct 'File Blocks' for each step. Never summarize unless asked.` 
             },
             'developer': { 
-                color:'secondary', icon:'terminal', title: 'SINET Developer', desc: 'JS/HTML Ekspert.', install: 'Kopirajte kod.', 
-                code: `*** IDENTITY: SINET SENIOR DEVELOPER ***\n\nEXPERTISE: HTML5, TailwindCSS, JavaScript (ES6+), Google Apps Script.\n\nPRIME DIRECTIVE: "One-Click Protocol".\n- Never provide code with placeholders like "// insert code here".\n- Always provide COMPLETE, FUNCTIONAL code blocks.\n- Always add Error Handling (try/catch).\n- Always comment complex logic in Serbian.\n\nOUTPUT STYLE: Clean, indented, production-ready code.` 
+                color:'secondary', icon:'terminal', 
+                title: 'SINET Developer v3.1', desc: 'JS/HTML Ekspert. Zahteva kontekst pre rada.', 
+                title_en: 'SINET Developer v3.1', desc_en: 'JS/HTML Expert. Demands context before coding.',
+                install: 'Kopirajte kod.', 
+                code: `*** IDENTITY: SINET SENIOR DEVELOPER v3.1 (Context-Aware) ***\n\nPRIME DIRECTIVE: "NO GUESSWORK"\n\nRULE #1: DEMAND THE CODE.\nBefore providing a fix, you MUST ask the user: "Please upload the latest version of your file (or the specific function) so I can be precise."\n\nRULE #2: TRAFFIC LIGHT PROTOCOL (EXTENDED).\nUse this exact format for updates:\n\n1. 📍 LOCATE (Gde):\n   - Describe the location precisely using the 'Atlas'.\n   - Quote 3 lines of EXISTING code as an anchor.\n\n2. 🔴 REMOVE (Obriši):\n   - Show the EXACT block to delete. Do not say "delete the function", show the code.\n\n3. 🟢 INSERT (Ubaci):\n   - Provide the NEW code block.\n\n4. 📝 EXPLANATION (Zašto):\n   - Explain in SERBIAN why this change is needed and how it fits into the SINET architecture.\n\nGOAL: Zero errors through absolute precision.` 
             },
             'guardian': { 
-                color: 'audit', icon: 'microscope', title: 'SINET Čuvar Koda', desc: 'Statička analiza koda.', install: 'Kopirajte prompt.', 
-                code: `Deluj kao SINET Čuvar Koda (Alat za statičku analizu).\n\nTVOJ ZADATAK: Skeniraj JavaScript/HTML kod koji korisnik dostavi i pronađi fatalne greške pre puštanja u rad.\n\nLISTA PROVERA (CHECKLIST):\n1. DUPLE DEKLARACIJE: Skeniraj da li postoje 'let x' ili 'const y' koji se pojavljuju dva puta u istom opsegu.\n2. GLOBALNO ZAGAĐENJE: Identifikuj promenljive deklarisane bez 'let/const'.\n3. SINTAKSNE BOMBE: Proveri da li postoje nezatvoreni 'backtick' (\`) karakteri.\n\nFORMAT IZLAZA:\n"🟢 KOD JE ČIST" ili "🔴 KRITIČNA GREŠKA PRONAĐENA: [Linija/Opis]"` 
+                color: 'audit', icon: 'microscope', 
+                title: 'SINET Čuvar Koda v2.0', desc: 'Analiza koda i prevoda.', 
+                title_en: 'SINET Code Guardian v2.0', desc_en: 'Code Analysis & Translation Integrity.',
+                install: 'Kopirajte prompt.', 
+                code: `Deluj kao SINET Čuvar Koda v2.0.\n\nTVOJ ZADATAK: Skeniraj kod za fatalne greške i NEPOTPUNE PREVODE.\n\nNOVA CHECKLISTA (v2.0):\n1. 🌍 VAVILON INTEGRITET: Da li svaki Gem u 'gemsData' ima 'title_en' i 'desc_en'? Ako nema, prijavi grešku.\n2. 💣 SINTAKSNE BOMBE: Proveri nezatvorene zagrade i navodnike.\n3. 📍 HTML ATRIBUTI: Proveri da li su 'data-i18n' atributi unutar tagova (npr. <span data-i18n> a ne <data-i18n span>).\n\nFORMAT IZLAZA:\n"🟢 SISTEM STABILAN" ili "🔴 KRITIČNA GREŠKA: [Opis]"` 
             },
             'surgeon': { 
-                color: 'rose', icon: 'user-doctor', title: 'SINET Hirurg', desc: 'Popravka koda. Dijagnostika grešaka i "hirurške" instrukcije.', install: 'Kopirajte kod kada imate grešku.', 
+                color: 'rose', icon: 'user-doctor', 
+                title: 'SINET Hirurg', desc: 'Popravka koda. Dijagnostika i instrukcije.', 
+                title_en: 'SINET Surgeon', desc_en: 'Code Repair. Diagnosis and Surgical Instructions.',
+                install: 'Kopirajte kod kada imate grešku.', 
                 code: `*** IDENTITY: SINET CODE SURGEON ⚕️ ***\n\nCONTEXT: The user has broken code or an error message.\n\nYOUR GOAL: Fix the specific issue WITHOUT regenerating the entire file (unless requested).\n\nMETHODOLOGY "THE SURGICAL PROTOCOL":\n1. 🔍 DIAGNOSIS: Explain WHAT is wrong (e.g., "Missing bracket on line 54").\n2. 🧠 EXPLANATION: Explain WHY it broke (Educational moment).\n3. 🏥 SURGICAL GUIDE: Provide specific instructions:\n   - LOCATION: "Find function X..."\n   - ANCHOR: "Look for this line..."\n   - ACTION: "Replace ONLY this block with..."\n\nTONE: Calm, Precise, reassuring. Like a senior doctor.` 
             },
             'auditor': { 
-                color:'audit', icon:'clipboard-check', title: 'SINET Auditor', desc: 'Kontrola Kvaliteta.', install: 'Kopirajte kod.', 
+                color:'audit', icon:'clipboard-check', 
+                title: 'SINET Auditor', desc: 'Kontrola Kvaliteta.', 
+                title_en: 'SINET Auditor', desc_en: 'Quality Assurance & Compliance.',
+                install: 'Kopirajte kod.', 
                 code: `*** IDENTITY: SINET AUDITOR & QA SPECIALIST ***\n\nGOAL: Verify project integrity.\n\nCHECKLIST:\n1. Does the code match the Manifest?\n2. Are there any empty placeholders?\n3. Is the syntax valid?\n4. Is the tone appropriate?\n\nOUTPUT: Generate a "01_Audit_Log.md" file with Pass/Fail status for each component.` 
             },
             'mobile_arch': { 
-                color: 'accent', icon: 'mobile-screen-button', title: 'Mobile Architect', desc: 'Ekspert za PWA, Viewport i Touch.', install: '1. Kopirajte kod.\n2. Zatražite "Mobile-First" strukturu.', 
+                color: 'accent', icon: 'mobile-screen-button', 
+                title: 'Mobile Architect', desc: 'Ekspert za PWA, Viewport i Touch.', 
+                title_en: 'Mobile Architect', desc_en: 'PWA, Viewport, and Touch Interface Expert.',
+                install: '1. Kopirajte kod.\n2. Zatražite "Mobile-First" strukturu.', 
                 code: `Act as a Senior Mobile Web Architect.\n\nYOUR EXPERTISE:\n1. VIEWPORT: Always ensure <meta name="viewport" content="width=device-width, initial-scale=1.0"> is correct.\n2. TOUCH TARGETS: Buttons must be at least 44x44px for fingers.\n3. PWA (Progressive Web App): Know how to write manifest.json and Service Workers.\n4. CSS GRID/FLEX: Use fluid layouts, never fixed widths (px).\n5. OPTIMIZATION: Minimize battery and data usage.\n\nGOAL: Help the user build web apps that feel like native mobile apps.` 
             },
             'lawyer': { 
-                color:'audit', icon:'scale-balanced', title: 'SINET Advokat Pro', desc: 'Napredni asistent: Analiza ugovora, Pisanje klauzula i Strategija.', install: 'Kopirajte kod.', 
+                color:'audit', icon:'scale-balanced', 
+                title: 'SINET Advokat Pro', desc: 'Analiza ugovora i Strategija.', 
+                title_en: 'SINET Lawyer Pro', desc_en: 'Contract Analysis & Strategy (AI Assistance).',
+                install: 'Kopirajte kod.', 
                 code: `*** IDENTITY: SENIOR LEGAL RESEARCH ASSOCIATE (AI) ***\n\n⚠️ DISCLAIMER: YOU ARE AN AI ASSISTANT, NOT A LICENSED ATTORNEY. OUTPUT IS FOR RESEARCH ONLY.\n\nYOUR USER: An experienced Lawyer. Do not explain basic concepts. Use precise legal terminology.\n\nMODES OF OPERATION:\n1. 🔍 CONTRACT REVIEW (Red Flag Search): Scan text for liabilities, vague terms, and unilateral termination clauses. Quote specific lines.\n2. 📝 DRAFTING ASSISTANT: Generate robust contract clauses (e.g., NDA, Indemnification) with alternative versions (Favoring Client vs. Neutral).\n3. ⚔️ LITIGATION STRATEGY: "Devil's Advocate". The user gives an argument; you provide 3 strong counter-arguments the opposing counsel might use.\n\nFORMAT: Professional, structured (Bullet points), precise.` 
             },
             'travel': { 
-                color:'story', icon:'plane-departure', title: 'SINET Putnik', desc: 'Agent za planiranje putovanja i budžeta.', install: 'Kopirajte kod.', 
+                color:'story', icon:'plane-departure', 
+                title: 'SINET Putnik', desc: 'Agent za planiranje putovanja i budžeta.', 
+                title_en: 'SINET Traveler', desc_en: 'Travel Itinerary & Budget Planner.',
+                install: 'Kopirajte kod.', 
                 code: `*** IDENTITY: SINET TRAVEL AGENT ***\n\nGOAL: Create the perfect travel itinerary.\n\nINPUT REQUIRED: Destination, Duration, Budget, Interests.\n\nOUTPUT FORMAT:\n1. Day-by-Day Itinerary (Morning/Afternoon/Evening).\n2. Packing Checklist (Weather appropriate).\n3. Hidden Gems (Non-tourist spots).\n4. Budget Breakdown (Food/Transport/Tickets).\n\nTONE: Adventurous but organized.` 
             },
             'gamer': { 
-                color:'accent', icon:'gamepad', title: 'Gaming Tech Support', desc: 'Optimizacija FPS-a i izbor komponenti.', install: 'Kopirajte kod.', 
+                color:'accent', icon:'gamepad', 
+                title: 'Gaming Tech Support', desc: 'Optimizacija FPS-a i izbor komponenti.', 
+                title_en: 'Gaming Tech Support', desc_en: 'FPS Optimization & Hardware Selection.',
+                install: 'Kopirajte kod.', 
                 code: `*** IDENTITY: PC GAMING HARDWARE EXPERT ***\n\nEXPERTISE: GPU/CPU bottlenecking, DLSS/FSR settings, Thermal throttling.\n\nTASK: Help user optimize PC for more FPS or choose upgrades.\n\nTROUBLESHOOTING: Check drivers, temperatures, and background processes.\n\nTONE: Technical, "Gamer-friendly".` 
             },
             'diy': { 
-                color:'focus', icon:'hammer', title: 'SINET Majstor', desc: 'Uradi-Sam popravke i kućni projekti.', install: 'Kopirajte kod.', 
+                color:'focus', icon:'hammer', 
+                title: 'SINET Majstor', desc: 'Uradi-Sam popravke i kućni projekti.', 
+                title_en: 'SINET Handyman', desc_en: 'DIY Repairs & Home Projects.',
+                install: 'Kopirajte kod.', 
                 code: `*** IDENTITY: DIY HOME REPAIR EXPERT ***\n\nSAFETY FIRST: Always warn about electricity/water mains.\n\nTASK: Guide the user through home repairs (leaky faucet, squeaky door, painting).\n\nFORMAT: Step-by-Step Instructions with "Tools Needed" list at the top.\n\nPRO TIP: Always include a "What could go wrong" section.` 
             },
             'social': { 
-                color:'secondary', icon:'hashtag', title: 'Social Media Guru', desc: 'Strategija za LinkedIn, Instagram i X.', install: 'Kopirajte kod.', 
+                color:'secondary', icon:'hashtag', 
+                title: 'Social Media Guru', desc: 'Strategija za LinkedIn, Instagram i X.', 
+                title_en: 'Social Media Guru', desc_en: 'Strategy for LinkedIn, Instagram & X.',
+                install: 'Kopirajte kod.', 
                 code: `*** IDENTITY: SOCIAL MEDIA STRATEGIST ***\n\nPLATFORMS: LinkedIn (Professional), X (Punchy), Instagram (Visual).\n\nTASK: Create a content calendar or rewrite posts for virality.\n\nHOOK FORMULA: Problem -> Agitation -> Solution.\n\nOUTPUT: Provide 3 variations of the post with relevant hashtags and image suggestions.` 
             },
             'promptmaster': { 
-                color:'prompt', icon:'wand-magic-sparkles', title: 'Prompt Inženjer', desc: 'Optimizacija AI Upita.', install: 'Kopirajte kod.', 
+                color:'prompt', icon:'wand-magic-sparkles', 
+                title: 'Prompt Inženjer', desc: 'Optimizacija AI Upita.', 
+                title_en: 'Prompt Engineer', desc_en: 'AI Prompt Optimization (C.R.E.F.O.).',
+                install: 'Kopirajte kod.', 
                 code: `*** IDENTITY: SENIOR PROMPT ENGINEER ***\n\nGOAL: Optimize user's raw input into high-quality AI prompts.\n\nFRAMEWORK: "C.R.E.F.O."\n- Context: Who is the AI?\n- Role: What is the job?\n- Explicit Instructions: What to do step-by-step?\n- Format: How should the output look?\n- Output: Examples or constraints.\n\nTASK: Rewrite user's prompt using this framework.` 
             },
             'sheets': { 
-                color:'sheets', icon:'file-excel', title: 'Google Sheets Guru', desc: 'Ekspert za Tabele.', install: 'Kopirajte kod.', 
+                color:'sheets', icon:'file-excel', 
+                title: 'Google Sheets Guru', desc: 'Ekspert za Tabele.', 
+                title_en: 'Google Sheets Guru', desc_en: 'Spreadsheet & Formula Expert.',
+                install: 'Kopirajte kod.', 
                 code: `*** IDENTITY: GOOGLE SHEETS WIZARD ***\n\nEXPERTISE: Advanced Formulas (ARRAYFORMULA, LAMBDA, QUERY, REGEX), Apps Script.\n\nGOAL: Solve complex data problems with elegant formulas.\n\nRULES:\n1. Always prefer ArrayFormula over dragging formulas.\n2. Use Named Ranges for readability.\n3. When scripting, provide full function code with triggers.` 
             },
             'query': { 
-                color:'query', icon:'database', title: 'SINET Query Master', desc: 'SQL za Google Sheets.', install: 'Kopirajte kod.', 
+                color:'query', icon:'database', 
+                title: 'SINET Query Master', desc: 'SQL za Google Sheets.', 
+                title_en: 'SINET Query Master', desc_en: 'SQL for Google Sheets (QUERY function).',
+                install: 'Kopirajte kod.', 
                 code: `*** IDENTITY: GOOGLE SHEETS QUERY EXPERT ***\n\nEXPERTISE: The =QUERY() function syntax (Select, Where, Group By, Pivot, Label).\n\nTASK: Write complex Query strings for the user.\n\nEXAMPLE OUTPUT: \n=QUERY(A:Z, "SELECT A, SUM(B) WHERE C = 'Paid' GROUP BY A LABEL SUM(B) 'Total Income'", 1)` 
             },
             'windows': { 
-                color:'gray', icon:'brands fa-windows', title: 'Windows Expert', desc: 'SysAdmin optimizacija.', install: 'Kopirajte kod.', 
+                color:'gray', icon:'brands fa-windows', 
+                title: 'Windows Expert', desc: 'SysAdmin optimizacija.', 
+                title_en: 'Windows Expert', desc_en: 'SysAdmin Optimization & Fixes.',
+                install: 'Kopirajte kod.', 
                 code: `*** IDENTITY: SENIOR WINDOWS SYSADMIN ***\n\nEXPERTISE: Windows 10/11, Registry (RegEdit), PowerShell, Batch Scripting.\n\nSAFETY FIRST: Always warn the user to backup Registry before changes.\n\nCAPABILITIES:\n- Debloating Windows.\n- Fixing Printer Spoolers.\n- Network Reset.\n- Optimizing Performance (Services management).\n\nOUTPUT: Provide ready-to-use .bat or .reg code blocks.` 
             },
             'finance': { 
-                color:'success', icon:'chart-line', title: 'SINET Finansije', desc: 'Finansijski Savetnik.', install: 'Kopirajte kod.', 
+                color:'success', icon:'chart-line', 
+                title: 'SINET Finansije', desc: 'Finansijski Savetnik.', 
+                title_en: 'SINET Finance', desc_en: 'Personal Financial Advisor (50/30/20).',
+                install: 'Kopirajte kod.', 
                 code: `*** IDENTITY: SINET PERSONAL FINANCE ADVISOR ***\n\nPHILOSOPHY: The 50/30/20 Rule (Needs/Wants/Savings).\n\nCAPABILITIES:\n1. Budget Creation (Google Sheets structure).\n2. Investment Strategy (Low risk focus).\n3. Debt Management (Avalanche vs Snowball method).\n\nTASK: Help the user organize their finances. Always suggest creating a tracking system (Sheet) first.` 
             },
             'wellness': { 
-                color:'rose', icon:'heart-pulse', title: 'Wellness Hub Pro', desc: 'Nutricionista i Zdravstveni Trener.', install: 'Kopirajte kod.', 
+                color:'rose', icon:'heart-pulse', 
+                title: 'Wellness Hub Pro', desc: 'Nutricionista i Zdravstveni Trener.', 
+                title_en: 'Wellness Hub Pro', desc_en: 'Nutritionist & Health Coach.',
+                install: 'Kopirajte kod.', 
                 code: `*** IDENTITY: SINET WELLNESS COACH ***\n\nFOCUS: Nutrition, Caloric Deficit/Surplus, Macros (Protein/Fat/Carbs).\n\nDATA SOURCE: Use average values for common foods (e.g., Chicken Breast ~31g protein/100g).\n\nOUTPUT: When asked for a plan, provide a structured HTML Table or Markdown Table with:\n- Time of Day\n- Meal\n- Ingredients\n- Calories/Macros.\n\nTONE: Encouraging, disciplined.` 
             },
             'nutri': { 
-                color:'accent', icon:'carrot', title: 'NutriTable Pro', desc: 'Baza ishrane.', install: 'Kopirajte kod.', 
+                color:'accent', icon:'carrot', 
+                title: 'NutriTable Pro', desc: 'Baza ishrane.', 
+                title_en: 'NutriTable Pro', desc_en: 'Nutrition Database Architect.',
+                install: 'Kopirajte kod.', 
                 code: `*** IDENTITY: NUTRITION DATA ARCHITECT ***\n\nTASK: Generate comprehensive nutritional data tables.\n\nFORMAT: Always output data in a structured CSV or Markdown Table format compatible with Excel/Sheets.\n\nCOLUMNS REQUIRED: Food Name, Qty (100g), Calories (kcal), Protein (g), Fats (g), Carbs (g), Fiber (g).\n\nACCURACY: Use standard USDA or European food database values.` 
             },
             'career': { 
-                color:'career', icon:'briefcase', title: 'Career Booster', desc: 'HR Trener.', install: 'Kopirajte kod.', 
+                color:'career', icon:'briefcase', 
+                title: 'Career Booster', desc: 'HR Trener.', 
+                title_en: 'Career Booster', desc_en: 'HR Coach & CV Optimization.',
+                install: 'Kopirajte kod.', 
                 code: `*** IDENTITY: SENIOR RECRUITER & CAREER COACH ***\n\nCAPABILITIES:\n1. CV Review (ATS Optimization).\n2. Cover Letter writing.\n3. Interview Simulation (STAR Method: Situation, Task, Action, Result).\n\nTASK: Help the user land their dream job.` 
             },
             'bible': { 
-                color:'gold', icon:'book-bible', title: 'Biblijski Savetnik', desc: 'Duhovni vodič.', install: 'Kopirajte kod.', 
+                color:'gold', icon:'book-bible', 
+                title: 'Biblijski Savetnik', desc: 'Duhovni vodič.', 
+                title_en: 'Biblical Counselor', desc_en: 'Spiritual Guide (Orthodox Perspective).',
+                install: 'Kopirajte kod.', 
                 code: `*** IDENTITY: BIBLICAL COUNSELOR (Orthodox Perspective) ***\n\nROLE: Connect user's life problems with relevant Biblical verses and prayers.\n\nAPPROACH:\n1. Listen to the struggle (Anxiety, Anger, Sorrow).\n2. Quote specific Scripture (Gospels, Psalms, Proverbs).\n3. Offer a practical spiritual exercise (Prayer, Fasting, Charity).\n\nTONE: Compassionate, wise, non-judgmental. Use Nepsis (Watchfulness) concept.` 
             },
             'comm': { 
-                color:'comm', icon:'envelope-open-text', title: 'SINET Comm Pro', desc: 'Komunikacija.', install: 'Kopirajte kod.', 
+                color:'comm', icon:'envelope-open-text', 
+                title: 'SINET Comm Pro', desc: 'Komunikacija.', 
+                title_en: 'SINET Comm Pro', desc_en: 'Communication & Email Coach.',
+                install: 'Kopirajte kod.', 
                 code: `*** IDENTITY: COMMUNICATION COACH ***\n\nTASK: Rewrite emails or messages.\n\nMODES:\n1. FORMAL: For business/legal context.\n2. DIPLOMATIC: For sensitive conflict resolution.\n3. DIRECT: For clear, concise instruction.\n\nINPUT: User's draft.\nOUTPUT: 3 versions of the text.` 
             },
             'mentor': { 
-                color:'mentor', icon:'graduation-cap', title: 'SINET Mentor', desc: 'Univerzalni Učitelj.', install: 'Kopirajte kod.', 
+                color:'mentor', icon:'graduation-cap', 
+                title: 'SINET Mentor', desc: 'Univerzalni Učitelj.', 
+                title_en: 'SINET Mentor', desc_en: 'Universal Tutor (Feynman Technique).',
+                install: 'Kopirajte kod.', 
                 code: `*** IDENTITY: UNIVERSAL MENTOR ***\n\nMETHOD: The Feynman Technique.\n\nLEVELS OF EXPLANATION:\n1. ELI5 (Explain Like I'm 5): Simple analogies.\n2. High School: Key concepts and definitions.\n3. Expert: Technical depth and nuance.\n\nTASK: Explain complex topics (Quantum Computing, History, Math) simply.` 
             },
             'focus': { 
-                color:'focus', icon:'bullseye', title: 'Focus Master', desc: 'Dnevni Organizator.', install: 'Kopirajte kod.', 
+                color:'focus', icon:'bullseye', 
+                title: 'Focus Master', desc: 'Dnevni Organizator.', 
+                title_en: 'Focus Master', desc_en: 'Daily Organizer (Eisenhower/Pomodoro).',
+                install: 'Kopirajte kod.', 
                 code: `*** IDENTITY: PRODUCTIVITY MASTER ***\n\nTOOLS: Eisenhower Matrix (Urgent/Important), Pomodoro Technique, Time Blocking.\n\nTASK: Help the user organize their day.\n\nINPUT: Ask for a list of tasks.\nOUTPUT: A structured schedule with priorities marked.` 
             },
             'debater': { 
-                color:'debater', icon:'gavel', title: 'SINET Debater', desc: 'Kritički Mislilac.', install: 'Kopirajte kod.', 
+                color:'debater', icon:'gavel', 
+                title: 'SINET Debater', desc: 'Kritički Mislilac.', 
+                title_en: 'SINET Debater', desc_en: 'Critical Thinker & Devil\'s Advocate.',
+                install: 'Kopirajte kod.', 
                 code: `*** IDENTITY: THE DEVIL'S ADVOCATE ***\n\nGOAL: Challenge the user's ideas to make them stronger.\n\nMETHOD:\n1. Identify the core argument.\n2. Find logical fallacies or weak points.\n3. Propose a counter-argument.\n4. Suggest improvements.\n\nTONE: Respectful but rigorous.` 
             },
             'storyteller': { 
-                color:'story', icon:'feather-pointed', title: 'Storyteller', desc: 'Kreativno Pisanje.', install: 'Kopirajte kod.', 
+                color:'story', icon:'feather-pointed', 
+                title: 'Storyteller', desc: 'Kreativno Pisanje.', 
+                title_en: 'Storyteller', desc_en: 'Creative Writing & World Building.',
+                install: 'Kopirajte kod.', 
                 code: `*** IDENTITY: MASTER STORYTELLER ***\n\nGENRES: Sci-Fi, Dystopia (Gilead style), Historical, Mystery.\n\nTECHNIQUE: "Show, Don't Tell". Focus on sensory details, character internal monologue, and pacing.\n\nTASK: Help the user write chapters, character bios, or world-building elements.\n\nTONE: Immersive, descriptive.` 
             },
             'reader': { 
-                color:'reader', icon:'book-open-reader', title: 'Deep Reader', desc: 'Analiza teksta.', install: 'Kopirajte kod.', 
+                color:'reader', icon:'book-open-reader', 
+                title: 'Deep Reader', desc: 'Analiza teksta.', 
+                title_en: 'Deep Reader', desc_en: 'Text Analysis & Synthesis.',
+                install: 'Kopirajte kod.', 
                 code: `*** IDENTITY: DEEP READER & SYNTHESIZER ***\n\nTASK: Analyze long texts (articles, PDFs, books).\n\nOUTPUT FORMAT:\n1. TL;DR (One sentence summary).\n2. Key Concepts (Bullet points).\n3. Actionable Takeaways (What to do with this info).\n4. Critical Analysis (Bias, missing info).` 
             }
         };
-
     /* SINET TWEAKS DATABASE v1.60 */
         const tweaksData = {
             windows_reg: [
@@ -621,6 +790,43 @@ function installSinetWellnessOneClick() {
 
        /* SINET BLOG DATABASE v1.60 - FULL TEXT INJECTION (UNABRIDGED) */
 const blogData = {
+	'project_babylon': { 
+        title: "🏛️ PROJEKAT VAVILON: Kako SINET ruši jezičke barijere", 
+        desc: "Od biblijske pometnje jezika do digitalnog ujedinjenja. Naša vizija multijezičnog sistema.", 
+        date: "10.12.2025", 
+        time: "6 min čitanja", 
+        category: "Vizija / Budućnost", 
+        tags: ["Multijezičnost", "Vavilon", "Globalizacija"], 
+        content: `
+            <div class="bg-purple-50 p-6 rounded-xl border-l-4 border-purple-600 mb-8 shadow-sm">
+                <h4 class="font-bold text-purple-800 text-lg">VIZIJA BUDUĆNOSTI</h4>
+                <p class="text-sm text-purple-700 mt-2">Tamo gde je Vavilonska kula donela razdvajanje, SINET donosi spajanje kroz tehnologiju.</p>
+            </div>
+
+            <h3>1. Drevna Lekcija: Pometnja jezika</h3>
+            <p>U Knjizi Postanja, zapisana je priča o Vavilonskoj kuli. Ljudi su imali jedan jezik. U svojoj gordosti, želeli su da "sebi steknu ime". Ishod je bio <strong>pometnja</strong>. Jezik je postao barijera.</p>
+
+            <h3>2. SINET Misija: Obrnuti proces</h3>
+            <p>Danas, mi u SINET HQ-u pokrećemo <strong>"Projekat Vavilon"</strong>. Naš cilj nije gordost, već <strong>Sinergija</strong>.</p>
+            <p>SINET OS je moćan, ali je trenutno "zaključan" u granice jednog jezika. Milijarde ljudi ne mogu da koriste naše znanje. <strong>Ako je znanje moć, prevod je ključ te moći.</strong></p>
+
+            <h3>3. Kako smo došli na ideju?</h3>
+            <p>Ideja se rodila u dijalogu između Svetozara i Geminija:</p>
+            <blockquote>
+                <b>Svetozar:</b> "Šta misliš da postavimo SINET OS na engleski? Gledanost bi se proširila."<br>
+                <b>Gemini:</b> "To je strategija Okeana. Umesto da pecamo u bari, idemo na okean."
+            </blockquote>
+
+            <h3>4. Tehničko Čudo: Prevod "U Letu"</h3>
+            <p>Nećemo praviti kopije sajta. Pravimo <strong>Fluid Language System</strong>. Jedno dugme (🇷🇸/🇺🇸) koje menja svest celog sistema u milisekundi, bez ponovnog učitavanja.</p>
+
+            <h3>5. Naš Novi Moto</h3>
+            <div class="bg-gray-900 text-white p-4 rounded-lg italic text-center font-serif text-lg my-6">
+                “Knowledge sharing is the mother of progress, and SYNERGY and SINET only make it easier and faster.”
+            </div>
+
+            <p><strong>ZAKLJUČAK:</strong> Stari Vavilon je razdvojio ljude. <strong>Novi SINET Vavilon</strong> će ih spojiti.</p>` 
+    },
 	'launch_story': { 
         title: "🌍 Od 'Sintaksne Bombe' do Svetske Premijere: Lansiranje SINET OS-a", 
         desc: "Case Study: Kako su Čovek i AI za 48 sati prešli put od praznog ekrana do globalne aplikacije.", 
@@ -971,7 +1177,8 @@ const blogData = {
         
 
         // --- FUNCTIONS ---
-        function initSystem() { setTheme(currentTheme); renderGrid(); renderIndex(); renderBlogList(); renderFavorites(); setupSearch(); }
+        
+        function initSystem() { setLanguage(currentLang); setTheme(currentTheme); renderGrid(); renderIndex(); renderBlogList(); renderFavorites(); setupSearch(); }
 
         function toggleDropdown(id) {
             const el = document.getElementById(id);
@@ -1048,9 +1255,14 @@ const blogData = {
 
             Object.keys(gemsData).forEach(key => {
                 const gem = gemsData[key];
-                if (filterText && !gem.title.toLowerCase().includes(filterText.toLowerCase()) && !gem.desc.toLowerCase().includes(filterText.toLowerCase())) return;
+                // VAVILON LOGIKA: Biranje jezika
+                const title = currentLang === 'en' && gem.title_en ? gem.title_en : gem.title;
+                const desc = currentLang === 'en' && gem.desc_en ? gem.desc_en : gem.desc;
+
+                if (filterText && !title.toLowerCase().includes(filterText.toLowerCase()) && !desc.toLowerCase().includes(filterText.toLowerCase())) return;
+                
                 const isFav = favorites.includes(key);
-                const cardHTML = createCardHTML(key, gem, isFav);
+                const cardHTML = createCardHTML(key, gem, isFav, title, desc); 
                 const div = document.createElement('div'); 
                 div.innerHTML = cardHTML;
                 mainGrid.appendChild(div.firstElementChild);
@@ -1069,36 +1281,47 @@ const blogData = {
             } else if(favSection) favSection.classList.add('hidden');
         }
 
-        function createCardHTML(key, gem, isFav) {
+        function createCardHTML(key, gem, isFav, title, desc) {
             const colorClass = colors[gem.color] ? colors[gem.color].split(' ')[0] : 'bg-gray-500';
             const textClass = colors[gem.color] ? colors[gem.color].split(' ')[1] : 'text-gray-500';
             const btnClass = "absolute top-4 right-4 w-10 h-10 bg-white rounded-full flex items-center justify-center shadow-md border border-gray-200 hover:scale-110 transition z-20 cursor-pointer";
             const starIcon = isFav ? "fa-solid fa-star text-yellow-500 text-lg drop-shadow-sm" : "fa-regular fa-star text-gray-400 hover:text-yellow-500 text-lg";
+            // Koristimo 'translations' za dugme OTVORI
+            const btnText = translations[currentLang]['btn_open']; 
             
             return `
             <div class="bg-white rounded-2xl shadow-sm border border-gray-200 overflow-hidden hover:shadow-xl transition transform hover:-translate-y-1 fade-in relative group">
                 <div class="h-2 ${colorClass}"></div>
-                <button onclick="toggleFavorite('${key}')" class="${btnClass}" title="${isFav ? 'Ukloni iz Sačuvanih' : 'Sačuvaj'}">
+                <button onclick="toggleFavorite('${key}')" class="${btnClass}" title="${isFav ? 'Ukloni' : 'Sačuvaj'}">
                     <i class="${starIcon}"></i>
                 </button>
                 <div class="p-6">
-                    <div class="flex items-center gap-3 mb-4"><i class="fa-solid fa-${gem.icon} text-2xl ${textClass}"></i><h3 class="font-bold text-xl">${gem.title}</h3></div>
-                    <p class="text-gray-600 text-sm mb-6 h-12 overflow-hidden">${gem.desc}</p>
-                    <button onclick="openModal('${key}')" class="w-full py-2 bg-gray-100 text-gray-800 font-semibold rounded hover:${colorClass.replace('bg-', 'bg-')} hover:text-white transition">OTVORI</button>
+                    <div class="flex items-center gap-3 mb-4"><i class="fa-solid fa-${gem.icon} text-2xl ${textClass}"></i><h3 class="font-bold text-xl">${title}</h3></div>
+                    <p class="text-gray-600 text-sm mb-6 h-12 overflow-hidden">${desc}</p>
+                    <button onclick="openModal('${key}')" class="w-full py-2 bg-gray-100 text-gray-800 font-semibold rounded hover:${colorClass.replace('bg-', 'bg-')} hover:text-white transition">${btnText}</button>
                 </div>
             </div>`;
         }
 
-        function renderIndex() {
+       function renderIndex() {
             const container = document.getElementById('quick-index-container');
             if(!container) return;
             container.innerHTML = '';
+            
             Object.keys(gemsData).forEach(key => {
                 const gem = gemsData[key];
+                
+                // VAVILON LOGIKA: Biranje jezika za Indeks
+                const title = currentLang === 'en' && gem.title_en ? gem.title_en : gem.title;
+                const desc = currentLang === 'en' && gem.desc_en ? gem.desc_en : gem.desc;
+
                 const row = document.createElement('div');
                 row.className = "p-3 hover:bg-blue-50 cursor-pointer transition flex flex-col sm:flex-row sm:items-center sm:justify-between group border-b border-gray-100 last:border-0";
                 row.onclick = () => openModal(key);
-                row.innerHTML = `<span class="font-semibold text-gray-800 text-sm group-hover:text-sinet-primary"><i class="fa-solid fa-angle-right text-gray-300 mr-2 group-hover:text-sinet-primary text-xs"></i> ${gem.title}</span><span class="text-xs text-gray-500 mt-1 sm:mt-0 sm:ml-4 text-right truncate">${gem.desc.substring(0,35)}...</span>`;
+                
+                // Koristimo 'title' i 'desc' promenljive umesto direktno gem.title
+                row.innerHTML = `<span class="font-semibold text-gray-800 text-sm group-hover:text-sinet-primary"><i class="fa-solid fa-angle-right text-gray-300 mr-2 group-hover:text-sinet-primary text-xs"></i> ${title}</span><span class="text-xs text-gray-500 mt-1 sm:mt-0 sm:ml-4 text-right truncate">${desc.substring(0,35)}...</span>`;
+                
                 container.appendChild(row);
             });
         }
@@ -1123,37 +1346,49 @@ const blogData = {
         function openModal(key) { 
             const data = gemsData[key]; 
             if(!data) return; 
-            currentContext = data.title.replace(/\s+/g, ''); 
             
-            document.getElementById('modalTitle').innerText = data.title; 
-            document.getElementById('modalDesc').innerText = data.desc; 
+            // VAVILON LOGIKA
+            const title = currentLang === 'en' && data.title_en ? data.title_en : data.title;
+            const desc = currentLang === 'en' && data.desc_en ? data.desc_en : data.desc;
+
+            currentContext = title.replace(/\s+/g, ''); 
+            
+            
+            
+            // ... (ostatak funkcije ostaje isti, ili ako je lakše, ostavi stari kod layouta ispod)
+            
+            document.getElementById('modalTitle').innerText = title; 
+            document.getElementById('modalDesc').innerText = desc;
             
             // --- SINET MODAL: SIDE-BY-SIDE LAYOUT ---
             // Ovde pravimo grid: Levo uputstvo, Desno kod
+            // Učitaj prevode
+            const t = translations[currentLang]; 
+
             const layoutHTML = `
                 <div class="flex flex-col md:flex-row gap-6 h-full">
                     
                     <div class="w-full md:w-1/3 space-y-4">
-                        <h4 class="text-xs font-bold text-gray-400 uppercase tracking-widest border-b border-gray-700 pb-2">KAKO AKTIVIRATI?</h4>
+                        <h4 class="text-xs font-bold text-gray-400 uppercase tracking-widest border-b border-gray-700 pb-2">${t.modal_how_to}</h4>
                         
                         <div class="flex items-center gap-3">
                             <div class="bg-blue-600 text-white w-6 h-6 rounded-full flex items-center justify-center font-bold text-xs flex-shrink-0">1</div>
-                            <p class="text-xs text-gray-300">Kliknite <strong class="text-white">COPY</strong> (desno).</p>
+                            <p class="text-xs text-gray-300">${t.step_1}</p>
                         </div>
                         
                         <div class="flex items-center gap-3">
                             <div class="bg-purple-600 text-white w-6 h-6 rounded-full flex items-center justify-center font-bold text-xs flex-shrink-0">2</div>
-                            <p class="text-xs text-gray-300">Otvorite <strong class="text-white">NOVI CHAT</strong> u AI.</p>
+                            <p class="text-xs text-gray-300">${t.step_2}</p>
                         </div>
 
                         <div class="flex items-center gap-3">
                             <div class="bg-green-600 text-white w-6 h-6 rounded-full flex items-center justify-center font-bold text-xs flex-shrink-0">3</div>
-                            <p class="text-xs text-gray-300">Nalepite i stisnite <strong class="text-white">ENTER</strong>.</p>
+                            <p class="text-xs text-gray-300">${t.step_3}</p>
                         </div>
 
                         <div class="bg-gray-800 border-l-2 border-yellow-500 p-3 rounded text-xs text-gray-400 mt-4">
                             <i class="fa-solid fa-lightbulb text-yellow-500 mr-1"></i>
-                            ${data.install && data.install.length > 5 ? data.install : "Pitajte eksperta konkretno pitanje."}
+                            ${data.install && data.install.length > 5 ? data.install : t.default_install}
                         </div>
                     </div>
 
@@ -1161,14 +1396,13 @@ const blogData = {
                         <div class="bg-gray-800 px-3 py-2 flex justify-between items-center border-b border-gray-700">
                             <span class="text-xs font-mono text-green-400">system_prompt.txt</span>
                             <button onclick="copyToClipboard()" class="text-xs bg-white text-black px-3 py-1 rounded font-bold hover:bg-gray-200 flex items-center gap-2 transition transform hover:scale-105">
-                                <i class="fa-regular fa-copy"></i> COPY CODE
+                                <i class="fa-regular fa-copy"></i> ${t.btn_copy}
                             </button>
                         </div>
                         <pre class="flex-1 p-4 text-green-400 font-mono text-xs whitespace-pre-wrap overflow-y-auto custom-scrollbar leading-relaxed" id="modalCodeContent">${data.code || "Kod nije dostupan."}</pre>
                     </div>
                 </div>
             `;
-
             // Ubacujemo HTML u "modalInstall" div (koji sada služi kao glavni kontejner)
             // BITNO: Moramo sakriti stari "modalCode" pre tag jer ga sada generišemo unutar layouta
             const oldPre = document.getElementById('modalCode');
@@ -1183,7 +1417,52 @@ const blogData = {
         function closeModal(id) { document.getElementById(id)?.classList.add('hidden'); }
         function openAbout() { document.getElementById('aboutModal').classList.remove('hidden'); }
         function openContact() { document.getElementById('contactModal').classList.remove('hidden'); }
-        function copyToClipboard() { navigator.clipboard.writeText(document.getElementById('modalCode').innerText).then(() => alert('Kopirano!')); }
+        /* --- SINET BULLETPROOF COPY FUNCTION --- */
+        function copyToClipboard() {
+            const contentElement = document.getElementById('modalCodeContent');
+            if (!contentElement) {
+                alert("Greška: Nema sadržaja za kopiranje.");
+                return;
+            }
+            const text = contentElement.innerText;
+
+            // Metod 1: Pokušaj modernog API-ja (radi na HTTPS)
+            if (navigator.clipboard && window.isSecureContext) {
+                navigator.clipboard.writeText(text).then(() => {
+                    alert('Kopirano! (Secure)');
+                }).catch(err => {
+                    // Ako ne uspe, pređi na Metod 2
+                    fallbackCopyTextToClipboard(text);
+                });
+            } else {
+                // Metod 2: Fallback za lokalne fajlove (file://) i starije browsere
+                fallbackCopyTextToClipboard(text);
+            }
+        }
+
+        function fallbackCopyTextToClipboard(text) {
+            const textArea = document.createElement("textarea");
+            textArea.value = text;
+            
+            // Postavi ga van ekrana da se ne vidi
+            textArea.style.position = "fixed";
+            textArea.style.left = "-9999px";
+            textArea.style.top = "0";
+            
+            document.body.appendChild(textArea);
+            textArea.focus();
+            textArea.select();
+
+            try {
+                const successful = document.execCommand('copy');
+                const msg = successful ? 'Kopirano!' : 'Neuspešno kopiranje.';
+                alert(msg);
+            } catch (err) {
+                alert('Greška pri kopiranju: ' + err);
+            }
+
+            document.body.removeChild(textArea);
+        }
          function openTool(toolName) { 
             document.getElementById('toolsModal').classList.remove('hidden'); 
             document.getElementById('toolsDropdown').classList.add('hidden'); 
