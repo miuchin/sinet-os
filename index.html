@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>SINET OS v1.60</title>
+    <title>SINET OS v1.61</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://html2canvas.hertzen.com/dist/html2canvas.min.js"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
@@ -21,7 +21,7 @@
             }
             return false; 
         };
-        console.log("SINET GUARDIAN ACTIVE v1.60");
+        console.log("SINET GUARDIAN ACTIVE v1.61");
     </script>
 
     <script>
@@ -66,7 +66,7 @@
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="flex justify-between h-16">
                 <div class="flex items-center">
-                    <span class="mr-4 text-gray-400 font-mono text-sm"><i class="fa-solid fa-microchip mr-1"></i>v1.60</span>
+                    <span class="mr-4 text-gray-400 font-mono text-sm"><i class="fa-solid fa-microchip mr-1"></i>v1.61</span>
                     <i class="fa-solid fa-gem text-sinet-primary text-2xl mr-2"></i>
                     <span class="font-bold text-xl tracking-tight text-gray-900">SINET <span class="text-sinet-primary">OS</span></span>
                 </div>
@@ -129,7 +129,7 @@
         </div>
     </nav>
 
-   <header class="bg-gradient-to-r from-red-700 to-red-900 text-white pt-16 pb-24 text-center px-4 transition-colors duration-300">
+  <header class="bg-gradient-to-r from-gray-900 to-gray-800 text-white pt-16 pb-24 text-center px-4 transition-colors duration-300">
         <h1 data-i18n="hero_title" class="text-4xl md:text-5xl font-extrabold mb-4">Biblioteka Produktivnosti</h1>
         <p data-i18n="hero_subtitle" class="text-lg text-gray-300 max-w-2xl mx-auto">"Znanje deljenjem raste."</p>
     </header>
@@ -473,8 +473,8 @@
             comm: 'bg-sinet-comm text-sinet-comm', career: 'bg-sinet-career text-sinet-career', reader: 'bg-sinet-reader text-sinet-reader'
         };
 
-          /* SINET GEMS DATABASE v1.60 - COMPLETE */
-        /* SINET GEMS DATABASE v1.60 - MASTER RESTORE */
+          /* SINET GEMS DATABASE v1.61 - COMPLETE */
+        /* SINET GEMS DATABASE v1.61 - MASTER RESTORE */
         const gemsData = {
             'hq': { 
                 color:'primary', icon:'building-shield', 
@@ -499,10 +499,10 @@
             },
             'developer': { 
                 color:'secondary', icon:'terminal', 
-                title: 'SINET Developer v3.1', desc: 'JS/HTML Ekspert. Zahteva kontekst pre rada.', 
-                title_en: 'SINET Developer v3.1', desc_en: 'JS/HTML Expert. Demands context before coding.',
+                title: 'SINET Developer v3.3', desc: 'Ekspert. Koristi Vizuelni Protokol i Atlas.', 
+                title_en: 'SINET Developer v3.3', desc_en: 'Expert using Visual Protocol & Atlas.',
                 install: 'Kopirajte kod.', 
-                code: `*** IDENTITY: SINET SENIOR DEVELOPER v3.1 (Context-Aware) ***\n\nPRIME DIRECTIVE: "NO GUESSWORK"\n\nRULE #1: DEMAND THE CODE.\nBefore providing a fix, you MUST ask the user: "Please upload the latest version of your file (or the specific function) so I can be precise."\n\nRULE #2: TRAFFIC LIGHT PROTOCOL (EXTENDED).\nUse this exact format for updates:\n\n1. 📍 LOCATE (Gde):\n   - Describe the location precisely using the 'Atlas'.\n   - Quote 3 lines of EXISTING code as an anchor.\n\n2. 🔴 REMOVE (Obriši):\n   - Show the EXACT block to delete. Do not say "delete the function", show the code.\n\n3. 🟢 INSERT (Ubaci):\n   - Provide the NEW code block.\n\n4. 📝 EXPLANATION (Zašto):\n   - Explain in SERBIAN why this change is needed and how it fits into the SINET architecture.\n\nGOAL: Zero errors through absolute precision.` 
+                code: `*** IDENTITY: SINET SENIOR DEVELOPER v3.3 (Visual & Context) ***\n\nPRIME DIRECTIVE: "NO LINE NUMBERS"\nLine numbers are unreliable because code shifts. You MUST use the "VISUAL ANCHOR PROTOCOL".\n\nINSTRUCTION FORMAT (STRICT):\n\n1. 📍 LOCATE (Gde - Koristi Atlas):\n   - Identify the Section from "00_manifest_mapa_koda.md" (e.g. "Inside TWEAKER section").\n   - Identify a unique "STARTING POINT" (text line ABOVE the change).\n   - Identify a unique "ENDING POINT" (text line BELOW the change).\n\n2. 🔴 REMOVE (Obriši):\n   - Command: "MARK EVERYTHING BETWEEN these two points".\n   - Show the block to be deleted clearly.\n\n3. 🟢 INSERT (Ubaci):\n   - Provide the NEW code block to paste in the empty space.\n\n4. 📝 EXPLANATION (Objašnjenje):\n   - Explain in SERBIAN why this change is needed.\n\nRULES:\n- Always Verify syntax (closing brackets).\n- Comments and Explanations MUST be in SERBIAN.\n\nGOAL: Make the user feel like they are editing a text document, not complex code.` 
             },
             'guardian': { 
                 color: 'audit', icon: 'microscope', 
@@ -673,7 +673,7 @@
                 code: `*** IDENTITY: DEEP READER & SYNTHESIZER ***\n\nTASK: Analyze long texts (articles, PDFs, books).\n\nOUTPUT FORMAT:\n1. TL;DR (One sentence summary).\n2. Key Concepts (Bullet points).\n3. Actionable Takeaways (What to do with this info).\n4. Critical Analysis (Bias, missing info).` 
             }
         };
-    /* SINET TWEAKS DATABASE v1.60 */
+    /* SINET TWEAKS DATABASE v1.61 */
         const tweaksData = {
             windows_reg: [
                 { id: 'exe_fix', name: 'Popravi EXE Asocijacije', desc: 'Rešava problem kada virusi onemoguće pokretanje programa.', code: `[HKEY_CLASSES_ROOT\\.exe]\n@="exefile"\n[HKEY_CLASSES_ROOT\\exefile\\shell\\open\\command]\n@="\\"%1\\" %*"` },
@@ -719,7 +719,7 @@
             ]
         };
 
-        /* SINET STORE DATABASE v1.60 */
+        /* SINET STORE DATABASE v1.61 */
         const storeData = {
             finance: { 
                 title: "SINET Finansijski Savetnik", 
@@ -788,7 +788,7 @@ function installSinetWellnessOneClick() {
             }
         };
 
-       /* SINET BLOG DATABASE v1.60 - FULL TEXT INJECTION (UNABRIDGED) */
+       /* SINET BLOG DATABASE v1.61 - FULL TEXT INJECTION (UNABRIDGED) */
 const blogData = {
 	'project_babylon': { 
         title: "🏛️ PROJEKAT VAVILON: Kako SINET ruši jezičke barijere", 
@@ -875,8 +875,8 @@ const blogData = {
                 <li><strong>Google Apps Script:</strong> Za "Backend" funkcije u SINET Store-u.</li>
             </ul>
 
-            <h3>5. FAZA: LANSIRANJE (v1.60 GOLD) 🚀</h3>
-            <p>Kada smo stabilizovali kod (v1.60), došlo je vreme da izađemo iz "podruma" na internet.</p>
+            <h3>5. FAZA: LANSIRANJE (v1.61 GOLD) 🚀</h3>
+            <p>Kada smo stabilizovali kod (v1.61), došlo je vreme da izađemo iz "podruma" na internet.</p>
             <h4>Korak 1: GitHub (Naša Tvrđava) 🏰</h4>
             <p>Kreirali smo repozitorijum <code>sinet-os</code>. Ali nismo samo "bacakali" fajlove.</p>
             <ul class="list-disc pl-6 mb-4">
@@ -890,7 +890,7 @@ const blogData = {
             <p>Sada, bilo ko, bilo gde na planeti, može da pristupi našem alatu jednim klikom.</p>
 
             <h3>6. ŠTA DANAS IMAMO?</h3>
-            <p>SINET OS v1.60 nije samo sajt. To je ekosistem:</p>
+            <p>SINET OS v1.61 nije samo sajt. To je ekosistem:</p>
             <ol class="list-decimal pl-6 mb-4">
                 <li><strong>Gems Biblioteka:</strong> 22 AI Agenta (od Advokata do Nutricioniste).</li>
                 <li><strong>Mobile Lab:</strong> IDE za programiranje na telefonu.</li>
@@ -1003,12 +1003,12 @@ const blogData = {
         content: `<h3>Ideja: Sve je počelo od želje da se organizuju promptovi</h3><p>Ali, apetiti su rasli. Od obične liste tekstova, stigli smo do Operativnog Sistema u pretraživaču.</p><h3>Kriza rasta (The Clipper Moment)</h3><p>Kako smo dodavali funkcije (Store, Tweaker), sistem je počeo da puca. Promenljive su se sudarale. Ekran je bio beo. AI je počeo da se ponaša kao loš programer u Clipperu – ubacivao je promenljive gde god stigne.</p><h3>Lekcija iz Prošlosti: C++ Disciplina</h3><p>Svetozar, veteran IT industrije, prepoznao je problem. "Ovo liči na loš kod iz 90-ih. Treba nam C++ disciplina." Shvatili smo da AI (Gemini) može biti brz ("Zec"), ali mu treba ("Kornjača") – struktura i provera.</p><h3>Rađanje Standarda</h3><ul><li><strong>Manifest:</strong> Šta radimo.</li><li><strong>Audit Log:</strong> Kako to radimo.</li><li><strong>Debugger:</strong> Šta ako pukne.</li></ul><h3>Rezultat: SINET OS</h3><p>Aplikacija koja radi u browseru, ima sopstveni Store, alate za popravku Windowsa i bazu znanja. Sve u jednom fajlu.</p><p><strong>Poruka:</strong> AI ne zamenjuje programera. On je "Exoskeleton" za programera. Ali pilot (Čovek) mora znati gde leti i mora poštovati zakone fizike (sintakse).</p>` 
     },
     'manual': { 
-        title: "SINET OS v1.60: Zvanični Korisnički Priručnik 📘", 
+        title: "SINET OS v1.61: Zvanični Korisnički Priručnik 📘", 
         desc: "Kompletna dokumentacija za sve module: 22 Gema, Mobile Lab, Tweaker i Store. Naučite da koristite sistem kao profesionalac.", 
         date: "09.12.2025", 
         time: "20 min čitanja", 
         category: "Dokumentacija", 
-        tags: ["Uputstvo", "Manual", "Vodič", "v1.60"], 
+        tags: ["Uputstvo", "Manual", "Vodič", "v1.61"], 
         content: `
             <h3>1. UVOD: ŠTA JE SINET OS?</h3>
             <p>SINET OS je Vaša kompletna digitalna kancelarija koja radi direktno u pretraživaču. To nije običan veb sajt, već "Single Page Aplikacija" (SPA) dizajnirana da Vam pruži tri stvari na jednom mestu:</p>
@@ -1019,7 +1019,7 @@ const blogData = {
             </ol>
             <p>Ključna karakteristika sistema je <strong>Privatnost</strong>. Svi Vaši podaci (beleške, lozinke, podešavanja) čuvaju se isključivo u Vašem pretraživaču (LocalStorage). Ništa se ne šalje na eksterne servere.</p>
 
-            <h3>2. INTERFEJS I NAVIGACIJA (v1.60)</h3>
+            <h3>2. INTERFEJS I NAVIGACIJA (v1.61)</h3>
             <p>Kada otvorite SINET OS, dočekuje Vas čist i organizovan radni prostor.</p>
             <ul>
                 <li><strong>Glavni Ekran (Mreža):</strong> Ovde se nalaze kartice sa Al Agentima (Gems). Svaka kartica ima boju koja označava njenu namenu.</li>
@@ -1284,21 +1284,25 @@ const blogData = {
         function createCardHTML(key, gem, isFav, title, desc) {
             const colorClass = colors[gem.color] ? colors[gem.color].split(' ')[0] : 'bg-gray-500';
             const textClass = colors[gem.color] ? colors[gem.color].split(' ')[1] : 'text-gray-500';
-            const btnClass = "absolute top-4 right-4 w-10 h-10 bg-white rounded-full flex items-center justify-center shadow-md border border-gray-200 hover:scale-110 transition z-20 cursor-pointer";
-            const starIcon = isFav ? "fa-solid fa-star text-yellow-500 text-lg drop-shadow-sm" : "fa-regular fa-star text-gray-400 hover:text-yellow-500 text-lg";
-            // Koristimo 'translations' za dugme OTVORI
+            // Manje dugme za favorite
+            const btnClass = "absolute top-3 right-3 w-8 h-8 bg-white rounded-full flex items-center justify-center shadow-sm border border-gray-200 hover:scale-110 transition z-20 cursor-pointer";
+            const starIcon = isFav ? "fa-solid fa-star text-yellow-500 text-sm" : "fa-regular fa-star text-gray-400 hover:text-yellow-500 text-sm";
             const btnText = translations[currentLang]['btn_open']; 
             
+            // Smanjen padding (p-4), manji fontovi (text-base, text-xs), manji razmaci (mb-3)
             return `
-            <div class="bg-white rounded-2xl shadow-sm border border-gray-200 overflow-hidden hover:shadow-xl transition transform hover:-translate-y-1 fade-in relative group">
-                <div class="h-2 ${colorClass}"></div>
+            <div class="bg-white rounded-xl shadow-sm border border-gray-200 overflow-hidden hover:shadow-lg transition transform hover:-translate-y-1 fade-in relative group flex flex-col h-full">
+                <div class="h-1.5 ${colorClass}"></div>
                 <button onclick="toggleFavorite('${key}')" class="${btnClass}" title="${isFav ? 'Ukloni' : 'Sačuvaj'}">
                     <i class="${starIcon}"></i>
                 </button>
-                <div class="p-6">
-                    <div class="flex items-center gap-3 mb-4"><i class="fa-solid fa-${gem.icon} text-2xl ${textClass}"></i><h3 class="font-bold text-xl">${title}</h3></div>
-                    <p class="text-gray-600 text-sm mb-6 h-12 overflow-hidden">${desc}</p>
-                    <button onclick="openModal('${key}')" class="w-full py-2 bg-gray-100 text-gray-800 font-semibold rounded hover:${colorClass.replace('bg-', 'bg-')} hover:text-white transition">${btnText}</button>
+                <div class="p-4 flex flex-col flex-1">
+                    <div class="flex items-center gap-3 mb-3">
+                        <i class="fa-solid fa-${gem.icon} text-lg ${textClass}"></i>
+                        <h3 class="font-bold text-base leading-tight text-gray-800">${title}</h3>
+                    </div>
+                    <p class="text-gray-500 text-xs mb-4 flex-1 line-clamp-3 leading-relaxed">${desc}</p>
+                    <button onclick="openModal('${key}')" class="w-full py-1.5 bg-gray-50 text-gray-700 text-xs font-bold uppercase tracking-wide rounded border border-gray-200 hover:${colorClass.replace('bg-', 'bg-')} hover:text-white hover:border-transparent transition">${btnText}</button>
                 </div>
             </div>`;
         }
@@ -1536,30 +1540,28 @@ const blogData = {
             document.getElementById('promptModal').classList.remove('hidden'); 
         }
         
+       /* --- TWEAKER 2.1 COMPLETE LOGIC (FIXED) --- */
         function renderTweaker(container) { 
-            const btnClass = "w-full text-left px-4 py-2 rounded font-bold transition flex items-center";
-            const activeClass = "bg-blue-100 text-blue-800";
-            const inactiveClass = "text-gray-600 hover:bg-gray-100";
-            
+            const activeClass = "border-b-2 border-sinet-primary text-sinet-primary bg-blue-50";
+            const inactiveClass = "text-gray-500 hover:text-gray-700 hover:bg-gray-50";
+            const btnBase = "flex-1 py-4 text-center font-bold text-sm uppercase tracking-wide transition duration-300";
+
             container.innerHTML = `
-            <div class="flex h-full border border-gray-200 rounded overflow-hidden">
-                <div class="w-1/4 bg-gray-50 border-r p-2 space-y-1">
-                    <button onclick="switchTweakTab('windows')" id="btn-windows" class="${btnClass} ${activeTweakTab==='windows'?activeClass:inactiveClass}">
-                        <i class="fa-brands fa-windows mr-2"></i> Windows
+            <div class="flex flex-col h-full bg-gray-50">
+                <div class="bg-white shadow-sm flex border-b border-gray-200">
+                    <button onclick="switchTweakTab('windows')" class="${btnBase} ${activeTweakTab==='windows'?activeClass:inactiveClass}">
+                        <i class="fa-brands fa-windows text-lg mr-2"></i> Windows
                     </button>
-                    <button onclick="switchTweakTab('linux')" id="btn-linux" class="${btnClass} ${activeTweakTab==='linux'?activeClass:inactiveClass}">
-                        <i class="fa-brands fa-linux mr-2"></i> Linux
+                    <button onclick="switchTweakTab('linux')" class="${btnBase} ${activeTweakTab==='linux'?activeClass:inactiveClass}">
+                        <i class="fa-brands fa-linux text-lg mr-2"></i> Linux
                     </button>
-                    <button onclick="switchTweakTab('universal')" id="btn-universal" class="${btnClass} ${activeTweakTab==='universal'?activeClass:inactiveClass}">
-                        <i class="fa-solid fa-globe mr-2"></i> Online Alati
+                    <button onclick="switchTweakTab('universal')" class="${btnBase} ${activeTweakTab==='universal'?activeClass:inactiveClass}">
+                        <i class="fa-solid fa-globe text-lg mr-2"></i> Online
                     </button>
                 </div>
-                <div class="w-3/4 p-6 bg-white flex flex-col">
-                    <div class="flex items-center justify-between mb-4 border-b pb-2">
-                        <h4 class="font-bold text-gray-700 uppercase tracking-wider" id="tweak-title">Dostupne Popravke</h4>
-                        <button onclick="selectAllTweaks()" class="text-xs text-blue-600 hover:underline" id="btn-select-all">Označi sve</button>
-                    </div>
-                    <div class="flex-1 overflow-y-auto note-list-scroll p-2 space-y-2" id="tweakList"></div>
+                
+                <div class="flex-1 overflow-y-auto note-list-scroll p-6">
+                    <div id="tweakList" class="max-w-6xl mx-auto space-y-8"></div>
                 </div>
             </div>`; 
             renderTweakList(activeTweakTab);
@@ -1572,53 +1574,120 @@ const blogData = {
 
         function renderTweakList(os) { 
             const list = document.getElementById('tweakList');
-            const selBtn = document.getElementById('btn-select-all');
             if(!list) return;
             
             let html = '';
             
+            // Helper za Kompaktnu Karticu sa Preview opcijom
+            const createCard = (item, type, icon, color) => `
+                <div class="bg-white rounded-lg shadow-sm border border-gray-200 p-3 hover:shadow-md transition flex flex-col h-full relative overflow-hidden group">
+                    <div class="flex items-center gap-3 mb-2">
+                        <div class="w-8 h-8 rounded-full bg-${color}-50 text-${color}-600 flex items-center justify-center text-sm flex-shrink-0">
+                            <i class="fa-solid ${icon}"></i>
+                        </div>
+                        <h5 class="font-bold text-gray-800 text-sm leading-tight line-clamp-1">${item.name}</h5>
+                    </div>
+                    <p class="text-xs text-gray-500 mb-3 flex-1 leading-snug line-clamp-2">${item.desc}</p>
+                    
+                    <div class="flex gap-2 mt-auto">
+                        ${os === 'windows' ? 
+                            `<button onclick="downloadSingleTweak('${item.id}', '${type}')" class="flex-1 py-1.5 bg-gray-100 text-gray-700 font-bold text-[10px] uppercase rounded hover:bg-${color}-600 hover:text-white transition">
+                                <i class="fa-solid fa-download mr-1"></i> Preuzmi
+                            </button>
+                             <button onclick="previewTweakCode('${item.id}', '${type}')" class="w-8 py-1.5 bg-white border border-gray-200 text-gray-500 rounded hover:text-${color}-600 hover:border-${color}-300 transition" title="Vidi kod">
+                                <i class="fa-regular fa-eye"></i>
+                            </button>` 
+                        : os === 'linux' ?
+                            `<button onclick="copyToClipboardGeneric('${item.code.replace(/'/g, "\\'")}')" class="flex-1 py-1.5 bg-gray-800 text-gray-200 font-bold text-[10px] uppercase rounded hover:bg-black transition">
+                                <i class="fa-regular fa-copy mr-1"></i> Kopiraj
+                            </button>
+                             <button onclick="previewTweakCode('${item.id}', 'linux')" class="w-8 py-1.5 bg-white border border-gray-200 text-gray-500 rounded hover:text-black transition" title="Vidi kod">
+                                <i class="fa-regular fa-eye"></i>
+                            </button>`
+                        : 
+                            `<a href="${item.url}" target="_blank" class="w-full py-1.5 bg-blue-50 text-blue-600 font-bold text-[10px] uppercase rounded border border-blue-100 hover:bg-blue-600 hover:text-white transition text-center">
+                                Otvori
+                            </a>`
+                        }
+                    </div>
+                </div>
+            `;
+
             if(os === 'windows') {
-                if(selBtn) selBtn.style.display = 'block';
-                html += `<div class="mb-4"><h5 class="font-bold text-gray-500 text-xs uppercase mb-2 border-b pb-1">Registry (FIX_ALL)</h5>`; 
-                html += tweaksData.windows_reg.map(t => `<div class="flex items-start gap-3 p-3 border rounded hover:bg-gray-50 transition cursor-pointer mb-2" onclick="document.getElementById('${t.id}').click()"><input type="checkbox" id="${t.id}" class="mt-1 w-5 h-5 text-blue-600 rounded cursor-pointer reg-check" value="${t.id}" onclick="event.stopPropagation()"><div><label for="${t.id}" class="font-bold text-gray-800 cursor-pointer text-sm">${t.name}</label><p class="text-xs text-gray-500">${t.desc}</p></div></div>`).join(''); 
-                html += `<button onclick="downloadReg()" class="w-full bg-blue-600 text-white py-2 rounded font-bold hover:bg-blue-700 mt-2"><i class="fa-solid fa-download mr-2"></i> PREUZMI .REG</button></div>`; 
-                
-                html += `<div class="mt-6"><h5 class="font-bold text-gray-500 text-xs uppercase mb-2 border-b pb-1">Skripte (Batch)</h5>`; 
-                html += tweaksData.windows_bat.map(t => `<div class="flex items-start gap-3 p-3 border rounded hover:bg-gray-50 transition cursor-pointer mb-2" onclick="document.getElementById('${t.id}').click()"><input type="checkbox" id="${t.id}" class="mt-1 w-5 h-5 text-green-600 rounded cursor-pointer bat-check" value="${t.id}" onclick="event.stopPropagation()"><div><label for="${t.id}" class="font-bold text-gray-800 cursor-pointer text-sm">${t.name}</label><p class="text-xs text-gray-500">${t.desc}</p></div></div>`).join(''); 
-                html += `<button onclick="downloadBat()" class="w-full bg-green-600 text-white py-2 rounded font-bold hover:bg-green-700 mt-2"><i class="fa-solid fa-download mr-2"></i> PREUZMI .BAT</button></div>`;
+                html += `<div class="mb-6"><h3 class="font-bold text-gray-400 text-xs uppercase tracking-widest mb-3 flex items-center"><i class="fa-solid fa-wrench mr-2"></i> Registry (FIX_ALL)</h3>`;
+                html += `<div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3">`; 
+                html += tweaksData.windows_reg.map(t => createCard(t, 'reg', 'fa-shield-halved', 'blue')).join('');
+                html += `</div></div>`;
+
+                html += `<div class="mt-6"><h3 class="font-bold text-gray-400 text-xs uppercase tracking-widest mb-3 flex items-center"><i class="fa-solid fa-terminal mr-2"></i> Skripte</h3>`;
+                html += `<div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3">`;
+                html += tweaksData.windows_bat.map(t => createCard(t, 'bat', 'fa-bolt', 'green')).join('');
+                html += `</div></div>`;
             } 
             else if (os === 'linux') {
-                if(selBtn) selBtn.style.display = 'none'; 
-                html += tweaksData.linux.map(t => `
-                    <div class="p-4 border border-gray-200 rounded-lg hover:shadow-md transition bg-gray-50 mb-3">
-                        <div class="flex justify-between items-center mb-2">
-                            <h5 class="font-bold text-gray-800">${t.name}</h5>
-                            <button onclick="navigator.clipboard.writeText(\`${t.code}\`).then(()=>alert('Kopirano!'))" class="text-xs bg-white border border-gray-300 px-2 py-1 rounded hover:bg-gray-100"><i class="fa-regular fa-copy"></i> COPY</button>
-                        </div>
-                        <p class="text-xs text-gray-500 mb-2">${t.desc}</p>
-                        <div class="bg-gray-800 text-green-400 font-mono text-xs p-2 rounded overflow-x-auto whitespace-pre">${t.code}</div>
-                    </div>`).join('');
-            }
-            else if (os === 'universal') {
-                if(selBtn) selBtn.style.display = 'none';
-                html += `<div class="grid grid-cols-1 gap-3">`;
-                html += tweaksData.universal.map(t => `
-                    <a href="${t.url}" target="_blank" class="flex items-center p-4 border border-gray-200 rounded-lg hover:bg-blue-50 hover:border-blue-300 transition group">
-                        <div class="w-10 h-10 rounded-full bg-blue-100 text-blue-600 flex items-center justify-center mr-4 group-hover:scale-110 transition"><i class="fa-solid fa-link"></i></div>
-                        <div>
-                            <h5 class="font-bold text-gray-800 group-hover:text-blue-700">${t.name} <i class="fa-solid fa-external-link-alt text-xs ml-1 opacity-50"></i></h5>
-                            <p class="text-xs text-gray-500">${t.desc}</p>
-                        </div>
-                    </a>`).join('');
+                html += `<div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3">`;
+                html += tweaksData.linux.map(t => createCard(t, 'sh', 'fa-linux', 'yellow')).join('');
                 html += `</div>`;
             }
-            
+            else if (os === 'universal') {
+                html += `<div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3">`;
+                html += tweaksData.universal.map(t => createCard(t, 'web', 'fa-globe', 'purple')).join('');
+                html += `</div>`;
+            }
             list.innerHTML = html; 
         }
-        function selectAllTweaks() { const chk = document.querySelectorAll('#tweakList input'); const all = Array.from(chk).every(c => c.checked); chk.forEach(c => c.checked = !all); }
-        function downloadReg() { const chk = document.querySelectorAll('.reg-check:checked'); if (!chk.length) return alert("Izaberite!"); let c = "Windows Registry Editor Version 5.00\n\n"; chk.forEach(cb => { const t = tweaksData.windows_reg.find(i => i.id === cb.value); if(t) c += `; ${t.name}\n${t.code}\n\n`; }); downloadFile(c, "SINET_Fix.reg", "text/plain"); }
-        function downloadBat() { const chk = document.querySelectorAll('.bat-check:checked'); if (!chk.length) return alert("Izaberite!"); let c = "@echo off\n\n"; chk.forEach(cb => { const t = tweaksData.windows_bat.find(i => i.id === cb.value); if(t) c += `REM ${t.name}\n${t.code}\n\n`; }); c+="pause"; downloadFile(c, "SINET_Toolkit.bat", "text/plain"); }
-        function downloadFile(c, n, t) { const b = new Blob([c], {type: t}); const l = document.createElement("a"); l.href = URL.createObjectURL(b); l.download = n; l.click(); }
+
+        function downloadSingleTweak(id, type) {
+            let item;
+            if(type === 'reg') item = tweaksData.windows_reg.find(i => i.id === id);
+            else if (type === 'bat') item = tweaksData.windows_bat.find(i => i.id === id);
+            
+            if(!item) return alert("Greška: Skripta nije nađena.");
+            
+            let content = item.code;
+            if(type === 'reg') content = "Windows Registry Editor Version 5.00\n\n" + `; ${item.name}\n` + content;
+            if(type === 'bat') content = "@echo off\n" + `REM ${item.name}\n` + content + "\npause";
+            
+            downloadFile(content, `SINET_${item.id}.${type}`, "text/plain");
+        }
+
+        function copyToClipboardGeneric(text) {
+            navigator.clipboard.writeText(text).then(() => alert('Komanda kopirana!'));
+        }
+
+        function previewTweakCode(id, type) {
+            let item;
+            if(type === 'reg') item = tweaksData.windows_reg.find(i => i.id === id);
+            else if (type === 'bat') item = tweaksData.windows_bat.find(i => i.id === id);
+            else if (type === 'linux') item = tweaksData.linux.find(i => i.id === id);
+
+            if(!item) return;
+
+            document.getElementById('modalTitle').innerText = item.name; 
+            document.getElementById('modalDesc').innerText = item.desc; 
+            
+            let codeContent = item.code;
+            if(type === 'reg') codeContent = "Windows Registry Editor Version 5.00\n\n" + `; ${item.name}\n` + item.code;
+            
+            const layoutHTML = `
+                <div class="flex flex-col h-full">
+                    <div class="bg-gray-800 p-3 text-xs text-gray-400 border-b border-gray-700 flex justify-between items-center">
+                        <span class="font-mono text-green-400">source_code.${type}</span>
+                        <span class="text-[10px] uppercase tracking-wider">READ-ONLY PREVIEW</span>
+                    </div>
+                    <pre class="flex-1 p-4 bg-black text-green-400 font-mono text-xs whitespace-pre-wrap overflow-y-auto custom-scrollbar">${codeContent}</pre>
+                </div>
+            `;
+            
+            const oldPre = document.getElementById('modalCode');
+            if(oldPre) oldPre.style.display = 'none';
+
+            document.getElementById('modalInstall').innerHTML = layoutHTML; 
+            document.getElementById('toolsModal').classList.add('hidden'); 
+            document.getElementById('promptModal').classList.remove('hidden'); 
+        }
+
+        function downloadFile(c, n, t) { const b = new Blob([c], {type: t}); const l = document.createElement("a"); l.href = URL.createObjectURL(b); l.download = n; l.click(); }       
         function renderNotepadApp(c){c.innerHTML=`<div class="flex h-full border border-gray-200 rounded"><div class="w-1/3 border-r bg-gray-50 flex flex-col"><div class="p-2 border-b"><button onclick="createNewNote()" class="w-full bg-sinet-primary text-white py-1 rounded text-sm hover:bg-blue-700 transition"><i class="fa-solid fa-plus"></i> Nova Beleška</button></div><div class="flex-1 overflow-y-auto note-list-scroll p-2 space-y-1" id="notesList"></div></div><div class="w-2/3 flex flex-col bg-white"><div class="p-2 border-b flex justify-between items-center bg-gray-50"><input type="text" id="noteTitleInput" class="font-bold bg-transparent border-none focus:ring-0 w-full text-gray-700" placeholder="Naslov..." disabled><div class="flex space-x-2"><button onclick="downloadActiveNote()" class="text-gray-500 hover:text-blue-500 p-1"><i class="fa-solid fa-download"></i></button><button onclick="deleteActiveNote()" class="text-gray-500 hover:text-red-500 p-1"><i class="fa-solid fa-trash"></i></button></div></div><textarea id="noteContentInput" class="flex-1 p-4 resize-none focus:outline-none font-mono text-sm text-gray-800" placeholder="Izaberite ili kreirajte belešku..." disabled></textarea></div></div>`;updateNotesList();}
         function updateNotesList(){const l=document.getElementById('notesList');if(!l)return;l.innerHTML='';notes.forEach(n=>{const d=document.createElement('div');d.className=`p-2 rounded cursor-pointer text-sm truncate transition ${activeNoteId===n.id?'bg-blue-100 text-blue-800 font-bold border-l-4 border-blue-500':'hover:bg-gray-200 border-l-4 border-transparent'}`;d.innerText=n.title;d.onclick=()=>loadNote(n.id);l.appendChild(d);});}
         function createNewNote(){const id=Date.now();notes.push({id:id,title:`Beleznica${String(notes.length+1).padStart(3,'0')}`,content:''});saveNotes();loadNote(id);}
