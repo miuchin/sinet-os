@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>SINET OS v1.61</title>
+    <title>SINET OS v1.62</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://html2canvas.hertzen.com/dist/html2canvas.min.js"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
@@ -21,7 +21,7 @@
             }
             return false; 
         };
-        console.log("SINET GUARDIAN ACTIVE v1.61");
+        console.log("SINET GUARDIAN ACTIVE v1.62");
     </script>
 
     <script>
@@ -66,7 +66,7 @@
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="flex justify-between h-16">
                 <div class="flex items-center">
-                    <span class="mr-4 text-gray-400 font-mono text-sm"><i class="fa-solid fa-microchip mr-1"></i>v1.61</span>
+                    <span class="mr-4 text-gray-400 font-mono text-sm"><i class="fa-solid fa-microchip mr-1"></i>v1.62</span>
                     <i class="fa-solid fa-gem text-sinet-primary text-2xl mr-2"></i>
                     <span class="font-bold text-xl tracking-tight text-gray-900">SINET <span class="text-sinet-primary">OS</span></span>
                 </div>
@@ -132,7 +132,59 @@
   <header class="bg-gradient-to-r from-gray-900 to-gray-800 text-white pt-16 pb-24 text-center px-4 transition-colors duration-300">
         <h1 data-i18n="hero_title" class="text-4xl md:text-5xl font-extrabold mb-4">Biblioteka Produktivnosti</h1>
         <p data-i18n="hero_subtitle" class="text-lg text-gray-300 max-w-2xl mx-auto">"Znanje deljenjem raste."</p>
+    
+   
     </header>
+
+	<div id="morning-dashboard" class="max-w-7xl mx-auto px-4 -mt-12 relative z-50 mb-12 hidden fade-in">
+		<button onclick="toggleDashboard()" class="absolute top-0 right-4 mt-2 mr-2 bg-white text-gray-400 hover:text-red-500 w-8 h-8 rounded-full shadow-lg flex items-center justify-center z-[60] transition cursor-pointer">
+            <i class="fa-solid fa-times text-lg"></i>
+        </button>
+        <div class="bg-white rounded-xl shadow-2xl border border-gray-200 overflow-hidden flex flex-col md:flex-row">
+            
+            <div class="w-full md:w-1/3 bg-gradient-to-br from-blue-900 to-slate-900 text-white p-8 flex flex-col justify-between relative overflow-hidden">
+                <div class="absolute top-0 right-0 p-4 opacity-10"><i class="fa-solid fa-sun text-9xl"></i></div>
+                <div>
+                    <span class="text-blue-300 text-xs font-bold uppercase tracking-widest mb-2 block" id="dash-date">...</span>
+                    <h2 class="text-3xl font-bold mb-1" id="dash-greeting">Dobro jutro</h2>
+                    <p class="text-blue-200 text-sm"><i class="fa-solid fa-location-dot mr-1"></i> Novi Sad, RS</p>
+                </div>
+                
+                <div class="mt-8">
+                    <div class="flex items-center gap-4">
+                        <i class="fa-solid fa-cloud-sun text-4xl text-yellow-400" id="weather-icon"></i>
+                        <div>
+                            <span class="text-4xl font-bold" id="weather-temp">--°C</span>
+                            <p class="text-xs text-blue-200" id="weather-desc">Učitavanje...</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="mt-8 pt-6 border-t border-blue-800">
+                    <p class="text-sm italic text-blue-100">"Da li tvoj AI razume šta želiš danas?"</p>
+                </div>
+            </div>
+
+            <div class="w-full md:w-2/3 p-6 bg-white">
+                <div class="flex justify-between items-center mb-4 border-b border-gray-100 pb-2">
+                    <div class="flex space-x-3 overflow-x-auto pb-2 scrollbar-hide">
+                        <button id="btn-tech" onclick="loadNews('tech')" class="rss-btn text-xs font-bold text-gray-500 border-b-2 border-transparent pb-1 hover:text-sinet-primary transition uppercase whitespace-nowrap">Tech</button>
+                        <button id="btn-news" onclick="loadNews('news')" class="rss-btn text-xs font-bold text-gray-500 border-b-2 border-transparent pb-1 hover:text-sinet-primary transition uppercase whitespace-nowrap">Vesti</button>
+                        <button id="btn-sport" onclick="loadNews('sport')" class="rss-btn text-xs font-bold text-gray-500 border-b-2 border-transparent pb-1 hover:text-sinet-primary transition uppercase whitespace-nowrap">Sport</button>
+                        <button id="btn-life" onclick="loadNews('life')" class="rss-btn text-xs font-bold text-gray-500 border-b-2 border-transparent pb-1 hover:text-sinet-primary transition uppercase whitespace-nowrap">Life</button>
+                        <button id="btn-science" onclick="loadNews('science')" class="rss-btn text-xs font-bold text-gray-500 border-b-2 border-transparent pb-1 hover:text-sinet-primary transition uppercase whitespace-nowrap">Nauka</button>
+                    </div>
+                    <span class="text-xs text-gray-400"><i class="fa-solid fa-rss mr-1"></i> Live Feed</span>
+                </div>
+                
+                <div id="news-container" class="space-y-3 h-48 overflow-y-auto note-list-scroll">
+                    <div class="animate-pulse flex space-x-4">
+                        <div class="flex-1 space-y-2 py-1"><div class="h-2 bg-gray-200 rounded"></div><div class="h-2 bg-gray-200 rounded w-5/6"></div></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>		
 
     <div class="max-w-6xl mx-auto px-4 relative z-40 -mt-16">
         <div class="bg-white rounded-xl shadow-xl border border-gray-200 overflow-hidden transition-colors duration-300">
@@ -384,7 +436,12 @@
         let activeNoteId = null;
 /* --- BABYLON ENGINE (VAVILON) --- */
         let currentLang = localStorage.getItem('sinet_lang') || 'sr';
-
+		
+		/* --- POČETAK SINET JUTRO LOGIC (v1.62) --- */
+        
+        
+        
+        /* --- KRAJ SINET JUTRO LOGIC (v1.62) --- */
         const translations = {
             'sr': {
                 'nav_search': 'Pretraži Znanje... (Ctrl + K)',
@@ -473,8 +530,8 @@
             comm: 'bg-sinet-comm text-sinet-comm', career: 'bg-sinet-career text-sinet-career', reader: 'bg-sinet-reader text-sinet-reader'
         };
 
-          /* SINET GEMS DATABASE v1.61 - COMPLETE */
-        /* SINET GEMS DATABASE v1.61 - MASTER RESTORE */
+          /* SINET GEMS DATABASE v1.62 - COMPLETE */
+        /* SINET GEMS DATABASE v1.62 - MASTER RESTORE */
         const gemsData = {
             'hq': { 
                 color:'primary', icon:'building-shield', 
@@ -673,7 +730,7 @@
                 code: `*** IDENTITY: DEEP READER & SYNTHESIZER ***\n\nTASK: Analyze long texts (articles, PDFs, books).\n\nOUTPUT FORMAT:\n1. TL;DR (One sentence summary).\n2. Key Concepts (Bullet points).\n3. Actionable Takeaways (What to do with this info).\n4. Critical Analysis (Bias, missing info).` 
             }
         };
-    /* SINET TWEAKS DATABASE v1.61 */
+    /* SINET TWEAKS DATABASE v1.62 */
         const tweaksData = {
             windows_reg: [
                 { id: 'exe_fix', name: 'Popravi EXE Asocijacije', desc: 'Rešava problem kada virusi onemoguće pokretanje programa.', code: `[HKEY_CLASSES_ROOT\\.exe]\n@="exefile"\n[HKEY_CLASSES_ROOT\\exefile\\shell\\open\\command]\n@="\\"%1\\" %*"` },
@@ -719,7 +776,7 @@
             ]
         };
 
-        /* SINET STORE DATABASE v1.61 */
+        /* SINET STORE DATABASE v1.62 */
         const storeData = {
             finance: { 
                 title: "SINET Finansijski Savetnik", 
@@ -788,7 +845,7 @@ function installSinetWellnessOneClick() {
             }
         };
 
-       /* SINET BLOG DATABASE v1.61 - FULL TEXT INJECTION (UNABRIDGED) */
+       /* SINET BLOG DATABASE v1.62 - FULL TEXT INJECTION (UNABRIDGED) */
 const blogData = {
 	'project_babylon': { 
         title: "🏛️ PROJEKAT VAVILON: Kako SINET ruši jezičke barijere", 
@@ -875,8 +932,8 @@ const blogData = {
                 <li><strong>Google Apps Script:</strong> Za "Backend" funkcije u SINET Store-u.</li>
             </ul>
 
-            <h3>5. FAZA: LANSIRANJE (v1.61 GOLD) 🚀</h3>
-            <p>Kada smo stabilizovali kod (v1.61), došlo je vreme da izađemo iz "podruma" na internet.</p>
+            <h3>5. FAZA: LANSIRANJE (v1.62 GOLD) 🚀</h3>
+            <p>Kada smo stabilizovali kod (v1.62), došlo je vreme da izađemo iz "podruma" na internet.</p>
             <h4>Korak 1: GitHub (Naša Tvrđava) 🏰</h4>
             <p>Kreirali smo repozitorijum <code>sinet-os</code>. Ali nismo samo "bacakali" fajlove.</p>
             <ul class="list-disc pl-6 mb-4">
@@ -890,7 +947,7 @@ const blogData = {
             <p>Sada, bilo ko, bilo gde na planeti, može da pristupi našem alatu jednim klikom.</p>
 
             <h3>6. ŠTA DANAS IMAMO?</h3>
-            <p>SINET OS v1.61 nije samo sajt. To je ekosistem:</p>
+            <p>SINET OS v1.62 nije samo sajt. To je ekosistem:</p>
             <ol class="list-decimal pl-6 mb-4">
                 <li><strong>Gems Biblioteka:</strong> 22 AI Agenta (od Advokata do Nutricioniste).</li>
                 <li><strong>Mobile Lab:</strong> IDE za programiranje na telefonu.</li>
@@ -1003,12 +1060,12 @@ const blogData = {
         content: `<h3>Ideja: Sve je počelo od želje da se organizuju promptovi</h3><p>Ali, apetiti su rasli. Od obične liste tekstova, stigli smo do Operativnog Sistema u pretraživaču.</p><h3>Kriza rasta (The Clipper Moment)</h3><p>Kako smo dodavali funkcije (Store, Tweaker), sistem je počeo da puca. Promenljive su se sudarale. Ekran je bio beo. AI je počeo da se ponaša kao loš programer u Clipperu – ubacivao je promenljive gde god stigne.</p><h3>Lekcija iz Prošlosti: C++ Disciplina</h3><p>Svetozar, veteran IT industrije, prepoznao je problem. "Ovo liči na loš kod iz 90-ih. Treba nam C++ disciplina." Shvatili smo da AI (Gemini) može biti brz ("Zec"), ali mu treba ("Kornjača") – struktura i provera.</p><h3>Rađanje Standarda</h3><ul><li><strong>Manifest:</strong> Šta radimo.</li><li><strong>Audit Log:</strong> Kako to radimo.</li><li><strong>Debugger:</strong> Šta ako pukne.</li></ul><h3>Rezultat: SINET OS</h3><p>Aplikacija koja radi u browseru, ima sopstveni Store, alate za popravku Windowsa i bazu znanja. Sve u jednom fajlu.</p><p><strong>Poruka:</strong> AI ne zamenjuje programera. On je "Exoskeleton" za programera. Ali pilot (Čovek) mora znati gde leti i mora poštovati zakone fizike (sintakse).</p>` 
     },
     'manual': { 
-        title: "SINET OS v1.61: Zvanični Korisnički Priručnik 📘", 
+        title: "SINET OS v1.62: Zvanični Korisnički Priručnik 📘", 
         desc: "Kompletna dokumentacija za sve module: 22 Gema, Mobile Lab, Tweaker i Store. Naučite da koristite sistem kao profesionalac.", 
         date: "09.12.2025", 
         time: "20 min čitanja", 
         category: "Dokumentacija", 
-        tags: ["Uputstvo", "Manual", "Vodič", "v1.61"], 
+        tags: ["Uputstvo", "Manual", "Vodič", "v1.62"], 
         content: `
             <h3>1. UVOD: ŠTA JE SINET OS?</h3>
             <p>SINET OS je Vaša kompletna digitalna kancelarija koja radi direktno u pretraživaču. To nije običan veb sajt, već "Single Page Aplikacija" (SPA) dizajnirana da Vam pruži tri stvari na jednom mestu:</p>
@@ -1019,7 +1076,7 @@ const blogData = {
             </ol>
             <p>Ključna karakteristika sistema je <strong>Privatnost</strong>. Svi Vaši podaci (beleške, lozinke, podešavanja) čuvaju se isključivo u Vašem pretraživaču (LocalStorage). Ništa se ne šalje na eksterne servere.</p>
 
-            <h3>2. INTERFEJS I NAVIGACIJA (v1.61)</h3>
+            <h3>2. INTERFEJS I NAVIGACIJA (v1.62)</h3>
             <p>Kada otvorite SINET OS, dočekuje Vas čist i organizovan radni prostor.</p>
             <ul>
                 <li><strong>Glavni Ekran (Mreža):</strong> Ovde se nalaze kartice sa Al Agentima (Gems). Svaka kartica ima boju koja označava njenu namenu.</li>
@@ -1177,14 +1234,11 @@ const blogData = {
         
 
         // --- FUNCTIONS ---
-        
-        function initSystem() { setLanguage(currentLang); setTheme(currentTheme); renderGrid(); renderIndex(); renderBlogList(); renderFavorites(); setupSearch(); }
-
+           
         function toggleDropdown(id) {
             const el = document.getElementById(id);
             if(el) {
                 const isHidden = el.classList.contains('hidden');
-                // Close others
                 ['toolsDropdown', 'themeDropdown'].forEach(oid => {
                     const other = document.getElementById(oid);
                     if(other && other !== el) other.classList.add('hidden');
@@ -1205,13 +1259,8 @@ const blogData = {
                 div.className = "p-4 hover:bg-gray-50 transition flex items-center gap-4 cursor-pointer border-b border-gray-100 last:border-0";
                 div.onclick = () => openReader(key);
                 div.innerHTML = `
-                    <div class="flex-shrink-0 w-10 h-10 rounded-full bg-blue-100 text-blue-600 flex items-center justify-center font-bold text-sm">
-                        ${count}
-                    </div>
-                    <div>
-                        <h4 class="font-bold text-gray-800 text-sm hover:text-sinet-primary transition">${blog.title}</h4>
-                        <p class="text-xs text-gray-500 line-clamp-1">${blog.desc}</p>
-                    </div>
+                    <div class="flex-shrink-0 w-10 h-10 rounded-full bg-blue-100 text-blue-600 flex items-center justify-center font-bold text-sm">${count}</div>
+                    <div><h4 class="font-bold text-gray-800 text-sm hover:text-sinet-primary transition">${blog.title}</h4><p class="text-xs text-gray-500 line-clamp-1">${blog.desc}</p></div>
                 `;
                 list.appendChild(div);
             });
@@ -1223,13 +1272,8 @@ const blogData = {
             const list = document.getElementById('blog-list');
             const icon = document.getElementById('blog-chevron');
             if (list && icon) {
-                if (list.classList.contains('hidden')) { 
-                    list.classList.remove('hidden'); 
-                    icon.classList.replace('fa-chevron-down', 'fa-chevron-up'); 
-                } else { 
-                    list.classList.add('hidden'); 
-                    icon.classList.replace('fa-chevron-up', 'fa-chevron-down'); 
-                }
+                if (list.classList.contains('hidden')) { list.classList.remove('hidden'); icon.classList.replace('fa-chevron-down', 'fa-chevron-up'); } 
+                else { list.classList.add('hidden'); icon.classList.replace('fa-chevron-up', 'fa-chevron-down'); }
             }
         }
 
@@ -1255,7 +1299,6 @@ const blogData = {
 
             Object.keys(gemsData).forEach(key => {
                 const gem = gemsData[key];
-                // VAVILON LOGIKA: Biranje jezika
                 const title = currentLang === 'en' && gem.title_en ? gem.title_en : gem.title;
                 const desc = currentLang === 'en' && gem.desc_en ? gem.desc_en : gem.desc;
 
@@ -1284,12 +1327,10 @@ const blogData = {
         function createCardHTML(key, gem, isFav, title, desc) {
             const colorClass = colors[gem.color] ? colors[gem.color].split(' ')[0] : 'bg-gray-500';
             const textClass = colors[gem.color] ? colors[gem.color].split(' ')[1] : 'text-gray-500';
-            // Manje dugme za favorite
             const btnClass = "absolute top-3 right-3 w-8 h-8 bg-white rounded-full flex items-center justify-center shadow-sm border border-gray-200 hover:scale-110 transition z-20 cursor-pointer";
             const starIcon = isFav ? "fa-solid fa-star text-yellow-500 text-sm" : "fa-regular fa-star text-gray-400 hover:text-yellow-500 text-sm";
             const btnText = translations[currentLang]['btn_open']; 
             
-            // Smanjen padding (p-4), manji fontovi (text-base, text-xs), manji razmaci (mb-3)
             return `
             <div class="bg-white rounded-xl shadow-sm border border-gray-200 overflow-hidden hover:shadow-lg transition transform hover:-translate-y-1 fade-in relative group flex flex-col h-full">
                 <div class="h-1.5 ${colorClass}"></div>
@@ -1311,21 +1352,14 @@ const blogData = {
             const container = document.getElementById('quick-index-container');
             if(!container) return;
             container.innerHTML = '';
-            
             Object.keys(gemsData).forEach(key => {
                 const gem = gemsData[key];
-                
-                // VAVILON LOGIKA: Biranje jezika za Indeks
                 const title = currentLang === 'en' && gem.title_en ? gem.title_en : gem.title;
                 const desc = currentLang === 'en' && gem.desc_en ? gem.desc_en : gem.desc;
-
                 const row = document.createElement('div');
                 row.className = "p-3 hover:bg-blue-50 cursor-pointer transition flex flex-col sm:flex-row sm:items-center sm:justify-between group border-b border-gray-100 last:border-0";
                 row.onclick = () => openModal(key);
-                
-                // Koristimo 'title' i 'desc' promenljive umesto direktno gem.title
                 row.innerHTML = `<span class="font-semibold text-gray-800 text-sm group-hover:text-sinet-primary"><i class="fa-solid fa-angle-right text-gray-300 mr-2 group-hover:text-sinet-primary text-xs"></i> ${title}</span><span class="text-xs text-gray-500 mt-1 sm:mt-0 sm:ml-4 text-right truncate">${desc.substring(0,35)}...</span>`;
-                
                 container.appendChild(row);
             });
         }
@@ -1347,99 +1381,49 @@ const blogData = {
         function setTheme(theme) { currentTheme = theme; document.body.className = `bg-gray-50 text-gray-800 font-sans leading-relaxed transition-colors duration-300 theme-${theme}`; localStorage.setItem('sinet_theme', theme); document.getElementById('themeDropdown')?.classList.add('hidden'); }
         function setupSearch() { const input = document.getElementById('globalSearch'); if(input) document.addEventListener('keydown', function(e) { if (e.ctrlKey && e.key === 'k') { e.preventDefault(); input.focus(); } }); }
         function filterGems() { renderGrid(document.getElementById('globalSearch').value); }
+        
         function openModal(key) { 
             const data = gemsData[key]; 
             if(!data) return; 
-            
-            // VAVILON LOGIKA
             const title = currentLang === 'en' && data.title_en ? data.title_en : data.title;
             const desc = currentLang === 'en' && data.desc_en ? data.desc_en : data.desc;
-
             currentContext = title.replace(/\s+/g, ''); 
-            
-            
-            
-            // ... (ostatak funkcije ostaje isti, ili ako je lakše, ostavi stari kod layouta ispod)
             
             document.getElementById('modalTitle').innerText = title; 
             document.getElementById('modalDesc').innerText = desc;
-            
-            // --- SINET MODAL: SIDE-BY-SIDE LAYOUT ---
-            // Ovde pravimo grid: Levo uputstvo, Desno kod
-            // Učitaj prevode
             const t = translations[currentLang]; 
 
             const layoutHTML = `
                 <div class="flex flex-col md:flex-row gap-6 h-full">
-                    
                     <div class="w-full md:w-1/3 space-y-4">
                         <h4 class="text-xs font-bold text-gray-400 uppercase tracking-widest border-b border-gray-700 pb-2">${t.modal_how_to}</h4>
-                        
-                        <div class="flex items-center gap-3">
-                            <div class="bg-blue-600 text-white w-6 h-6 rounded-full flex items-center justify-center font-bold text-xs flex-shrink-0">1</div>
-                            <p class="text-xs text-gray-300">${t.step_1}</p>
-                        </div>
-                        
-                        <div class="flex items-center gap-3">
-                            <div class="bg-purple-600 text-white w-6 h-6 rounded-full flex items-center justify-center font-bold text-xs flex-shrink-0">2</div>
-                            <p class="text-xs text-gray-300">${t.step_2}</p>
-                        </div>
-
-                        <div class="flex items-center gap-3">
-                            <div class="bg-green-600 text-white w-6 h-6 rounded-full flex items-center justify-center font-bold text-xs flex-shrink-0">3</div>
-                            <p class="text-xs text-gray-300">${t.step_3}</p>
-                        </div>
-
-                        <div class="bg-gray-800 border-l-2 border-yellow-500 p-3 rounded text-xs text-gray-400 mt-4">
-                            <i class="fa-solid fa-lightbulb text-yellow-500 mr-1"></i>
-                            ${data.install && data.install.length > 5 ? data.install : t.default_install}
-                        </div>
+                        <div class="flex items-center gap-3"><div class="bg-blue-600 text-white w-6 h-6 rounded-full flex items-center justify-center font-bold text-xs flex-shrink-0">1</div><p class="text-xs text-gray-300">${t.step_1}</p></div>
+                        <div class="flex items-center gap-3"><div class="bg-purple-600 text-white w-6 h-6 rounded-full flex items-center justify-center font-bold text-xs flex-shrink-0">2</div><p class="text-xs text-gray-300">${t.step_2}</p></div>
+                        <div class="flex items-center gap-3"><div class="bg-green-600 text-white w-6 h-6 rounded-full flex items-center justify-center font-bold text-xs flex-shrink-0">3</div><p class="text-xs text-gray-300">${t.step_3}</p></div>
+                        <div class="bg-gray-800 border-l-2 border-yellow-500 p-3 rounded text-xs text-gray-400 mt-4"><i class="fa-solid fa-lightbulb text-yellow-500 mr-1"></i> ${data.install && data.install.length > 5 ? data.install : t.default_install}</div>
                     </div>
-
                     <div class="w-full md:w-2/3 flex flex-col bg-black rounded-lg border border-gray-700 overflow-hidden">
-                        <div class="bg-gray-800 px-3 py-2 flex justify-between items-center border-b border-gray-700">
-                            <span class="text-xs font-mono text-green-400">system_prompt.txt</span>
-                            <button onclick="copyToClipboard()" class="text-xs bg-white text-black px-3 py-1 rounded font-bold hover:bg-gray-200 flex items-center gap-2 transition transform hover:scale-105">
-                                <i class="fa-regular fa-copy"></i> ${t.btn_copy}
-                            </button>
-                        </div>
+                        <div class="bg-gray-800 px-3 py-2 flex justify-between items-center border-b border-gray-700"><span class="text-xs font-mono text-green-400">system_prompt.txt</span><button onclick="copyToClipboard()" class="text-xs bg-white text-black px-3 py-1 rounded font-bold hover:bg-gray-200 flex items-center gap-2"><i class="fa-regular fa-copy"></i> ${t.btn_copy}</button></div>
                         <pre class="flex-1 p-4 text-green-400 font-mono text-xs whitespace-pre-wrap overflow-y-auto custom-scrollbar leading-relaxed" id="modalCodeContent">${data.code || "Kod nije dostupan."}</pre>
                     </div>
-                </div>
-            `;
-            // Ubacujemo HTML u "modalInstall" div (koji sada služi kao glavni kontejner)
-            // BITNO: Moramo sakriti stari "modalCode" pre tag jer ga sada generišemo unutar layouta
-            const oldPre = document.getElementById('modalCode');
-            if(oldPre) oldPre.style.display = 'none';
-
-            // Takođe sakrivamo stari "header" za kod ako postoji u HTML-u
-            // (Najbolje je da ovaj layoutHTML zameni sve unutar p-6 body-ja)
+                </div>`;
             
+            const oldPre = document.getElementById('modalCode'); if(oldPre) oldPre.style.display = 'none';
             document.getElementById('modalInstall').innerHTML = layoutHTML; 
             document.getElementById('promptModal').classList.remove('hidden'); 
         }
+
         function closeModal(id) { document.getElementById(id)?.classList.add('hidden'); }
         function openAbout() { document.getElementById('aboutModal').classList.remove('hidden'); }
         function openContact() { document.getElementById('contactModal').classList.remove('hidden'); }
-        /* --- SINET BULLETPROOF COPY FUNCTION --- */
+        
         function copyToClipboard() {
             const contentElement = document.getElementById('modalCodeContent');
-            if (!contentElement) {
-                alert("Greška: Nema sadržaja za kopiranje.");
-                return;
-            }
+            if (!contentElement) return;
             const text = contentElement.innerText;
-
-            // Metod 1: Pokušaj modernog API-ja (radi na HTTPS)
             if (navigator.clipboard && window.isSecureContext) {
-                navigator.clipboard.writeText(text).then(() => {
-                    alert('Kopirano! (Secure)');
-                }).catch(err => {
-                    // Ako ne uspe, pređi na Metod 2
-                    fallbackCopyTextToClipboard(text);
-                });
+                navigator.clipboard.writeText(text).then(() => alert('Kopirano!')).catch(err => fallbackCopyTextToClipboard(text));
             } else {
-                // Metod 2: Fallback za lokalne fajlove (file://) i starije browsere
                 fallbackCopyTextToClipboard(text);
             }
         }
@@ -1447,26 +1431,12 @@ const blogData = {
         function fallbackCopyTextToClipboard(text) {
             const textArea = document.createElement("textarea");
             textArea.value = text;
-            
-            // Postavi ga van ekrana da se ne vidi
-            textArea.style.position = "fixed";
-            textArea.style.left = "-9999px";
-            textArea.style.top = "0";
-            
-            document.body.appendChild(textArea);
-            textArea.focus();
-            textArea.select();
-
-            try {
-                const successful = document.execCommand('copy');
-                const msg = successful ? 'Kopirano!' : 'Neuspešno kopiranje.';
-                alert(msg);
-            } catch (err) {
-                alert('Greška pri kopiranju: ' + err);
-            }
-
+            textArea.style.position = "fixed"; textArea.style.left = "-9999px"; textArea.style.top = "0";
+            document.body.appendChild(textArea); textArea.focus(); textArea.select();
+            try { document.execCommand('copy'); alert('Kopirano!'); } catch (err) { alert('Greška.'); }
             document.body.removeChild(textArea);
         }
+
          function openTool(toolName) { 
             document.getElementById('toolsModal').classList.remove('hidden'); 
             document.getElementById('toolsDropdown').classList.add('hidden'); 
@@ -1475,66 +1445,32 @@ const blogData = {
             if(!content || !title) return; 
             content.innerHTML = ''; 
             
-            if (toolName === 'notepad') { 
-                title.innerText = 'SINET Beležnica'; 
-                renderNotepadApp(content); 
-            } else if (toolName === 'passgen') { 
-                title.innerText = 'PassGen Pro+'; 
-                renderPassGen(content); 
-            } else if (toolName === 'vault') { 
-                title.innerText = 'Data Vault'; 
-                renderVault(content); 
-            } else if (toolName === 'tweaker') { 
-                title.innerText = 'SINET Tweaker'; 
-                renderTweaker(content); 
-            } else if (toolName === 'mobilelab') { 
-                title.innerText = 'SINET Mobile Lab 📱'; 
-                renderMobileLab(content); 
-            }
+            if (toolName === 'notepad') { title.innerText = 'SINET Beležnica'; renderNotepadApp(content); } 
+            else if (toolName === 'passgen') { title.innerText = 'PassGen Pro+'; renderPassGen(content); } 
+            else if (toolName === 'vault') { title.innerText = 'Data Vault'; renderVault(content); } 
+            else if (toolName === 'tweaker') { title.innerText = 'SINET Tweaker'; renderTweaker(content); } 
+            else if (toolName === 'mobilelab') { title.innerText = 'SINET Mobile Lab 📱'; renderMobileLab(content); }
         }
 
         function openStore() { document.getElementById('storeModal').classList.remove('hidden'); renderStore(); }
         
-        function renderStore() { const container = document.getElementById('storeContent'); if(!container) return; container.innerHTML = ''; Object.keys(storeData).forEach(key => { const app = storeData[key]; container.innerHTML += `<div class="bg-white rounded-xl shadow-lg border border-gray-100 overflow-hidden flex flex-col"><div class="${app.color} h-32 flex items-center justify-center"><i class="fa-solid ${app.icon} text-5xl"></i></div><div class="p-6 flex-1 flex flex-col"><h3 class="font-bold text-xl mb-2">${app.title}</h3><p class="text-gray-600 text-sm mb-6 flex-1">${app.desc}</p><button onclick="installApp('${key}')" class="w-full py-3 bg-gray-900 text-white rounded font-bold hover:bg-black transition"><i class="fa-solid fa-download mr-2"></i> PREUZMI KOD</button></div></div>`; }); }
+        function renderStore() { 
+            const container = document.getElementById('storeContent'); if(!container) return; container.innerHTML = ''; 
+            Object.keys(storeData).forEach(key => { const app = storeData[key]; container.innerHTML += `<div class="bg-white rounded-xl shadow-lg border border-gray-100 overflow-hidden flex flex-col"><div class="${app.color} h-32 flex items-center justify-center"><i class="fa-solid ${app.icon} text-5xl"></i></div><div class="p-6 flex-1 flex flex-col"><h3 class="font-bold text-xl mb-2">${app.title}</h3><p class="text-gray-600 text-sm mb-6 flex-1">${app.desc}</p><button onclick="installApp('${key}')" class="w-full py-3 bg-gray-900 text-white rounded font-bold hover:bg-black transition"><i class="fa-solid fa-download mr-2"></i> PREUZMI KOD</button></div></div>`; }); 
+        }
         
         function installApp(key) { 
             const app = storeData[key]; 
-            const data = {
-                title: app.title + " (Instaler)",
-                desc: "Kopirajte ovaj kod u script.google.com",
-                install: '1. Idite na <a href="https://script.google.com" target="_blank" class="text-blue-500 font-bold underline">script.google.com</a><br>2. Kreirajte novi projekat.<br>3. Nalepite kod i kliknite Run.',
-                code: app.code
-            };
-            
-            // KORISTIMO ISTI LAYOUT KAO OPENMODAL
+            const data = { title: app.title + " (Instaler)", desc: "Kopirajte ovaj kod u script.google.com", install: '1. Idite na <a href="https://script.google.com" target="_blank" class="text-blue-500 font-bold underline">script.google.com</a><br>2. Kreirajte novi projekat.<br>3. Nalepite kod i kliknite Run.', code: app.code };
             document.getElementById('modalTitle').innerText = data.title; 
             document.getElementById('modalDesc').innerText = data.desc; 
             
             const layoutHTML = `
                 <div class="flex flex-col md:flex-row gap-6 h-full">
-                    <div class="w-full md:w-1/3 space-y-4">
-                        <h4 class="text-xs font-bold text-gray-400 uppercase tracking-widest border-b border-gray-700 pb-2">UPUTSTVO</h4>
-                        <div class="text-sm text-gray-300 space-y-2">
-                             ${data.install}
-                        </div>
-                         <div class="bg-gray-800 border-l-2 border-green-500 p-3 rounded text-xs text-gray-400 mt-4">
-                            <i class="fa-solid fa-check text-green-500 mr-1"></i> <strong>AUTO-SETUP:</strong> Ovaj kod će sam napraviti tabele i forme na vašem Drive-u.
-                        </div>
-                    </div>
-                    <div class="w-full md:w-2/3 flex flex-col bg-black rounded-lg border border-gray-700 overflow-hidden">
-                        <div class="bg-gray-800 px-3 py-2 flex justify-between items-center border-b border-gray-700">
-                            <span class="text-xs font-mono text-green-400">installer.gs</span>
-                            <button onclick="copyToClipboard()" class="text-xs bg-white text-black px-3 py-1 rounded font-bold hover:bg-gray-200 flex items-center gap-2"><i class="fa-regular fa-copy"></i> COPY</button>
-                        </div>
-                        <pre class="flex-1 p-4 text-green-400 font-mono text-xs whitespace-pre-wrap overflow-y-auto custom-scrollbar leading-relaxed" id="modalCodeContent">${data.code}</pre>
-                    </div>
-                </div>
-            `;
-            
-            // Sakrivamo stari pre tag
-            const oldPre = document.getElementById('modalCode');
-            if(oldPre) oldPre.style.display = 'none';
-
+                    <div class="w-full md:w-1/3 space-y-4"><h4 class="text-xs font-bold text-gray-400 uppercase tracking-widest border-b border-gray-700 pb-2">UPUTSTVO</h4><div class="text-sm text-gray-300 space-y-2">${data.install}</div><div class="bg-gray-800 border-l-2 border-green-500 p-3 rounded text-xs text-gray-400 mt-4"><i class="fa-solid fa-check text-green-500 mr-1"></i> <strong>AUTO-SETUP:</strong> Ovaj kod će sam napraviti tabele i forme na vašem Drive-u.</div></div>
+                    <div class="w-full md:w-2/3 flex flex-col bg-black rounded-lg border border-gray-700 overflow-hidden"><div class="bg-gray-800 px-3 py-2 flex justify-between items-center border-b border-gray-700"><span class="text-xs font-mono text-green-400">installer.gs</span><button onclick="copyToClipboard()" class="text-xs bg-white text-black px-3 py-1 rounded font-bold hover:bg-gray-200 flex items-center gap-2"><i class="fa-regular fa-copy"></i> COPY</button></div><pre class="flex-1 p-4 text-green-400 font-mono text-xs whitespace-pre-wrap overflow-y-auto custom-scrollbar leading-relaxed" id="modalCodeContent">${data.code}</pre></div>
+                </div>`;
+            const oldPre = document.getElementById('modalCode'); if(oldPre) oldPre.style.display = 'none';
             document.getElementById('modalInstall').innerHTML = layoutHTML; 
             document.getElementById('storeModal').classList.add('hidden'); 
             document.getElementById('promptModal').classList.remove('hidden'); 
@@ -1549,78 +1485,40 @@ const blogData = {
             container.innerHTML = `
             <div class="flex flex-col h-full bg-gray-50">
                 <div class="bg-white shadow-sm flex border-b border-gray-200">
-                    <button onclick="switchTweakTab('windows')" class="${btnBase} ${activeTweakTab==='windows'?activeClass:inactiveClass}">
-                        <i class="fa-brands fa-windows text-lg mr-2"></i> Windows
-                    </button>
-                    <button onclick="switchTweakTab('linux')" class="${btnBase} ${activeTweakTab==='linux'?activeClass:inactiveClass}">
-                        <i class="fa-brands fa-linux text-lg mr-2"></i> Linux
-                    </button>
-                    <button onclick="switchTweakTab('universal')" class="${btnBase} ${activeTweakTab==='universal'?activeClass:inactiveClass}">
-                        <i class="fa-solid fa-globe text-lg mr-2"></i> Online
-                    </button>
+                    <button onclick="switchTweakTab('windows')" class="${btnBase} ${activeTweakTab==='windows'?activeClass:inactiveClass}"><i class="fa-brands fa-windows text-lg mr-2"></i> Windows</button>
+                    <button onclick="switchTweakTab('linux')" class="${btnBase} ${activeTweakTab==='linux'?activeClass:inactiveClass}"><i class="fa-brands fa-linux text-lg mr-2"></i> Linux</button>
+                    <button onclick="switchTweakTab('universal')" class="${btnBase} ${activeTweakTab==='universal'?activeClass:inactiveClass}"><i class="fa-solid fa-globe text-lg mr-2"></i> Online</button>
                 </div>
-                
-                <div class="flex-1 overflow-y-auto note-list-scroll p-6">
-                    <div id="tweakList" class="max-w-6xl mx-auto space-y-8"></div>
-                </div>
+                <div class="flex-1 overflow-y-auto note-list-scroll p-6"><div id="tweakList" class="max-w-6xl mx-auto space-y-8"></div></div>
             </div>`; 
             renderTweakList(activeTweakTab);
         }
 
-        function switchTweakTab(os) { 
-            activeTweakTab = os; 
-            renderTweaker(document.getElementById('toolContent')); 
-        }
+        function switchTweakTab(os) { activeTweakTab = os; renderTweaker(document.getElementById('toolContent')); }
 
         function renderTweakList(os) { 
-            const list = document.getElementById('tweakList');
-            if(!list) return;
+            const list = document.getElementById('tweakList'); if(!list) return; let html = '';
             
-            let html = '';
-            
-            // Helper za Kompaktnu Karticu sa Preview opcijom
             const createCard = (item, type, icon, color) => `
                 <div class="bg-white rounded-lg shadow-sm border border-gray-200 p-3 hover:shadow-md transition flex flex-col h-full relative overflow-hidden group">
-                    <div class="flex items-center gap-3 mb-2">
-                        <div class="w-8 h-8 rounded-full bg-${color}-50 text-${color}-600 flex items-center justify-center text-sm flex-shrink-0">
-                            <i class="fa-solid ${icon}"></i>
-                        </div>
-                        <h5 class="font-bold text-gray-800 text-sm leading-tight line-clamp-1">${item.name}</h5>
-                    </div>
+                    <div class="flex items-center gap-3 mb-2"><div class="w-8 h-8 rounded-full bg-${color}-50 text-${color}-600 flex items-center justify-center text-sm flex-shrink-0"><i class="fa-solid ${icon}"></i></div><h5 class="font-bold text-gray-800 text-sm leading-tight line-clamp-1">${item.name}</h5></div>
                     <p class="text-xs text-gray-500 mb-3 flex-1 leading-snug line-clamp-2">${item.desc}</p>
-                    
                     <div class="flex gap-2 mt-auto">
                         ${os === 'windows' ? 
-                            `<button onclick="downloadSingleTweak('${item.id}', '${type}')" class="flex-1 py-1.5 bg-gray-100 text-gray-700 font-bold text-[10px] uppercase rounded hover:bg-${color}-600 hover:text-white transition">
-                                <i class="fa-solid fa-download mr-1"></i> Preuzmi
-                            </button>
-                             <button onclick="previewTweakCode('${item.id}', '${type}')" class="w-8 py-1.5 bg-white border border-gray-200 text-gray-500 rounded hover:text-${color}-600 hover:border-${color}-300 transition" title="Vidi kod">
-                                <i class="fa-regular fa-eye"></i>
-                            </button>` 
+                            `<button onclick="downloadSingleTweak('${item.id}', '${type}')" class="flex-1 py-1.5 bg-gray-100 text-gray-700 font-bold text-[10px] uppercase rounded hover:bg-${color}-600 hover:text-white transition"><i class="fa-solid fa-download mr-1"></i> Preuzmi</button><button onclick="previewTweakCode('${item.id}', '${type}')" class="w-8 py-1.5 bg-white border border-gray-200 text-gray-500 rounded hover:text-${color}-600 hover:border-${color}-300 transition" title="Vidi kod"><i class="fa-regular fa-eye"></i></button>` 
                         : os === 'linux' ?
-                            `<button onclick="copyToClipboardGeneric('${item.code.replace(/'/g, "\\'")}')" class="flex-1 py-1.5 bg-gray-800 text-gray-200 font-bold text-[10px] uppercase rounded hover:bg-black transition">
-                                <i class="fa-regular fa-copy mr-1"></i> Kopiraj
-                            </button>
-                             <button onclick="previewTweakCode('${item.id}', 'linux')" class="w-8 py-1.5 bg-white border border-gray-200 text-gray-500 rounded hover:text-black transition" title="Vidi kod">
-                                <i class="fa-regular fa-eye"></i>
-                            </button>`
+                            `<button onclick="copyToClipboardGeneric('${item.code.replace(/'/g, "\\'")}')" class="flex-1 py-1.5 bg-gray-800 text-gray-200 font-bold text-[10px] uppercase rounded hover:bg-black transition"><i class="fa-regular fa-copy mr-1"></i> Kopiraj</button><button onclick="previewTweakCode('${item.id}', 'linux')" class="w-8 py-1.5 bg-white border border-gray-200 text-gray-500 rounded hover:text-black transition" title="Vidi kod"><i class="fa-regular fa-eye"></i></button>`
                         : 
-                            `<a href="${item.url}" target="_blank" class="w-full py-1.5 bg-blue-50 text-blue-600 font-bold text-[10px] uppercase rounded border border-blue-100 hover:bg-blue-600 hover:text-white transition text-center">
-                                Otvori
-                            </a>`
+                            `<a href="${item.url}" target="_blank" class="w-full py-1.5 bg-blue-50 text-blue-600 font-bold text-[10px] uppercase rounded border border-blue-100 hover:bg-blue-600 hover:text-white transition text-center">Otvori</a>`
                         }
                     </div>
-                </div>
-            `;
+                </div>`;
 
             if(os === 'windows') {
-                html += `<div class="mb-6"><h3 class="font-bold text-gray-400 text-xs uppercase tracking-widest mb-3 flex items-center"><i class="fa-solid fa-wrench mr-2"></i> Registry (FIX_ALL)</h3>`;
-                html += `<div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3">`; 
+                html += `<div class="mb-6"><h3 class="font-bold text-gray-400 text-xs uppercase tracking-widest mb-3 flex items-center"><i class="fa-solid fa-wrench mr-2"></i> Registry (FIX_ALL)</h3><div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3">`; 
                 html += tweaksData.windows_reg.map(t => createCard(t, 'reg', 'fa-shield-halved', 'blue')).join('');
                 html += `</div></div>`;
-
-                html += `<div class="mt-6"><h3 class="font-bold text-gray-400 text-xs uppercase tracking-widest mb-3 flex items-center"><i class="fa-solid fa-terminal mr-2"></i> Skripte</h3>`;
-                html += `<div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3">`;
+                html += `<div class="mt-6"><h3 class="font-bold text-gray-400 text-xs uppercase tracking-widest mb-3 flex items-center"><i class="fa-solid fa-terminal mr-2"></i> Skripte</h3><div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3">`;
                 html += tweaksData.windows_bat.map(t => createCard(t, 'bat', 'fa-bolt', 'green')).join('');
                 html += `</div></div>`;
             } 
@@ -1641,26 +1539,21 @@ const blogData = {
             let item;
             if(type === 'reg') item = tweaksData.windows_reg.find(i => i.id === id);
             else if (type === 'bat') item = tweaksData.windows_bat.find(i => i.id === id);
-            
             if(!item) return alert("Greška: Skripta nije nađena.");
             
             let content = item.code;
             if(type === 'reg') content = "Windows Registry Editor Version 5.00\n\n" + `; ${item.name}\n` + content;
             if(type === 'bat') content = "@echo off\n" + `REM ${item.name}\n` + content + "\npause";
-            
             downloadFile(content, `SINET_${item.id}.${type}`, "text/plain");
         }
 
-        function copyToClipboardGeneric(text) {
-            navigator.clipboard.writeText(text).then(() => alert('Komanda kopirana!'));
-        }
+        function copyToClipboardGeneric(text) { navigator.clipboard.writeText(text).then(() => alert('Komanda kopirana!')); }
 
         function previewTweakCode(id, type) {
             let item;
             if(type === 'reg') item = tweaksData.windows_reg.find(i => i.id === id);
             else if (type === 'bat') item = tweaksData.windows_bat.find(i => i.id === id);
             else if (type === 'linux') item = tweaksData.linux.find(i => i.id === id);
-
             if(!item) return;
 
             document.getElementById('modalTitle').innerText = item.name; 
@@ -1671,17 +1564,11 @@ const blogData = {
             
             const layoutHTML = `
                 <div class="flex flex-col h-full">
-                    <div class="bg-gray-800 p-3 text-xs text-gray-400 border-b border-gray-700 flex justify-between items-center">
-                        <span class="font-mono text-green-400">source_code.${type}</span>
-                        <span class="text-[10px] uppercase tracking-wider">READ-ONLY PREVIEW</span>
-                    </div>
+                    <div class="bg-gray-800 p-3 text-xs text-gray-400 border-b border-gray-700 flex justify-between items-center"><span class="font-mono text-green-400">source_code.${type}</span><span class="text-[10px] uppercase tracking-wider">READ-ONLY PREVIEW</span></div>
                     <pre class="flex-1 p-4 bg-black text-green-400 font-mono text-xs whitespace-pre-wrap overflow-y-auto custom-scrollbar">${codeContent}</pre>
-                </div>
-            `;
+                </div>`;
             
-            const oldPre = document.getElementById('modalCode');
-            if(oldPre) oldPre.style.display = 'none';
-
+            const oldPre = document.getElementById('modalCode'); if(oldPre) oldPre.style.display = 'none';
             document.getElementById('modalInstall').innerHTML = layoutHTML; 
             document.getElementById('toolsModal').classList.add('hidden'); 
             document.getElementById('promptModal').classList.remove('hidden'); 
@@ -1700,10 +1587,12 @@ const blogData = {
         function savePassToNote(){const p=document.getElementById('passResult').value;if(!p||p==='---')return;let ln=notes.find(x=>x.title==='Passwords_Log');if(!ln){ln={id:Date.now(),title:'Passwords_Log',content:'SINET PassGen Log:\n------------------\n'};notes.push(ln);}ln.content+=`[${new Date().toLocaleString()}]\n${p}\n------------------\n`;saveNotes();alert('Sačuvano!');}
         function renderVault(c){c.innerHTML=`<div class="p-8 grid grid-cols-2 gap-8 h-full content-center"><button onclick="exportData()" class="p-8 border-2 border-dashed border-blue-300 rounded hover:bg-blue-50 flex flex-col items-center"><i class="fa-solid fa-download text-5xl text-blue-500 mb-4"></i><span class="font-bold">EXPORT</span></button><button onclick="document.getElementById('importFile').click()" class="p-8 border-2 border-dashed border-green-300 rounded hover:bg-green-50 flex flex-col items-center"><i class="fa-solid fa-upload text-5xl text-green-500 mb-4"></i><span class="font-bold">IMPORT</span></button><input type="file" id="importFile" class="hidden" onchange="importData(this)"></div>`;}
         function takeSnap(){document.getElementById('toolsDropdown').classList.add('hidden');const c=String(snapCounter).padStart(3,'0'),f=`SINET_Snap_${currentContext}_${c}.png`;html2canvas(document.body).then(cv=>{const l=document.createElement('a');l.download=f;l.href=cv.toDataURL();l.click();snapCounter++;localStorage.setItem('sinet_snap_count',snapCounter);});}
-        function exportData(){const d={version:'1.5',theme:currentTheme,favorites:favorites,notes:notes,snapCount:snapCounter},b=new Blob([JSON.stringify(d,null,2)],{type:'application/json'}),l=document.createElement('a');l.href=URL.createObjectURL(b);l.download=`SINET_Backup_${new Date().toISOString().slice(0,10)}.json`;l.click();}
+        function exportData(){const d={version:'1.62',theme:currentTheme,favorites:favorites,notes:notes,snapCount:snapCounter},b=new Blob([JSON.stringify(d,null,2)],{type:'application/json'}),l=document.createElement('a');l.href=URL.createObjectURL(b);l.download=`SINET_Backup_${new Date().toISOString().slice(0,10)}.json`;l.click();}
         function importData(i){const f=i.files[0];if(!f)return;const r=new FileReader();r.onload=e=>{try{const d=JSON.parse(e.target.result);if(d.favorites)localStorage.setItem('sinet_favorites',JSON.stringify(d.favorites));if(d.notes)localStorage.setItem('sinet_notes',JSON.stringify(d.notes));if(d.theme)localStorage.setItem('sinet_theme',d.theme);if(d.snapCount)localStorage.setItem('sinet_snap_count',d.snapCount);alert("Učitano!");location.reload();}catch(er){alert("Greška!");}};r.readAsText(f);}
         
-/* --- SINET MOBILE LAB FUNKCIJE --- */
+        /*POČETAK KODA  --- SINET MOBILE LAB FUNKCIJE --- */
+        
+        /* --- SINET MOBILE LAB FUNKCIJE --- */
         function renderMobileLab(container) {
             container.innerHTML = `
             <div class="flex flex-col h-full">
@@ -1743,8 +1632,139 @@ const blogData = {
             preview.close();
         }
 
-        // --- OVO JE KLJUČNO! OVO POKREĆE SISTEM ---
+/* POČETAKN KODA --- SINET JUTRO LOGIC (v1.62 - FINAL CLEAN) --- */
+        
+		/* --- SINET JUTRO LOGIC (v1.62 - ROBUST) --- */
+        
+        // IZVORI VESTI (Prioritet: Lakši izvori prvi)
+        const rssFeeds = {
+            'tech': [
+                'https://www.makeuseof.com/feed/',              // Link 1 (Često radi)
+                'https://feeds.feedburner.com/TheHackersNews',  // Link 2
+                'https://wired.com/feed/rss'                    // Link 3
+            ],
+            'news': [
+                'https://www.blic.rs/rss/danasnje-vesti',       // Blic (Otvoreniji od Danasa)
+                'https://www.bbc.com/serbian/lat.xml',          // BBC (Vrlo stabilan)
+                'https://www.danas.rs/feed/'                    // Danas (Strog, ali tu je za rezervu)
+            ],
+            'science': [
+                'https://phys.org/rss-feed/',
+                'https://www.sciencemag.org/rss/news_current.xml'
+            ],
+            'sport': [
+                'https://www.sportske.net/rss/index.xml',
+                'https://www.mozzartsport.com/rss/vesti.xml'
+            ],
+            'life': [
+                'https://lifehacker.com/rss',
+                'https://zenhabits.net/feed/'
+            ]
+        };
+
+        function initDashboard() {
+            const dash = document.getElementById('morning-dashboard');
+            if(dash) dash.classList.remove('hidden');
+            updateDateAndGreeting();
+            fetchWeather();
+            loadNews('tech'); 
+        }
+        
+        function toggleDashboard() {
+            const dash = document.getElementById('morning-dashboard');
+            dash.classList.toggle('hidden');
+        }
+
+        function updateDateAndGreeting() {
+            const now = new Date();
+            const dateStr = now.toLocaleDateString('sr-RS', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' });
+            const dateEl = document.getElementById('dash-date');
+            if(dateEl) dateEl.innerText = dateStr;
+            
+            const hour = now.getHours();
+            let greeting = "Dobro jutro";
+            if(hour >= 12 && hour < 18) greeting = "Dobar dan";
+            else if(hour >= 18) greeting = "Dobro veče";
+            const greetEl = document.getElementById('dash-greeting');
+            if(greetEl) greetEl.innerText = `${greeting}, Partneru`;
+        }
+
+        async function fetchWeather() {
+            try {
+                const res = await fetch('https://api.open-meteo.com/v1/forecast?latitude=45.2671&longitude=19.8335&current_weather=true');
+                const data = await res.json();
+                document.getElementById('weather-temp').innerText = Math.round(data.current_weather.temperature) + "°C";
+                document.getElementById('weather-desc').innerText = "Vetar: " + data.current_weather.windspeed + " km/h";
+            } catch(e) { console.log("Weather Error"); }
+        }
+
+        // --- NOVA PAMETNA FUNKCIJA ZA UČITAVANJE ---
+        async function loadNews(category) {
+            const container = document.getElementById('news-container');
+            if(!container) return;
+            
+            // Vizuelni reset dugmića
+            document.querySelectorAll('.rss-btn').forEach(btn => btn.className = 'rss-btn text-xs font-bold text-gray-500 border-b-2 border-transparent pb-1 hover:text-sinet-primary transition uppercase whitespace-nowrap cursor-pointer');
+            const activeBtn = document.getElementById('btn-' + category);
+            if(activeBtn) activeBtn.className = 'rss-btn text-xs font-bold text-gray-800 border-b-2 border-sinet-primary pb-1 transition uppercase whitespace-nowrap cursor-pointer';
+
+            container.innerHTML = '<div class="flex items-center justify-center h-32"><i class="fa-solid fa-circle-notch fa-spin text-sinet-primary text-2xl"></i></div>';
+
+            const urls = rssFeeds[category];
+            let success = false;
+
+            // PETLJA: Probaj prvi, ako ne radi, probaj drugi, itd.
+            for (const url of urls) {
+                try {
+                    // Koristimo clean URL bez sumnjivih ključeva
+                    const apiUrl = `https://api.rss2json.com/v1/api.json?rss_url=${encodeURIComponent(url)}`;
+                    const res = await fetch(apiUrl);
+                    const data = await res.json();
+
+                    if (data.status === 'ok') {
+                        renderNewsItems(container, data.items, data.feed.title);
+                        success = true;
+                        break; // Uspeli smo, prekidaj petlju!
+                    }
+                } catch (err) {
+                    console.log(`Izvor ${url} nije uspeo, pokušavam sledeći...`);
+                }
+            }
+
+            if (!success) {
+                container.innerHTML = `
+                <div class="text-center mt-4">
+                    <p class="text-xs text-red-400 mb-2">Nijedan izvor nije dostupan.</p>
+                    <button onclick="loadNews('${category}')" class="text-xs bg-gray-100 hover:bg-gray-200 px-3 py-1 rounded">Pokušaj ponovo</button>
+                </div>`;
+            }
+        }
+
+        function renderNewsItems(container, items, sourceName) {
+            let html = '';
+            items.slice(0, 15).forEach(item => {
+                const date = new Date(item.pubDate);
+                const dateStr = date.toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'});
+                html += `
+                <a href="${item.link}" target="_blank" class="block group border-l-2 border-transparent hover:border-sinet-primary pl-3 py-2 transition hover:bg-gray-50 rounded-r">
+                    <h4 class="text-sm font-semibold text-gray-700 group-hover:text-sinet-primary leading-tight line-clamp-2">${item.title}</h4>
+                    <div class="flex items-center gap-2 mt-1">
+                        <span class="text-[10px] text-gray-400 bg-gray-100 px-1 rounded">${dateStr}</span>
+                        <span class="text-[10px] text-sinet-primary font-bold truncate max-w-[150px]">${sourceName}</span>
+                    </div>
+                </a>
+                <div class="border-b border-gray-100 my-1"></div>`; 
+            });
+            container.innerHTML = html;
+        }
+ 
+/* KRAJ KODA --- SINET JUTRO LOGIC (v1.62 - FINAL CLEAN) --- */
+
+        // --- MASTER INIT ---
         function initSystem() { 
+            // Siguran start Dashboarda
+            if(typeof initDashboard === 'function') initDashboard();
+            
             setTheme(currentTheme); 
             renderGrid(); 
             renderIndex(); 
@@ -1752,7 +1772,9 @@ const blogData = {
             renderFavorites(); 
             setupSearch(); 
         }
-
+        
+        /*KRAJ KODA  --- SINET MOBILE LAB FUNKCIJE --- */
+        
     </script>
 </body>
 </html>
