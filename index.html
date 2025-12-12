@@ -1634,41 +1634,47 @@ const blogData = {
 
 /* POČETAKN KODA --- SINET JUTRO LOGIC (v1.62 - FINAL CLEAN) --- */
         
-		/* --- SINET JUTRO LOGIC (v1.62 - ROBUST) --- */
-        
-        // IZVORI VESTI (Prioritet: Lakši izvori prvi)
-        const rssFeeds = {
-            'tech': [
-                'https://www.makeuseof.com/feed/',              // Link 1 (Često radi)
-                'https://feeds.feedburner.com/TheHackersNews',  // Link 2
-                'https://wired.com/feed/rss'                    // Link 3
-            ],
-            'news': [
-                'https://www.blic.rs/rss/danasnje-vesti',       // Blic (Otvoreniji od Danasa)
-                'https://www.bbc.com/serbian/lat.xml',          // BBC (Vrlo stabilan)
-                'https://www.danas.rs/feed/'                    // Danas (Strog, ali tu je za rezervu)
-            ],
-            'science': [
-                'https://phys.org/rss-feed/',
-                'https://www.sciencemag.org/rss/news_current.xml'
-            ],
-            'sport': [
-                'https://www.sportske.net/rss/index.xml',
-                'https://www.mozzartsport.com/rss/vesti.xml'
-            ],
-            'life': [
-                'https://lifehacker.com/rss',
-                'https://zenhabits.net/feed/'
-            ]
-        };
+		/* --- SINET JUTRO LOGIC (v1.63 - NEWS FIRST) --- */
 
-        function initDashboard() {
-            const dash = document.getElementById('morning-dashboard');
-            if(dash) dash.classList.remove('hidden');
-            updateDateAndGreeting();
-            fetchWeather();
-            loadNews('tech'); 
-        }
+		const rssFeeds = {
+			// 1. VESTI (Sada na prvom mestu)
+			'news': [
+				'https://www.rts.rs/page/rss/ci.html',                // RTS (Ćirilica)
+				'https://www.novosti.rs/rss',                         // Večernje Novosti
+				'https://www.bbc.com/serbian/lat.xml',                // BBC (Backup)
+				'https://www.danas.rs/feed/'                          // Danas
+			],
+			// 2. TECH
+			'tech': [
+				'http://www.itvesti.info/feeds/posts/default?alt=rss', // IT Vesti (Domaći)
+				'https://feeds.feedburner.com/TheHackersNews',         // Hacker News
+				'https://www.makeuseof.com/feed/'                      // MakeUseOf
+			],
+			// 3. SPORT
+			'sport': [
+				'https://www.mozzartsport.com/rss/0.xml',             // Mozzart (Novi XML)
+				'https://www.sportske.net/rss/index.xml'              // Sportske.net
+			],
+			// 4. NAUKA
+			'science': [
+				'https://www.sciencemag.org/rss/news_current.xml',
+				'https://phys.org/rss-feed/'
+			],
+			// 5. LIFE
+			'life': [
+				'https://lifehacker.com/rss',
+				'https://zenhabits.net/feed/'
+			]
+		};
+
+		function initDashboard() {
+			const dash = document.getElementById('morning-dashboard');
+			if(dash) dash.classList.remove('hidden');
+			updateDateAndGreeting();
+			fetchWeather();
+			// OVO JE PROMENA: Odmah učitavamo 'news' (Vesti) umesto 'tech'
+			loadNews('news'); 
+		}
         
         function toggleDashboard() {
             const dash = document.getElementById('morning-dashboard');
