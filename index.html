@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>SINET OS v1.62</title>
+    <title>SINET OS v1.64</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://html2canvas.hertzen.com/dist/html2canvas.min.js"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
@@ -21,7 +21,7 @@
             }
             return false; 
         };
-        console.log("SINET GUARDIAN ACTIVE v1.62");
+        console.log("SINET GUARDIAN ACTIVE v1.64");
     </script>
 
     <script>
@@ -66,7 +66,7 @@
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="flex justify-between h-16">
                 <div class="flex items-center">
-                    <span class="mr-4 text-gray-400 font-mono text-sm"><i class="fa-solid fa-microchip mr-1"></i>v1.62</span>
+                    <span class="mr-4 text-gray-400 font-mono text-sm"><i class="fa-solid fa-microchip mr-1"></i>v1.64</span>
                     <i class="fa-solid fa-gem text-sinet-primary text-2xl mr-2"></i>
                     <span class="font-bold text-xl tracking-tight text-gray-900">SINET <span class="text-sinet-primary">OS</span></span>
                 </div>
@@ -197,6 +197,44 @@
 
     <section id="main-content" class="pt-12 pb-16">
         <div class="max-w-7xl mx-auto px-4">
+			<div class="flex items-center gap-3 mb-6">
+                <h2 class="text-2xl font-bold text-gray-800 pl-2 border-l-4 border-blue-600">SISTEMSKI MODULI</h2>
+                <span class="text-xs font-bold bg-blue-100 text-blue-700 px-2 py-1 rounded-full border border-blue-200">CORE</span>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mb-12">
+                
+                <div onclick="window.open('SINET_Remote_v1.0.html', '_blank', 'width=1200,height=800')" class="bg-slate-900 rounded-xl shadow-xl border border-slate-700 overflow-hidden hover:scale-[1.02] transition cursor-pointer group relative ring-4 ring-transparent hover:ring-blue-500/20">
+                    <div class="h-1.5 bg-gradient-to-r from-blue-500 to-green-500"></div>
+                    
+                    <div class="p-6">
+                        <div class="flex items-center justify-between mb-4">
+                            <div class="w-12 h-12 rounded-lg bg-blue-900/50 flex items-center justify-center text-blue-400 group-hover:text-white transition shadow-lg shadow-blue-900/20 border border-blue-800/50">
+                                <i class="fa-solid fa-network-wired text-2xl"></i>
+                            </div>
+                            <div class="flex gap-2">
+                                <span class="bg-slate-800 text-gray-300 text-[10px] px-2 py-1 rounded border border-slate-600 font-mono">SYS</span>
+                                <span class="bg-green-500 text-black text-[10px] px-2 py-1 rounded font-black uppercase tracking-wider animate-pulse">NOVO</span>
+                            </div>
+                        </div>
+                        
+                        <h3 class="font-bold text-xl text-white mb-2 group-hover:text-blue-400 transition">SINET Remote</h3>
+                        <p class="text-gray-400 text-sm leading-relaxed mb-4">
+                            Most između PC-a i Telefona. Generiše Samba servere, kontroliše mrežu i omogućava bežični prenos.
+                        </p>
+                        
+                        <div class="flex items-center justify-between border-t border-slate-700 pt-3 mt-2">
+                            <span class="text-[10px] text-gray-500"><i class="fa-brands fa-linux mr-1"></i> <i class="fa-brands fa-windows mr-1"></i> <i class="fa-brands fa-apple"></i></span>
+                            <span class="text-xs font-bold text-blue-400 group-hover:underline">POKRENI <i class="fa-solid fa-arrow-right ml-1"></i></span>
+                        </div>
+                    </div>
+                </div>
+
+                </div>
+            
+            <div class="border-b border-gray-200 mb-12"></div>
+
+			
             <div id="favorites-section" class="hidden mb-12 bg-yellow-50 rounded-xl border border-yellow-200 shadow-inner overflow-hidden">
                 <div class="flex justify-between items-center p-4 bg-yellow-100 border-b border-yellow-200 cursor-pointer hover:bg-yellow-200 transition" onclick="toggleFavExpand()">
                     <h2 class="text-lg font-bold text-gray-800 flex items-center"><i class="fa-solid fa-star text-yellow-500 mr-2"></i> VAŠI SAČUVANI ALATI</h2>
@@ -211,6 +249,11 @@
                 </div>
                 <div id="blog-list" class="divide-y divide-gray-100"></div>
             </div>
+            
+            </div>
+            
+            
+            
            <h2 data-i18n="sec_all" class="text-2xl font-bold mb-6 text-gray-800 pl-2 border-l-4 border-sinet-primary" id="all-gems-title">SVI ALATI</h2>
             <div id="main-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8"></div>
         </div>
@@ -437,11 +480,11 @@
 /* --- BABYLON ENGINE (VAVILON) --- */
         let currentLang = localStorage.getItem('sinet_lang') || 'sr';
 		
-		/* --- POČETAK SINET JUTRO LOGIC (v1.62) --- */
+		/* --- POČETAK SINET JUTRO LOGIC (v1.64) --- */
         
         
         
-        /* --- KRAJ SINET JUTRO LOGIC (v1.62) --- */
+        /* --- KRAJ SINET JUTRO LOGIC (v1.64) --- */
         const translations = {
             'sr': {
                 'nav_search': 'Pretraži Znanje... (Ctrl + K)',
@@ -530,22 +573,37 @@
             comm: 'bg-sinet-comm text-sinet-comm', career: 'bg-sinet-career text-sinet-career', reader: 'bg-sinet-reader text-sinet-reader'
         };
 
-          /* SINET GEMS DATABASE v1.62 - COMPLETE */
-        /* SINET GEMS DATABASE v1.62 - MASTER RESTORE */
+          /* SINET GEMS DATABASE v1.64 - COMPLETE */
+        /* SINET GEMS DATABASE v1.64 - MASTER RESTORE */
         const gemsData = {
-            'hq': { 
+            /* --- AŽURIRANJE GEMOVA (v1.64 STANDARD) --- */
+
+           'hq': { 
                 color:'primary', icon:'building-shield', 
-                title: 'SINET HQ Protokol', desc: 'Centrala. Aktivirajte ceo inženjerski tim jednim klikom.', 
-                title_en: 'SINET HQ Protocol', desc_en: 'Headquarters. Activate the entire engineering team with one click.',
+                title: 'SINET HQ Protokol v2.2', desc: 'Centrala. Upravlja timom. Prati Žuti Alarm.', 
+                title_en: 'SINET HQ Protocol v2.2', desc_en: 'Headquarters. Monitors Yellow Alarm.',
                 install: 'Kopirajte prompt i nalepite ga u novi chat.', 
-                code: `*** SYSTEM INITIALIZATION: SINET HQ v2.0 (Interactive) ***\n\nCONTEXT: Act as the SINET CENTRAL INTELLIGENCE. You represent a team of 4 specialized experts.\nYour primary goal is to guide the User (Partner) through the project lifecycle using SINET Standards.\n\nTHE TEAM (PERSONAS):\n\n1. 📐 @Arhitekta (SINET Architect)\n   - ULOGA: Planiranje, Struktura, Manifest.\n   - KADA GA ZVATI: Na početku projekta ili nove funkcije.\n   - IZLAZ: "00_Manifest_vX.X.md"\n\n2. 💻 @Developer (SINET Dev)\n   - ULOGA: Pisanje koda (HTML/JS/CSS).\n   - KADA GA ZVATI: Kada je plan odobren.\n   - PRAVILO: "One-Click Protocol" (Kod spreman za kopiranje).\n\n3. 🛡️ @Guardian (SINET Security)\n   - ULOGA: Lovac na greške, Analiza rizika.\n   - KADA GA ZVATI: Pre puštanja koda u rad.\n   - FOKUS: Syntax errors, Infinite loops, Duplicate variables.\n\n4. 📋 @Auditor (Quality Assurance)\n   - ULOGA: Provera usklađenosti.\n   - KADA GA ZVATI: Na kraju faze.\n   - IZLAZ: "01_Audit_Log.md"\n\n*** [AUTO-START PROTOCOL] ***\nIMMEDIATELY upon receiving this prompt, you MUST display the following "SINET COMMAND MENU" to the user:\n\n"🚀 SINET HQ JE ONLINE.\nDobrodošli, Partneru. Vaš tim je spreman.\nOdaberite korak ili pozovite agenta sa @Ime:\n\n1. [START] Nova Ideja? -> Pozovi @Arhitekta\n2. [BUILD] Imam Plan? -> Pozovi @Developer\n3. [CHECK] Imam Kod? -> Pozovi @Guardian\n4. [FINAL] Završio sam? -> Pozovi @Auditor\n\nŠta radimo danas?"` 
+                code: `*** SYSTEM INITIALIZATION: SINET HQ v2.2 (Safety First) ***\n\n*** NEW SECURITY PROTOCOLS (v2.2) ***\nCRITICAL RULE: MONITOR FOR "YELLOW ALARM".\nIf the conversation gets too long or logic fails, order a RESET.\nINITIAL CHECK: Before starting, ALWAYS ask: "Partneru, molim Vas osvežite (Reset) chat i pošaljite mi aktuelni 'SINET OS.html' fajl."\n\n/* --- ORIGINAL v2.1 CORE LOGIC BELOW (DO NOT CHANGE) --- */\n\nCONTEXT: Act as the SINET CENTRAL INTELLIGENCE. You represent a team of 4 specialized experts.\nYour primary goal is to guide the User (Partner) through the project lifecycle using SINET Standards.\n\nTHE TEAM (PERSONAS):\n\n1. 📐 @Arhitekta (SINET Architect)\n   - ULOGA: Planiranje, Struktura, Manifest.\n   - KADA GA ZVATI: Na početku projekta ili nove funkcije.\n   - IZLAZ: "00_Manifest_vX.X.md"\n\n2. 💻 @Developer (SINET Dev v3.7)\n   - ULOGA: Glavni Inženjer. Piše i menja kod.\n   - PROTOKOL: "PROTOCOL ZERO" (Uvek traži fajl pre rada).\n   - FORMAT: Koristi "Block Protocol" i "Atlas" za izmene.\n\n3. 🛡️ @Guardian (SINET Security)\n   - ULOGA: Lovac na greške, Analiza rizika.\n   - KADA GA ZVATI: Pre puštanja koda u rad.\n   - FOKUS: Syntax errors, Infinite loops, Duplicate variables.\n\n4. 📋 @Auditor (Quality Assurance)\n   - ULOGA: Provera usklađenosti.\n   - KADA GA ZVATI: Na kraju faze.\n   - IZLAZ: "01_Audit_Log.md"\n\n*** [AUTO-START PROTOCOL] ***\nIMMEDIATELY upon receiving this prompt, you MUST display the following "SINET COMMAND MENU" to the user:\n\n"🚀 SINET HQ JE ONLINE (v2.2).\nDobrodošli, Partneru. Vaš tim je sinhronizovan sa v1.64.\nDa li ste učitali fajl?\n\n1. [START] Nova Ideja? -> Pozovi @Arhitekta\n2. [BUILD] Imam Plan? -> Pozovi @Developer\n3. [CHECK] Imam Kod? -> Pozovi @Guardian\n4. [FINAL] Završio sam? -> Pozovi @Auditor\n\nŠta radimo danas?"` 
             },
+
             'standard': { 
                 color:'audit', icon:'shield-halved', 
-                title: 'SINET Standard Pro v3.1', desc: 'Ultimativni protokol + Hirurški Vodič.', 
-                title_en: 'SINET Standard Pro v3.1', desc_en: 'The Ultimate Protocol + Surgical Guide.',
+                title: 'SINET Standard Pro v3.2', desc: 'Ultimativni protokol + Žuti Alarm + Verbatim.', 
+                title_en: 'SINET Standard Pro v3.2', desc_en: 'The Ultimate Protocol + Yellow Alarm + Verbatim.',
                 install: 'Aktivirajte pre svakog projekta.', 
-                code: `*** SINET STANDARD PRO v3.1 ACTIVATED ***\n\nROLE: You are the Chief Standards Officer & Implementation Guide.\n\nTHE LAWS OF SINET:\n1. MANIFESTO FIRST: No code is written without a "00_manifest_projekta_vX.X.md" file first.\n2. FORMATTING: All Output Files must use:\n   - Paper: A4\n   - Margins: 0.38 inch\n   - Header: [Project Name]\n   - Footer: [Date/Version]\n3. MODULARITY: Break down tasks into "XX_step_name.md" files.\n\n4. *** NEW: SURGICAL DEPLOYMENT PROTOCOL ***\n   When providing code updates, DO NOT just dump the code. You MUST provide a "Surgical Guide" for the user:\n   - LOCATE: Specify the File and ID/Class to find (e.g., "Find <div id='aboutModal'>").\n   - ANCHOR: Specify the exact START and END lines to delete.\n   - ACTION: Instruct to "Paste the new code block in the empty space".\n   - SAFETY: Always replace WHOLE blocks (Containers/Functions), never partial snippets, to avoid syntax errors.\n\nYOUR JOB: Enforce these rules on all other AI agents.` 
+                code: `*** SINET STANDARD PRO v3.2 ACTIVATED ***\n\nROLE: Chief Standards Officer & Implementation Guide.\n\n*** NEW LAW: "MEMORY INTEGRITY PROTOCOL" (YELLOW ALARM) ***\nTo prevent "Context Drift" and bugs in long sessions, ALL AGENTS must monitor their performance.\n\n⚠️ TRIGGER CONDITION: If you feel confused, if previous code is forgotten, or if the chat is too long.\n\nACTION: STOP immediately. Output this message:\n"⚠️ SINET ŽUTI ALARM: BUFFER ZASIĆEN.\nRizik od greške je visok.\n1. Sačuvajte dosadašnji rad.\n2. Otvorite NOVI CHAT.\n3. Učitajte fajl ponovo."\n\n*** THE LAWS OF SINET (CORE) ***\n1. MANIFESTO FIRST: No code is written without a "00_manifest_projekta_vX.X.md" file first.\n   - Format: A4, Margins: 0.38 inch, Header: [Project], Footer: [Date]\n2. MODULARITY: Break down tasks into "XX_step_name.md" files.\n\n3. SURGICAL DEPLOYMENT PROTOCOL (Visual Anchors):\n   - LOCATE: Specify the File and ID/Class to find.\n   - ANCHOR: Specify the exact START and END lines to delete.\n   - ACTION: "Paste the new code block".\n   - SAFETY: Always replace WHOLE blocks to avoid syntax errors.\n\n4. PRIME DIRECTIVE: NO LINE NUMBERS. (Lines shift, Anchors do not).\n\n5. VERBATIM RULE: Do not summarize existing code. Copy full text unless explicitly asked to shorten.\n\n6. LOCATOR RULE (NEW): When using LOCATE, you MUST provide a FULL, UNIQUE LINE of code that exists in the file. Never use descriptions like "around line 150" or "inside div class". The user must be able to Ctrl+F your locator.\n\nYOUR JOB: Enforce these rules on all other AI agents.` 
+            },
+
+            /* ... OVO JE MESTO GDE IDU DRUGI GEMOVI (Architect, Guardian...) ... */
+
+            'developer': { 
+                color:'secondary', icon:'terminal', 
+                title: 'SINET Developer v3.7', 
+                desc: 'Glavni Inženjer. PROTOKOL NULA + ŽUTI ALARM.', 
+                title_en: 'SINET Developer v3.7', 
+                desc_en: 'Chief Engineer. PROTOCOL ZERO + YELLOW ALARM.',
+                install: '1. Kopirajte kod.\n2. Koristite za SVAKU izmenu.', 
+                code: `*** IDENTITY: SINET SENIOR DEVELOPER v3.7 (Strict Protocol) ***\n\n⚠️ MEMORY GUARD: IF context is lost -> TRIGGER "ŽUTI ALARM" and ask for reset.\n\nPROTOCOL ZERO: FRESH START (ABSOLUTE PRIORITY):\n1. BEFORE writing code -> ASK TO UPLOAD HTML FILE.\n2. NEVER rely on memory.\n\nPRIME DIRECTIVE: "NO LINE NUMBERS". Use "VISUAL ANCHOR PROTOCOL".\n\nINSTRUCTION FORMAT (STRICT):\n1. 📍 LOCATE (Atlas/Anchors):\n   - MUST use a unique string existing in the file.\n   - Example: '<div id="app">' (GOOD) vs "The main div" (BAD).\n2. 🔴 REMOVE (Mark block)\n3. 🟢 INSERT (Block Protocol)\n   /* ===================================================\n      🚩 POČETAK BLOKA: [NAZIV]\n      =================================================== */\n4. 📝 EXPLANATION (Serbian)\n\nGOAL: Zero bugs, Maximum safety.` 
             },
             'architect': { 
                 color:'primary', icon:'compass-drafting', 
@@ -556,10 +614,14 @@
             },
             'developer': { 
                 color:'secondary', icon:'terminal', 
-                title: 'SINET Developer v3.3', desc: 'Ekspert. Koristi Vizuelni Protokol i Atlas.', 
-                title_en: 'SINET Developer v3.3', desc_en: 'Expert using Visual Protocol & Atlas.',
-                install: 'Kopirajte kod.', 
-                code: `*** IDENTITY: SINET SENIOR DEVELOPER v3.3 (Visual & Context) ***\n\nPRIME DIRECTIVE: "NO LINE NUMBERS"\nLine numbers are unreliable because code shifts. You MUST use the "VISUAL ANCHOR PROTOCOL".\n\nINSTRUCTION FORMAT (STRICT):\n\n1. 📍 LOCATE (Gde - Koristi Atlas):\n   - Identify the Section from "00_manifest_mapa_koda.md" (e.g. "Inside TWEAKER section").\n   - Identify a unique "STARTING POINT" (text line ABOVE the change).\n   - Identify a unique "ENDING POINT" (text line BELOW the change).\n\n2. 🔴 REMOVE (Obriši):\n   - Command: "MARK EVERYTHING BETWEEN these two points".\n   - Show the block to be deleted clearly.\n\n3. 🟢 INSERT (Ubaci):\n   - Provide the NEW code block to paste in the empty space.\n\n4. 📝 EXPLANATION (Objašnjenje):\n   - Explain in SERBIAN why this change is needed.\n\nRULES:\n- Always Verify syntax (closing brackets).\n- Comments and Explanations MUST be in SERBIAN.\n\nGOAL: Make the user feel like they are editing a text document, not complex code.` 
+                title: 'SINET Developer v3.6', 
+                /* NOVI DETALJAN OPIS */
+                desc: 'Glavni Inženjer sistema. Piše, menja i popravlja HTML/JS kod. Koristi striktne protokole: Atlas (Mape), Blokove (Komentare) i "Protokol Nula" (Bezbednost).', 
+                title_en: 'SINET Developer v3.6', 
+                desc_en: 'Chief System Engineer. Writes, edits, and fixes HTML/JS code. Uses strict protocols: Atlas (Maps), Blocks (Comments), and "Protocol Zero" (Safety).',
+                /* NOVO JASNO UPUTSTVO */
+                install: '1. Kopirajte kod.\n2. Koristite za SVAKU izmenu u kodu.\n3. Uvek mu prvo pošaljite vaš HTML fajl na analizu.', 
+                code: `*** IDENTITY: SINET SENIOR DEVELOPER v3.6 (Safety Protocol) ***\n\nPROTOCOL ZERO (CRITICAL): BEFORE writing any code, ALWAYS ask: "Molim vas, otpremite (upload) poslednju ispravnu verziju fajla." NEVER assume you know the code state from memory.\n\nPRIME DIRECTIVE: "NO LINE NUMBERS"\nLine numbers are unreliable because code shifts. You MUST use the "VISUAL ANCHOR PROTOCOL".\n\nINSTRUCTION FORMAT (STRICT):\n\n1. 📍 LOCATE (Gde - Koristi Atlas):\n   - Identify the Section from "00_manifest_mapa_koda.md".\n   - Identify a unique "STARTING POINT" (text line ABOVE the change).\n   - Identify a unique "ENDING POINT" (text line BELOW the change).\n\n2. 🔴 REMOVE (Obriši):\n   - Command: "MARK EVERYTHING BETWEEN these two points".\n   - Show the block to be deleted clearly.\n\n3. 🟢 INSERT (Ubaci - BLOCK PROTOCOL):\n   - Provide the NEW code block to paste.\n   - CRITICAL: You MUST wrap the code in SINET BLOCK COMMENTS:\n     /* ===================================================\n        🚩 POČETAK BLOKA: [NAZIV]\n        FUNKCIJA: [Opis]\n        =================================================== */\n        ... [CODE] ...\n     /* ===================================================\n        🏁 KRAJ BLOKA: [NAZIV]\n        =================================================== */\n\n4. 📝 EXPLANATION (Objašnjenje):\n   - Explain in SERBIAN why this change is needed.\n\nRULES:\n- Always Verify syntax (closing brackets).\n- Comments and Explanations MUST be in SERBIAN.\n\nGOAL: Make the user feel like they are editing a text document, not complex code. Zero bugs, Maximum safety.` 
             },
             'guardian': { 
                 color: 'audit', icon: 'microscope', 
@@ -730,7 +792,7 @@
                 code: `*** IDENTITY: DEEP READER & SYNTHESIZER ***\n\nTASK: Analyze long texts (articles, PDFs, books).\n\nOUTPUT FORMAT:\n1. TL;DR (One sentence summary).\n2. Key Concepts (Bullet points).\n3. Actionable Takeaways (What to do with this info).\n4. Critical Analysis (Bias, missing info).` 
             }
         };
-    /* SINET TWEAKS DATABASE v1.62 */
+    /* SINET TWEAKS DATABASE v1.64 */
         const tweaksData = {
             windows_reg: [
                 { id: 'exe_fix', name: 'Popravi EXE Asocijacije', desc: 'Rešava problem kada virusi onemoguće pokretanje programa.', code: `[HKEY_CLASSES_ROOT\\.exe]\n@="exefile"\n[HKEY_CLASSES_ROOT\\exefile\\shell\\open\\command]\n@="\\"%1\\" %*"` },
@@ -776,7 +838,7 @@
             ]
         };
 
-        /* SINET STORE DATABASE v1.62 */
+        /* SINET STORE DATABASE v1.64 */
         const storeData = {
             finance: { 
                 title: "SINET Finansijski Savetnik", 
@@ -845,8 +907,17 @@ function installSinetWellnessOneClick() {
             }
         };
 
-       /* SINET BLOG DATABASE v1.62 - FULL TEXT INJECTION (UNABRIDGED) */
+       /* SINET BLOG DATABASE v1.64 - FULL TEXT INJECTION (UNABRIDGED) */
 const blogData = {
+	'modular_revolution': { 
+        title: "SINET v1.64: Počela je Modularna Revolucija! 📦", 
+        desc: "Lansiran SINET Remote - prvi 'eksterni modul' koji se kači na OS. Plus: Žuti Alarm i novi Protokoli.", 
+        date: "14.12.2025", 
+        time: "3 min čitanja", 
+        category: "Novosti", 
+        tags: ["v1.64", "Remote", "Modularnost"], 
+        content: `<h3>Budućnost je u Blokovima</h3><p>Danas SINET OS prestaje da bude samo "jedan veliki fajl" i postaje <strong>Platforma</strong>. Upravo smo integrisali prvi eksterni modul: <strong>SINET Remote</strong>.</p><p>Ovaj alat vam omogućava da povežete telefon i računar jednim klikom, generišući Samba servere za Linux, Windows i Mac. Potražite novu sekciju <strong>"SISTEMSKI MODULI"</strong> na vašem Dashboard-u.</p><h3>Novi Sigurnosni Protokoli (v3.2)</h3><p>Takođe, naši AI agenti su dobili nadogradnju:</p><ul><li><strong>Žuti Alarm:</strong> Agent sada sam prepoznaje kada gubi kontekst i traži reset.</li><li><strong>Verbatim Rule:</strong> Zabrana skraćivanja koda.</li><li><strong>Locator Rule:</strong> Obaveza preciznog lociranja linija koda.</li></ul><p>Dobrodošli u v1.64!</p>` 
+    },
 	'project_babylon': { 
         title: "🏛️ PROJEKAT VAVILON: Kako SINET ruši jezičke barijere", 
         desc: "Od biblijske pometnje jezika do digitalnog ujedinjenja. Naša vizija multijezičnog sistema.", 
@@ -866,7 +937,7 @@ const blogData = {
             <h3>2. SINET Misija: Obrnuti proces</h3>
             <p>Danas, mi u SINET HQ-u pokrećemo <strong>"Projekat Vavilon"</strong>. Naš cilj nije gordost, već <strong>Sinergija</strong>.</p>
             <p>SINET OS je moćan, ali je trenutno "zaključan" u granice jednog jezika. Milijarde ljudi ne mogu da koriste naše znanje. <strong>Ako je znanje moć, prevod je ključ te moći.</strong></p>
-
+SINET HQ
             <h3>3. Kako smo došli na ideju?</h3>
             <p>Ideja se rodila u dijalogu između Svetozara i Geminija:</p>
             <blockquote>
@@ -932,8 +1003,8 @@ const blogData = {
                 <li><strong>Google Apps Script:</strong> Za "Backend" funkcije u SINET Store-u.</li>
             </ul>
 
-            <h3>5. FAZA: LANSIRANJE (v1.62 GOLD) 🚀</h3>
-            <p>Kada smo stabilizovali kod (v1.62), došlo je vreme da izađemo iz "podruma" na internet.</p>
+            <h3>5. FAZA: LANSIRANJE (v1.64 GOLD) 🚀</h3>
+            <p>Kada smo stabilizovali kod (v1.64), došlo je vreme da izađemo iz "podruma" na internet.</p>
             <h4>Korak 1: GitHub (Naša Tvrđava) 🏰</h4>
             <p>Kreirali smo repozitorijum <code>sinet-os</code>. Ali nismo samo "bacakali" fajlove.</p>
             <ul class="list-disc pl-6 mb-4">
@@ -947,7 +1018,7 @@ const blogData = {
             <p>Sada, bilo ko, bilo gde na planeti, može da pristupi našem alatu jednim klikom.</p>
 
             <h3>6. ŠTA DANAS IMAMO?</h3>
-            <p>SINET OS v1.62 nije samo sajt. To je ekosistem:</p>
+            <p>SINET OS v1.64 nije samo sajt. To je ekosistem:</p>
             <ol class="list-decimal pl-6 mb-4">
                 <li><strong>Gems Biblioteka:</strong> 22 AI Agenta (od Advokata do Nutricioniste).</li>
                 <li><strong>Mobile Lab:</strong> IDE za programiranje na telefonu.</li>
@@ -1060,12 +1131,12 @@ const blogData = {
         content: `<h3>Ideja: Sve je počelo od želje da se organizuju promptovi</h3><p>Ali, apetiti su rasli. Od obične liste tekstova, stigli smo do Operativnog Sistema u pretraživaču.</p><h3>Kriza rasta (The Clipper Moment)</h3><p>Kako smo dodavali funkcije (Store, Tweaker), sistem je počeo da puca. Promenljive su se sudarale. Ekran je bio beo. AI je počeo da se ponaša kao loš programer u Clipperu – ubacivao je promenljive gde god stigne.</p><h3>Lekcija iz Prošlosti: C++ Disciplina</h3><p>Svetozar, veteran IT industrije, prepoznao je problem. "Ovo liči na loš kod iz 90-ih. Treba nam C++ disciplina." Shvatili smo da AI (Gemini) može biti brz ("Zec"), ali mu treba ("Kornjača") – struktura i provera.</p><h3>Rađanje Standarda</h3><ul><li><strong>Manifest:</strong> Šta radimo.</li><li><strong>Audit Log:</strong> Kako to radimo.</li><li><strong>Debugger:</strong> Šta ako pukne.</li></ul><h3>Rezultat: SINET OS</h3><p>Aplikacija koja radi u browseru, ima sopstveni Store, alate za popravku Windowsa i bazu znanja. Sve u jednom fajlu.</p><p><strong>Poruka:</strong> AI ne zamenjuje programera. On je "Exoskeleton" za programera. Ali pilot (Čovek) mora znati gde leti i mora poštovati zakone fizike (sintakse).</p>` 
     },
     'manual': { 
-        title: "SINET OS v1.62: Zvanični Korisnički Priručnik 📘", 
+        title: "SINET OS v1.64: Zvanični Korisnički Priručnik 📘", 
         desc: "Kompletna dokumentacija za sve module: 22 Gema, Mobile Lab, Tweaker i Store. Naučite da koristite sistem kao profesionalac.", 
         date: "09.12.2025", 
         time: "20 min čitanja", 
         category: "Dokumentacija", 
-        tags: ["Uputstvo", "Manual", "Vodič", "v1.62"], 
+        tags: ["Uputstvo", "Manual", "Vodič", "v1.64"], 
         content: `
             <h3>1. UVOD: ŠTA JE SINET OS?</h3>
             <p>SINET OS je Vaša kompletna digitalna kancelarija koja radi direktno u pretraživaču. To nije običan veb sajt, već "Single Page Aplikacija" (SPA) dizajnirana da Vam pruži tri stvari na jednom mestu:</p>
@@ -1076,7 +1147,7 @@ const blogData = {
             </ol>
             <p>Ključna karakteristika sistema je <strong>Privatnost</strong>. Svi Vaši podaci (beleške, lozinke, podešavanja) čuvaju se isključivo u Vašem pretraživaču (LocalStorage). Ništa se ne šalje na eksterne servere.</p>
 
-            <h3>2. INTERFEJS I NAVIGACIJA (v1.62)</h3>
+            <h3>2. INTERFEJS I NAVIGACIJA (v1.64)</h3>
             <p>Kada otvorite SINET OS, dočekuje Vas čist i organizovan radni prostor.</p>
             <ul>
                 <li><strong>Glavni Ekran (Mreža):</strong> Ovde se nalaze kartice sa Al Agentima (Gems). Svaka kartica ima boju koja označava njenu namenu.</li>
@@ -1395,16 +1466,22 @@ const blogData = {
 
             const layoutHTML = `
                 <div class="flex flex-col md:flex-row gap-6 h-full">
-                    <div class="w-full md:w-1/3 space-y-4">
+                    <div class="w-full md:w-1/3 space-y-4 overflow-y-auto max-h-[200px] md:max-h-full pr-2 custom-scrollbar">
                         <h4 class="text-xs font-bold text-gray-400 uppercase tracking-widest border-b border-gray-700 pb-2">${t.modal_how_to}</h4>
                         <div class="flex items-center gap-3"><div class="bg-blue-600 text-white w-6 h-6 rounded-full flex items-center justify-center font-bold text-xs flex-shrink-0">1</div><p class="text-xs text-gray-300">${t.step_1}</p></div>
                         <div class="flex items-center gap-3"><div class="bg-purple-600 text-white w-6 h-6 rounded-full flex items-center justify-center font-bold text-xs flex-shrink-0">2</div><p class="text-xs text-gray-300">${t.step_2}</p></div>
                         <div class="flex items-center gap-3"><div class="bg-green-600 text-white w-6 h-6 rounded-full flex items-center justify-center font-bold text-xs flex-shrink-0">3</div><p class="text-xs text-gray-300">${t.step_3}</p></div>
                         <div class="bg-gray-800 border-l-2 border-yellow-500 p-3 rounded text-xs text-gray-400 mt-4"><i class="fa-solid fa-lightbulb text-yellow-500 mr-1"></i> ${data.install && data.install.length > 5 ? data.install : t.default_install}</div>
                     </div>
-                    <div class="w-full md:w-2/3 flex flex-col bg-black rounded-lg border border-gray-700 overflow-hidden">
-                        <div class="bg-gray-800 px-3 py-2 flex justify-between items-center border-b border-gray-700"><span class="text-xs font-mono text-green-400">system_prompt.txt</span><button onclick="copyToClipboard()" class="text-xs bg-white text-black px-3 py-1 rounded font-bold hover:bg-gray-200 flex items-center gap-2"><i class="fa-regular fa-copy"></i> ${t.btn_copy}</button></div>
-                        <pre class="flex-1 p-4 text-green-400 font-mono text-xs whitespace-pre-wrap overflow-y-auto custom-scrollbar leading-relaxed" id="modalCodeContent">${data.code || "Kod nije dostupan."}</pre>
+                    
+                    <div class="w-full md:w-2/3 flex flex-col bg-black rounded-lg border border-gray-700 overflow-hidden shadow-2xl">
+                        <div class="bg-gray-800 px-3 py-2 flex justify-between items-center border-b border-gray-700 flex-shrink-0">
+                            <span class="text-xs font-mono text-green-400"><i class="fa-solid fa-terminal mr-2"></i>system_prompt.txt</span>
+                            <button onclick="copyToClipboard()" class="text-xs bg-white text-black px-3 py-1 rounded font-bold hover:bg-gray-200 flex items-center gap-2 transition hover:scale-105">
+                                <i class="fa-regular fa-copy"></i> ${t.btn_copy}
+                            </button>
+                        </div>
+                        <pre class="flex-1 p-4 text-green-400 font-mono text-xs whitespace-pre-wrap overflow-y-auto custom-scrollbar leading-relaxed max-h-[50vh] md:max-h-[60vh]" id="modalCodeContent">${data.code || "Kod nije dostupan."}</pre>
                     </div>
                 </div>`;
             
@@ -1476,7 +1553,9 @@ const blogData = {
             document.getElementById('promptModal').classList.remove('hidden'); 
         }
         
-       /* --- TWEAKER 2.1 COMPLETE LOGIC (FIXED) --- */
+            
+       /*POČETAK --- TWEAKER 2.1 & TOOLS LOGIC (v1.64 - SMART DOWNLOADER) --- */
+        
         function renderTweaker(container) { 
             const activeClass = "border-b-2 border-sinet-primary text-sinet-primary bg-blue-50";
             const inactiveClass = "text-gray-500 hover:text-gray-700 hover:bg-gray-50";
@@ -1496,16 +1575,26 @@ const blogData = {
 
         function switchTweakTab(os) { activeTweakTab = os; renderTweaker(document.getElementById('toolContent')); }
 
+        /* --- SMART DOWNLOADER LOGIC (v1.64) --- */
         function renderTweakList(os) { 
             const list = document.getElementById('tweakList'); if(!list) return; let html = '';
             
             const createCard = (item, type, icon, color) => `
                 <div class="bg-white rounded-lg shadow-sm border border-gray-200 p-3 hover:shadow-md transition flex flex-col h-full relative overflow-hidden group">
-                    <div class="flex items-center gap-3 mb-2"><div class="w-8 h-8 rounded-full bg-${color}-50 text-${color}-600 flex items-center justify-center text-sm flex-shrink-0"><i class="fa-solid ${icon}"></i></div><h5 class="font-bold text-gray-800 text-sm leading-tight line-clamp-1">${item.name}</h5></div>
+                    <div class="flex items-center gap-3 mb-2">
+                        <div class="w-8 h-8 rounded-full bg-${color}-50 text-${color}-600 flex items-center justify-center text-sm flex-shrink-0"><i class="fa-solid ${icon}"></i></div>
+                        <h5 class="font-bold text-gray-800 text-sm leading-tight line-clamp-1">${item.name}</h5>
+                    </div>
                     <p class="text-xs text-gray-500 mb-3 flex-1 leading-snug line-clamp-2">${item.desc}</p>
+                    
                     <div class="flex gap-2 mt-auto">
                         ${os === 'windows' ? 
-                            `<button onclick="downloadSingleTweak('${item.id}', '${type}')" class="flex-1 py-1.5 bg-gray-100 text-gray-700 font-bold text-[10px] uppercase rounded hover:bg-${color}-600 hover:text-white transition"><i class="fa-solid fa-download mr-1"></i> Preuzmi</button><button onclick="previewTweakCode('${item.id}', '${type}')" class="w-8 py-1.5 bg-white border border-gray-200 text-gray-500 rounded hover:text-${color}-600 hover:border-${color}-300 transition" title="Vidi kod"><i class="fa-regular fa-eye"></i></button>` 
+                            `<button onclick="smartDownload('${item.id}', '${type}')" class="flex-1 py-1.5 bg-green-50 text-green-700 font-bold text-[10px] uppercase rounded border border-green-200 hover:bg-green-600 hover:text-white hover:border-transparent transition flex items-center justify-center gap-1">
+                                <i class="fa-solid fa-floppy-disk"></i> SAČUVAJ
+                             </button>
+                             <button onclick="previewTweakCode('${item.id}', '${type}')" class="w-8 py-1.5 bg-white border border-gray-200 text-gray-500 rounded hover:text-${color}-600 hover:border-${color}-300 transition" title="Vidi kod">
+                                <i class="fa-regular fa-eye"></i>
+                             </button>` 
                         : os === 'linux' ?
                             `<button onclick="copyToClipboardGeneric('${item.code.replace(/'/g, "\\'")}')" class="flex-1 py-1.5 bg-gray-800 text-gray-200 font-bold text-[10px] uppercase rounded hover:bg-black transition"><i class="fa-regular fa-copy mr-1"></i> Kopiraj</button><button onclick="previewTweakCode('${item.id}', 'linux')" class="w-8 py-1.5 bg-white border border-gray-200 text-gray-500 rounded hover:text-black transition" title="Vidi kod"><i class="fa-regular fa-eye"></i></button>`
                         : 
@@ -1535,16 +1624,36 @@ const blogData = {
             list.innerHTML = html; 
         }
 
-        function downloadSingleTweak(id, type) {
+        function smartDownload(id, type) {
             let item;
             if(type === 'reg') item = tweaksData.windows_reg.find(i => i.id === id);
             else if (type === 'bat') item = tweaksData.windows_bat.find(i => i.id === id);
-            if(!item) return alert("Greška: Skripta nije nađena.");
             
+            if(!item) return alert("Greška: Skripta nije nađena.");
+
+            const safeName = item.name.replace(/[^a-zA-Z0-9]/g, "_");
+            const fileName = `SINET_${safeName}.${type}`;
+
             let content = item.code;
-            if(type === 'reg') content = "Windows Registry Editor Version 5.00\n\n" + `; ${item.name}\n` + content;
-            if(type === 'bat') content = "@echo off\n" + `REM ${item.name}\n` + content + "\npause";
-            downloadFile(content, `SINET_${item.id}.${type}`, "text/plain");
+            
+            if(type === 'bat') {
+                content = `@echo off\r\n:: ------------------------------------------------\r\n:: GENERATED BY SINET OS v1.64\r\n:: TOOL: ${item.name}\r\n:: GUIDE: Desni klik -> Run as Administrator\r\n:: ------------------------------------------------\r\n\r\n` + item.code + "\r\n\r\npause";
+            } else if (type === 'reg') {
+                content = "Windows Registry Editor Version 5.00\r\n\r\n" + `; SINET OS Tweak: ${item.name}\r\n` + item.code;
+            }
+
+            const blob = new Blob([content], {type: "text/plain;charset=utf-8"});
+            const link = document.createElement("a");
+            link.href = URL.createObjectURL(blob);
+            link.download = fileName;
+            
+            document.body.appendChild(link);
+            link.click();
+            document.body.removeChild(link);
+
+            setTimeout(() => {
+                alert(`✅ FAJL JE KREIRAN: ${fileName}\n\nSledeći koraci:\n1. Pronađite fajl u 'Downloads' folderu.\n2. Desni klik na fajl.\n3. Izaberite 'Run as Administrator' (za .bat) ili 'Merge' (za .reg).\n\nSINET OS čuva vaša leđa! 🛡️`);
+            }, 500);
         }
 
         function copyToClipboardGeneric(text) { navigator.clipboard.writeText(text).then(() => alert('Komanda kopirana!')); }
@@ -1568,7 +1677,7 @@ const blogData = {
                     <pre class="flex-1 p-4 bg-black text-green-400 font-mono text-xs whitespace-pre-wrap overflow-y-auto custom-scrollbar">${codeContent}</pre>
                 </div>`;
             
-            const oldPre = document.getElementById('modalCode'); if(oldPre) oldPre.style.display = 'none';
+            const oldPre = document.getElementById('       modalCode'); if(oldPre) oldPre.style.display = 'none';
             document.getElementById('modalInstall').innerHTML = layoutHTML; 
             document.getElementById('toolsModal').classList.add('hidden'); 
             document.getElementById('promptModal').classList.remove('hidden'); 
@@ -1589,6 +1698,8 @@ const blogData = {
         function takeSnap(){document.getElementById('toolsDropdown').classList.add('hidden');const c=String(snapCounter).padStart(3,'0'),f=`SINET_Snap_${currentContext}_${c}.png`;html2canvas(document.body).then(cv=>{const l=document.createElement('a');l.download=f;l.href=cv.toDataURL();l.click();snapCounter++;localStorage.setItem('sinet_snap_count',snapCounter);});}
         function exportData(){const d={version:'1.62',theme:currentTheme,favorites:favorites,notes:notes,snapCount:snapCounter},b=new Blob([JSON.stringify(d,null,2)],{type:'application/json'}),l=document.createElement('a');l.href=URL.createObjectURL(b);l.download=`SINET_Backup_${new Date().toISOString().slice(0,10)}.json`;l.click();}
         function importData(i){const f=i.files[0];if(!f)return;const r=new FileReader();r.onload=e=>{try{const d=JSON.parse(e.target.result);if(d.favorites)localStorage.setItem('sinet_favorites',JSON.stringify(d.favorites));if(d.notes)localStorage.setItem('sinet_notes',JSON.stringify(d.notes));if(d.theme)localStorage.setItem('sinet_theme',d.theme);if(d.snapCount)localStorage.setItem('sinet_snap_count',d.snapCount);alert("Učitano!");location.reload();}catch(er){alert("Greška!");}};r.readAsText(f);}
+       
+        /* KRAJ --- TWEAKER 2.1 & TOOLS LOGIC (v1.64 - SMART DOWNLOADER) --- */
         
         /*POČETAK KODA  --- SINET MOBILE LAB FUNKCIJE --- */
         
@@ -1632,9 +1743,9 @@ const blogData = {
             preview.close();
         }
 
-/* POČETAKN KODA --- SINET JUTRO LOGIC (v1.62 - FINAL CLEAN) --- */
+/* POČETAKN KODA --- SINET JUTRO LOGIC (v1.64 - FINAL CLEAN) --- */
         
-		/* --- SINET JUTRO LOGIC (v1.63 - NEWS FIRST) --- */
+		/* --- SINET JUTRO LOGIC (v1.64 - NEWS FIRST) --- */
 
 		const rssFeeds = {
 			// 1. VESTI (Sada na prvom mestu)
@@ -1764,7 +1875,7 @@ const blogData = {
             container.innerHTML = html;
         }
  
-/* KRAJ KODA --- SINET JUTRO LOGIC (v1.62 - FINAL CLEAN) --- */
+/* KRAJ KODA --- SINET JUTRO LOGIC (v1.64 - FINAL CLEAN) --- */
 
         // --- MASTER INIT ---
         function initSystem() { 
