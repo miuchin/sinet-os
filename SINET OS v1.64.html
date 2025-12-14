@@ -204,31 +204,32 @@
 
             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mb-12">
                 
-                <div onclick="window.open('SINET_Remote_v1.0.html', '_blank', 'width=1200,height=800')" class="bg-slate-900 rounded-xl shadow-xl border border-slate-700 overflow-hidden hover:scale-[1.02] transition cursor-pointer group relative ring-4 ring-transparent hover:ring-blue-500/20">
-                    <div class="h-1.5 bg-gradient-to-r from-blue-500 to-green-500"></div>
-                    
-                    <div class="p-6">
-                        <div class="flex items-center justify-between mb-4">
-                            <div class="w-12 h-12 rounded-lg bg-blue-900/50 flex items-center justify-center text-blue-400 group-hover:text-white transition shadow-lg shadow-blue-900/20 border border-blue-800/50">
-                                <i class="fa-solid fa-network-wired text-2xl"></i>
-                            </div>
-                            <div class="flex gap-2">
-                                <span class="bg-slate-800 text-gray-300 text-[10px] px-2 py-1 rounded border border-slate-600 font-mono">SYS</span>
-                                <span class="bg-green-500 text-black text-[10px] px-2 py-1 rounded font-black uppercase tracking-wider animate-pulse">NOVO</span>
-                            </div>
-                        </div>
-                        
-                        <h3 class="font-bold text-xl text-white mb-2 group-hover:text-blue-400 transition">SINET Remote</h3>
-                        <p class="text-gray-400 text-sm leading-relaxed mb-4">
-                            Most između PC-a i Telefona. Generiše Samba servere, kontroliše mrežu i omogućava bežični prenos.
-                        </p>
-                        
-                        <div class="flex items-center justify-between border-t border-slate-700 pt-3 mt-2">
-                            <span class="text-[10px] text-gray-500"><i class="fa-brands fa-linux mr-1"></i> <i class="fa-brands fa-windows mr-1"></i> <i class="fa-brands fa-apple"></i></span>
-                            <span class="text-xs font-bold text-blue-400 group-hover:underline">POKRENI <i class="fa-solid fa-arrow-right ml-1"></i></span>
-                        </div>
-                    </div>
-                </div>
+                <div onclick="try{window.parent.switchApp('remote', window.parent.document.querySelector('.btn-remote'))}catch(e){window.location.href='SINET REMOTE v1.6.html'}" 
+     class="bg-slate-900 rounded-xl shadow-xl border border-slate-700 overflow-hidden hover:scale-[1.02] transition cursor-pointer group relative ring-4 ring-transparent hover:ring-red-500/20">
+    <div class="h-1.5 bg-gradient-to-r from-red-600 to-red-400"></div>
+    
+    <div class="p-6">
+        <div class="flex items-center justify-between mb-4">
+            <div class="w-12 h-12 rounded-lg bg-red-900/20 flex items-center justify-center text-red-500 group-hover:text-white transition shadow-lg shadow-red-900/10 border border-red-900/30">
+                <i class="fa-solid fa-satellite-dish text-2xl"></i>
+            </div>
+            <div class="flex gap-2">
+                <span class="bg-slate-800 text-gray-400 text-[10px] px-2 py-1 rounded border border-slate-600 font-mono">MODUL</span>
+                <span class="bg-red-600 text-white text-[10px] px-2 py-1 rounded font-black uppercase tracking-wider animate-pulse">LIVE</span>
+            </div>
+        </div>
+        
+        <h3 class="font-bold text-xl text-white mb-2 group-hover:text-red-400 transition">SINET Remote</h3>
+        <p class="text-gray-400 text-sm leading-relaxed mb-4">
+            Komandni centar za daljinsko upravljanje. Povezuje Portal, Mrežu i Uređaje u jedan interfejs.
+        </p>
+        
+        <div class="flex items-center justify-between border-t border-slate-700 pt-3 mt-2">
+            <span class="text-[10px] text-gray-500"><i class="fa-solid fa-wifi mr-1"></i> Connected</span>
+            <span class="text-xs font-bold text-red-400 group-hover:underline">POKRENI <i class="fa-solid fa-arrow-right ml-1"></i></span>
+        </div>
+    </div>
+</div>
 
                 </div>
             
