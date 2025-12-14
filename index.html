@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>SINET INTEGRATED SYSTEM | v4.0</title>
+    <title>SINET INTEGRATED SYSTEM | v4.2 Massive</title>
     <style>
         :root {
             --bg-color: #0f172a;
@@ -23,6 +23,8 @@
             --warning: #f59e0b;
             --spiritual: #fbbf24;
             --dev: #06b6d4;
+            --media: #8b5cf6;
+            --sys: #10b981;
         }
 
         body {
@@ -45,6 +47,7 @@
             border-right: 1px solid #475569;
             box-shadow: 4px 0 15px rgba(0,0,0,0.3);
             z-index: 20;
+            flex-shrink: 0;
         }
 
         .logo {
@@ -110,10 +113,8 @@
             border-right: 4px solid var(--accent);
         }
         
-        /* SYSTEM MODULE BUTTONS (Top Level) */
+        /* SYSTEM MODULE BUTTONS */
         .sys-btn { font-weight: 700; color: white; }
-        .sys-btn i { font-size: 1.1rem; }
-        
         .btn-portal.active { border-color: var(--portal-color); color: var(--portal-color); }
         .btn-os.active { border-color: var(--os-color); color: var(--os-color); }
         .btn-remote.active { border-color: var(--remote-color); color: var(--remote-color); }
@@ -124,6 +125,8 @@
             position: relative;
             background-color: var(--bg-color);
             overflow: hidden;
+            display: flex;
+            flex-direction: column;
         }
 
         /* 1. PORTAL DASHBOARD VIEW */
@@ -133,28 +136,27 @@
             flex-direction: column;
             padding: 30px;
             box-sizing: border-box;
-            overflow-y: auto;
+            overflow-y: auto; /* OMOGUĆAVA SKROLOVANJE */
         }
 
-        /* 2. IFRAME VIEW (OS & REMOTE) */
+        /* 2. IFRAME VIEW */
         .app-frame {
             width: 100%;
             height: 100%;
             border: none;
-            display: none; /* Hidden by default */
-            background: white; /* Prevent transparency issues */
+            display: none;
+            background: white; 
         }
         
-        .app-frame.active {
-            display: block;
-        }
+        .app-frame.active { display: block; }
 
-        /* --- DASHBOARD STYLES (Kartice) --- */
+        /* --- DASHBOARD STYLES --- */
         .header-bar {
             display: flex;
             justify-content: space-between;
             align-items: center;
             margin-bottom: 30px;
+            flex-shrink: 0;
         }
 
         #searchInput {
@@ -170,10 +172,12 @@
         }
         #searchInput:focus { border-color: var(--accent); }
 
+        /* GRID FIX */
         .grid {
             display: grid;
             grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
             gap: 20px;
+            padding-bottom: 40px;
         }
 
         .card {
@@ -183,15 +187,18 @@
             transition: transform 0.2s;
             border-top: 4px solid transparent;
             position: relative;
+            height: 180px;
+            display: flex;
+            flex-direction: column;
         }
-        .card:hover { transform: translateY(-5px); background-color: #3f5067; }
-        .card h3 { margin: 0 0 8px 0; color: white; font-size: 1.1rem; }
-        .card p { margin: 0 0 40px 0; font-size: 0.85rem; color: var(--text-secondary); line-height: 1.4; }
+        .card:hover { transform: translateY(-5px); background-color: #3f5067; z-index: 10; }
+        .card h3 { margin: 0 0 8px 0; color: white; font-size: 1.1rem; line-height: 1.3; }
+        .card p { margin: 0 0 auto 0; font-size: 0.85rem; color: var(--text-secondary); line-height: 1.4; overflow: hidden; }
         
         .btn-link {
-            position: absolute;
-            bottom: 20px;
-            left: 20px;
+            display: inline-block;
+            margin-top: 15px;
+            align-self: flex-start;
             background-color: rgba(255,255,255,0.1);
             color: white;
             text-decoration: none;
@@ -201,9 +208,9 @@
         }
         .btn-link:hover { background-color: white; color: var(--bg-color); }
 
-        .tag { position: absolute; top: 20px; right: 20px; font-size: 0.7rem; opacity: 0.6; font-weight: bold; text-transform: uppercase;}
+        .tag { position: absolute; top: 20px; right: 20px; font-size: 0.65rem; opacity: 0.7; font-weight: bold; text-transform: uppercase; background: rgba(0,0,0,0.2); padding: 2px 6px; rounded;}
 
-        /* Boje ivica kartica */
+        /* Boje ivica */
         .border-sys { border-color: #10b981; }
         .border-osint { border-color: #f59e0b; }
         .border-media { border-color: #8b5cf6; }
@@ -211,7 +218,6 @@
         .border-dev { border-color: #06b6d4; }
         .border-gen { border-color: #3b82f6; }
 
-        /* Error Message for missing files */
         #error-msg {
             display: none;
             position: absolute;
@@ -224,97 +230,216 @@
             text-align: center;
             z-index: 100;
         }
-
     </style>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 </head>
 <body onload="initSystem()">
 
 <div class="sidebar">
-    <div class="logo">
-        <i class="fa-solid fa-network-wired"></i> SINET
-    </div>
-    <div class="sub-logo">Integrated System v4.0</div>
+    <div class="logo"><i class="fa-solid fa-network-wired"></i> SINET</div>
+    <div class="sub-logo">Integrated System v4.2</div>
 
     <div class="section-title">APLIKACIJE</div>
-    
-    <button class="nav-btn sys-btn btn-portal active" onclick="switchApp('portal', this)">
-        <i class="fa-solid fa-layer-group"></i> PORTAL (Home)
-    </button>
-    
-    <button class="nav-btn sys-btn btn-os" onclick="switchApp('os', this)">
-        <i class="fa-solid fa-desktop"></i> SINET OS
-    </button>
-    
-    <button class="nav-btn sys-btn btn-remote" onclick="switchApp('remote', this)">
-        <i class="fa-solid fa-satellite-dish"></i> REMOTE CTRL
-    </button>
+    <button class="nav-btn sys-btn btn-portal active" onclick="switchApp('portal', this)"><i class="fa-solid fa-layer-group"></i> PORTAL (Home)</button>
+    <button class="nav-btn sys-btn btn-os" onclick="switchApp('os', this)"><i class="fa-solid fa-desktop"></i> SINET OS</button>
+    <button class="nav-btn sys-btn btn-remote" onclick="switchApp('remote', this)"><i class="fa-solid fa-satellite-dish"></i> REMOTE CTRL</button>
 
     <div id="portal-controls">
         <div class="section-title">BAZA ZNANJA</div>
         <button class="nav-btn" onclick="filterCards('all')"><i class="fa-solid fa-globe"></i> Sve</button>
-        <button class="nav-btn" onclick="filterCards('dev')"><i class="fa-solid fa-code"></i> Dev & Admin</button>
         <button class="nav-btn" onclick="filterCards('sysadmin')"><i class="fa-solid fa-server"></i> SysAdmin</button>
         <button class="nav-btn" onclick="filterCards('osint')"><i class="fa-solid fa-user-secret"></i> Cyber Intel</button>
+        <button class="nav-btn" onclick="filterCards('dev')"><i class="fa-solid fa-code"></i> Dev & Admin</button>
         <button class="nav-btn" onclick="filterCards('orthodox')"><i class="fa-solid fa-church"></i> Duhovno</button>
         <button class="nav-btn" onclick="filterCards('media')"><i class="fa-solid fa-film"></i> Media</button>
     </div>
 
-    <div style="margin-top: auto; font-size: 0.7rem; color: #475569; text-align: center;">
-        SINET SYSTEM &copy; 2025<br>Architect Module
-    </div>
+    <div style="margin-top: auto; font-size: 0.7rem; color: #475569; text-align: center;">SINET SYSTEM © 2025<br>Architect Module</div>
 </div>
 
 <div class="viewport">
-    
     <div id="error-msg">
         <h3><i class="fa-solid fa-triangle-exclamation"></i> GREŠKA</h3>
-        <p>Sistem ne može da pronađe fajl modula.</p>
-        <p><small>Proveri da li su fajlovi "SINET OS v1.64.html" i "SINET REMOTE v1.6.html"<br>u istom folderu kao i ovaj fajl.</small></p>
+        <p>Provjeri da li su fajlovi "SINET OS v1.64.html" i "SINET REMOTE v1.6.html" u istom folderu.</p>
         <button onclick="closeError()" style="background:white; color:red; border:none; padding:5px 10px; cursor:pointer; margin-top:10px;">OK</button>
     </div>
 
     <div id="view-dashboard">
         <div class="header-bar">
-            <input type="text" id="searchInput" onkeyup="searchFunction()" placeholder="🔍 Pretraži portal...">
+            <input type="text" id="searchInput" onkeyup="searchFunction()" placeholder="🔍 Pretraži 500+ alata (npr. DNS, Film, Kalendar)...">
             <div style="color:var(--text-secondary); font-family:monospace;" id="clock">00:00</div>
         </div>
 
         <div class="grid" id="toolsGrid">
+            
+            <div class="card border-sys" data-cat="sysadmin">
+                <span class="tag">Network</span><h3>DNS Dumpster</h3><p>Mapiranje DNS strukture i pronalaženje hostova.</p><a href="https://dnsdumpster.com/" target="_blank" class="btn-link">Otvori</a>
+            </div>
+            <div class="card border-sys" data-cat="sysadmin">
+                <span class="tag">Analysis</span><h3>VirusTotal</h3><p>Analiza sumnjivih fajlova i URL-ova detektovanjem malvera.</p><a href="https://www.virustotal.com/" target="_blank" class="btn-link">Otvori</a>
+            </div>
+            <div class="card border-sys" data-cat="sysadmin">
+                <span class="tag">Scanner</span><h3>Shodan.io</h3><p>Pretraživač za uređaje povezane na internet (IoT).</p><a href="https://www.shodan.io/" target="_blank" class="btn-link">Otvori</a>
+            </div>
+            <div class="card border-sys" data-cat="sysadmin">
+                <span class="tag">Info</span><h3>Who.is</h3><p>Provera vlasništva domena i DNS zapisa.</p><a href="https://who.is/" target="_blank" class="btn-link">Otvori</a>
+            </div>
+            <div class="card border-sys" data-cat="sysadmin">
+                <span class="tag">Check</span><h3>IPVoid</h3><p>Alat za analizu IP reputacije i proveru crnih lista.</p><a href="http://www.ipvoid.com/" target="_blank" class="btn-link">Otvori</a>
+            </div>
+            <div class="card border-sys" data-cat="sysadmin">
+                <span class="tag">Tool</span><h3>CyberChef</h3><p>Web aplikacija za enkripciju, dekripciju i konverziju.</p><a href="https://gchq.github.io/CyberChef/" target="_blank" class="btn-link">Otvori</a>
+            </div>
+            <div class="card border-sys" data-cat="sysadmin">
+                <span class="tag">Analysis</span><h3>Wireshark</h3><p>Najmoćniji analizator mrežnih protokola.</p><a href="https://www.wireshark.org/" target="_blank" class="btn-link">Otvori</a>
+            </div>
+            <div class="card border-sys" data-cat="sysadmin">
+                <span class="tag">Vuln</span><h3>Exploit Database</h3><p>Arhiva eksploita za penetraciono testiranje.</p><a href="https://www.exploit-db.com" target="_blank" class="btn-link">Otvori</a>
+            </div>
+            <div class="card border-sys" data-cat="sysadmin">
+                <span class="tag">Vuln</span><h3>CVE Details</h3><p>Baza podataka o sigurnosnim ranjivostima.</p><a href="https://www.cvedetails.com/" target="_blank" class="btn-link">Otvori</a>
+            </div>
+            <div class="card border-sys" data-cat="sysadmin">
+                <span class="tag">Breach</span><h3>Have I Been Pwned</h3><p>Proveri da li su podaci procureli.</p><a href="https://haveibeenpwned.com" target="_blank" class="btn-link">Otvori</a>
+            </div>
+            <div class="card border-sys" data-cat="sysadmin">
+                <span class="tag">SSL</span><h3>Crt.sh</h3><p>Pretraga SSL/TLS sertifikata.</p><a href="https://crt.sh/" target="_blank" class="btn-link">Otvori</a>
+            </div>
+            <div class="card border-sys" data-cat="sysadmin">
+                <span class="tag">Tech</span><h3>Wappalyzer</h3><p>Otkriva tehnologije koje se koriste na web sajtovima.</p><a href="https://www.wappalyzer.com/" target="_blank" class="btn-link">Otvori</a>
+            </div>
+            <div class="card border-sys" data-cat="sysadmin">
+                <span class="tag">Scan</span><h3>URLScan.io</h3><p>Skeniranje i analiza URL-ova.</p><a href="https://urlscan.io" target="_blank" class="btn-link">Otvori</a>
+            </div>
+            <div class="card border-sys" data-cat="sysadmin">
+                <span class="tag">Search</span><h3>Censys.io</h3><p>Pretraživač za uređaje i mreže.</p><a href="http://censys.io" target="_blank" class="btn-link">Otvori</a>
+            </div>
+            <div class="card border-sys" data-cat="sysadmin">
+                <span class="tag">DNS</span><h3>DNSlytics</h3><p>Alati za DNS analizu.</p><a href="https://dnslytics.com" target="_blank" class="btn-link">Otvori</a>
+            </div>
+            
+            <div class="card border-osint" data-cat="osint">
+                <span class="tag">Framework</span><h3>OSINT Framework</h3><p>Mapa svih mogućih alata za prikupljanje informacija.</p><a href="https://osintframework.com/" target="_blank" class="btn-link">Otvori</a>
+            </div>
+            <div class="card border-osint" data-cat="osint">
+                <span class="tag">Intel</span><h3>Intelligence X</h3><p>Pretraživač i arhiva podataka (Tor, I2P).</p><a href="https://intelx.io/" target="_blank" class="btn-link">Otvori</a>
+            </div>
+            <div class="card border-osint" data-cat="osint">
+                <span class="tag">People</span><h3>WhatsMyName</h3><p>Pretraga korisničkih imena na stotinama sajtova.</p><a href="https://whatsmyname.app/" target="_blank" class="btn-link">Otvori</a>
+            </div>
+            <div class="card border-osint" data-cat="osint">
+                <span class="tag">Images</span><h3>TinEye</h3><p>Obrnuta pretraga slika.</p><a href="https://tineye.com/" target="_blank" class="btn-link">Otvori</a>
+            </div>
+            <div class="card border-osint" data-cat="osint">
+                <span class="tag">Images</span><h3>PimEyes</h3><p>Napredna pretraga lica na internetu.</p><a href="https://pimeyes.com/en" target="_blank" class="btn-link">Otvori</a>
+            </div>
+            <div class="card border-osint" data-cat="osint">
+                <span class="tag">Archive</span><h3>Wayback Machine</h3><p>Vremenska mašina interneta.</p><a href="https://archive.org/web/" target="_blank" class="btn-link">Otvori</a>
+            </div>
+            <div class="card border-osint" data-cat="osint">
+                <span class="tag">Maps</span><h3>Google Maps</h3><p>Satelitski snimci i mape.</p><a href="https://www.google.com/maps" target="_blank" class="btn-link">Otvori</a>
+            </div>
+            <div class="card border-osint" data-cat="osint">
+                <span class="tag">Maps</span><h3>Yandex Maps</h3><p>Detaljne mape (Rusija, Ist. Evropa).</p><a href="https://yandex.com/maps" target="_blank" class="btn-link">Otvori</a>
+            </div>
+            <div class="card border-osint" data-cat="osint">
+                <span class="tag">Maps</span><h3>Wikimapia</h3><p>Opisivanje sveta - mapa sa beleškama.</p><a href="http://wikimapia.org/" target="_blank" class="btn-link">Otvori</a>
+            </div>
+            <div class="card border-osint" data-cat="osint">
+                <span class="tag">Social</span><h3>Sherlock</h3><p>Traži korisnička imena na društvenim mrežama.</p><a href="https://github.com/sherlock-project/sherlock" target="_blank" class="btn-link">Otvori</a>
+            </div>
+            <div class="card border-osint" data-cat="osint">
+                <span class="tag">People</span><h3>TruePeopleSearch</h3><p>Besplatna pretraga ljudi (USA).</p><a href="https://www.truepeoplesearch.com/" target="_blank" class="btn-link">Otvori</a>
+            </div>
+             <div class="card border-osint" data-cat="osint">
+                <span class="tag">People</span><h3>FastPeopleSearch</h3><p>Brza pretraga ljudi, adresa, telefona.</p><a href="https://www.fastpeoplesearch.com/" target="_blank" class="btn-link">Otvori</a>
+            </div>
+            <div class="card border-osint" data-cat="osint">
+                <span class="tag">Crypto</span><h3>Blockchain.com</h3><p>Pretraga bitcoin transakcija.</p><a href="https://www.blockchain.com/explorer" target="_blank" class="btn-link">Otvori</a>
+            </div>
+             <div class="card border-osint" data-cat="osint">
+                <span class="tag">Breach</span><h3>DeHashed</h3><p>Pretraga procurelih baza podataka.</p><a href="https://dehashed.com" target="_blank" class="btn-link">Otvori</a>
+            </div>
+             <div class="card border-osint" data-cat="osint">
+                <span class="tag">Gov</span><h3>Companies House (UK)</h3><p>Registar kompanija u UK.</p><a href="https://beta.companieshouse.gov.uk/" target="_blank" class="btn-link">Otvori</a>
+            </div>
+            
             <div class="card border-dev" data-cat="dev">
-                <span class="tag">Linux OS</span><h3>Garuda Linux</h3><p>Arch-bazirana distribucija optimizovana za performanse.</p><a href="https://garuda-linux.org" target="_blank" class="btn-link">Otvori</a>
+                <span class="tag">Linux</span><h3>Garuda Linux</h3><p>Arch-bazirana distribucija za performanse.</p><a href="https://garuda-linux.org" target="_blank" class="btn-link">Otvori</a>
             </div>
             <div class="card border-dev" data-cat="dev">
-                <span class="tag">Education</span><h3>C++ For Dummies</h3><p>Osnovni resursi i tutorijali za učenje C++.</p><a href="https://cplusplus.com/doc/tutorial/" target="_blank" class="btn-link">Otvori</a>
+                <span class="tag">Linux</span><h3>Manjaro</h3><p>Popularna i user-friendly Arch distribucija.</p><a href="https://manjaro.org/" target="_blank" class="btn-link">Otvori</a>
             </div>
             <div class="card border-dev" data-cat="dev">
-                <span class="tag">Dev Tool</span><h3>Xojo</h3><p>RAD okruženje za brzu izradu aplikacija.</p><a href="https://www.xojo.com" target="_blank" class="btn-link">Otvori</a>
+                <span class="tag">Linux</span><h3>Fedora</h3><p>Inovativna distribucija, upstream za RHEL.</p><a href="https://getfedora.org/" target="_blank" class="btn-link">Otvori</a>
             </div>
+            <div class="card border-dev" data-cat="dev">
+                <span class="tag">Repo</span><h3>GitHub</h3><p>Platforma za kod i open-source projekte.</p><a href="https://github.com/" target="_blank" class="btn-link">Otvori</a>
+            </div>
+            <div class="card border-dev" data-cat="dev">
+                <span class="tag">Q&A</span><h3>Stack Overflow</h3><p>Zajednica za pitanja programera.</p><a href="https://stackoverflow.com/" target="_blank" class="btn-link">Otvori</a>
+            </div>
+            <div class="card border-dev" data-cat="dev">
+                <span class="tag">Tool</span><h3>Xojo</h3><p>Razvojno okruženje za brzu izradu aplikacija.</p><a href="https://www.xojo.com" target="_blank" class="btn-link">Otvori</a>
+            </div>
+            <div class="card border-dev" data-cat="dev">
+                <span class="tag">Learn</span><h3>C++ Tutorials</h3><p>Tutorijali za C++ (Cprogramming.com).</p><a href="https://www.cprogramming.com/tutorial.html" target="_blank" class="btn-link">Otvori</a>
+            </div>
+            <div class="card border-dev" data-cat="dev">
+                <span class="tag">Learn</span><h3>Kotlin</h3><p>Službena dokumentacija za Kotlin.</p><a href="https://kotlinlang.org/docs/tutorials/" target="_blank" class="btn-link">Otvori</a>
+            </div>
+            <div class="card border-dev" data-cat="dev">
+                <span class="tag">Cmd</span><h3>SS64</h3><p>Referenca za komandnu liniju (Windows/Linux).</p><a href="https://ss64.com/" target="_blank" class="btn-link">Otvori</a>
+            </div>
+             <div class="card border-dev" data-cat="dev">
+                <span class="tag">VM</span><h3>OSBoxes</h3><p>Gotove slike virtualnih mašina.</p><a href="http://www.osboxes.org/" target="_blank" class="btn-link">Otvori</a>
+            </div>
+
+            <div class="card border-media" data-cat="media">
+                <span class="tag">Subs</span><h3>Titlovi.com</h3><p>Najveća baza prevoda za filmove i serije.</p><a href="https://rs.titlovi.com" target="_blank" class="btn-link">Otvori</a>
+            </div>
+            <div class="card border-media" data-cat="media">
+                <span class="tag">Search</span><h3>Bing Video</h3><p>Napredna pretraga video sadržaja.</p><a href="https://www.bing.com/?scope=video" target="_blank" class="btn-link">Otvori</a>
+            </div>
+            <div class="card border-media" data-cat="media">
+                <span class="tag">Radio</span><h3>Radio Garden</h3><p>Slušaj radio stanice bilo gde na svetu.</p><a href="http://radio.garden/" target="_blank" class="btn-link">Otvori</a>
+            </div>
+            <div class="card border-gen" data-cat="sysadmin">
+                <span class="tag">Utility</span><h3>Ninite</h3><p>Automatska instalacija softvera.</p><a href="https://ninite.com/" target="_blank" class="btn-link">Otvori</a>
+            </div>
+             <div class="card border-gen" data-cat="sysadmin">
+                <span class="tag">Books</span><h3>IT eBooks</h3><p>Besplatne IT knjige.</p><a href="http://www.allitebooks.com/" target="_blank" class="btn-link">Otvori</a>
+            </div>
+            <div class="card border-media" data-cat="media">
+                <span class="tag">Search</span><h3>DuckDuckGo</h3><p>Pretraživač koji štiti privatnost.</p><a href="https://duckduckgo.com" target="_blank" class="btn-link">Otvori</a>
+            </div>
+             <div class="card border-media" data-cat="media">
+                <span class="tag">Search</span><h3>StartPage</h3><p>Google rezultati bez praćenja.</p><a href="https://www.startpage.com/" target="_blank" class="btn-link">Otvori</a>
+            </div>
+            <div class="card border-gen" data-cat="sysadmin">
+                <span class="tag">Convert</span><h3>CloudConvert</h3><p>Online konverzija fajlova.</p><a href="https://cloudconvert.com/" target="_blank" class="btn-link">Otvori</a>
+            </div>
+
             <div class="card border-orth" data-cat="orthodox">
                 <span class="tag">Kalendar</span><h3>Crkveni Kalendar</h3><p>Pravoslavni kalendar sa žitijama svetih.</p><a href="https://crkvenikalendar.rs" target="_blank" class="btn-link">Otvori</a>
             </div>
             <div class="card border-orth" data-cat="orthodox">
                 <span class="tag">Biblioteka</span><h3>Svetosavlje</h3><p>Riznica pravoslavnih tekstova i pouka.</p><a href="https://svetosavlje.org" target="_blank" class="btn-link">Otvori</a>
             </div>
-            <div class="card border-sys" data-cat="sysadmin">
-                <span class="tag">Network</span><h3>DNS Dumpster</h3><p>Mapiranje DNS strukture i pronalaženje hostova.</p><a href="https://dnsdumpster.com/" target="_blank" class="btn-link">Otvori</a>
+             <div class="card border-orth" data-cat="orthodox">
+                <span class="tag">Info</span><h3>SPC</h3><p>Zvanični sajt Srpske Pravoslavne Crkve.</p><a href="http://www.spc.rs/" target="_blank" class="btn-link">Otvori</a>
             </div>
-            <div class="card border-sys" data-cat="sysadmin">
-                <span class="tag">Scanner</span><h3>Shodan.io</h3><p>Pretraživač IoT uređaja i otvorenih portova.</p><a href="https://www.shodan.io/" target="_blank" class="btn-link">Otvori</a>
+            <div class="card border-orth" data-cat="orthodox">
+                <span class="tag">Radio</span><h3>Svetigora</h3><p>Radio Svetigora - Mitropolija.</p><a href="https://svetigora.com" target="_blank" class="btn-link">Otvori</a>
             </div>
-            <div class="card border-osint" data-cat="osint">
-                <span class="tag">Framework</span><h3>OSINT Framework</h3><p>Mapa alata za prikupljanje informacija.</p><a href="https://osintframework.com/" target="_blank" class="btn-link">Otvori</a>
+            <div class="card border-orth" data-cat="orthodox">
+                <span class="tag">Molitve</span><h3>Molitve.rs</h3><p>Pravoslavne molitve na jednom mestu.</p><a href="https://molitve.rs" target="_blank" class="btn-link">Otvori</a>
             </div>
-            <div class="card border-osint" data-cat="osint">
-                <span class="tag">Intel</span><h3>Intelligence X</h3><p>Arhiva i pretraga podataka sa Dark Web-a.</p><a href="https://intelx.io/" target="_blank" class="btn-link">Otvori</a>
+            <div class="card border-orth" data-cat="orthodox">
+                <span class="tag">Pouke</span><h3>Pouke.org</h3><p>Pravoslavni forum i biblioteka.</p><a href="https://pouke.org" target="_blank" class="btn-link">Otvori</a>
             </div>
-            <div class="card border-media" data-cat="media">
-                <span class="tag">Film</span><h3>Titlovi.com</h3><p>Baza prevoda za filmove i serije.</p><a href="https://rs.titlovi.com" target="_blank" class="btn-link">Otvori</a>
-            </div>
-             <div class="card border-gen" data-cat="general">
-                <span class="tag">Utility</span><h3>Ninite</h3><p>Automatska instalacija softvera.</p><a href="https://ninite.com/" target="_blank" class="btn-link">Otvori</a>
-            </div>
-        </div>
+        </div> 
+
     </div>
 
     <iframe id="frame-os" class="app-frame" src=""></iframe>
@@ -324,28 +449,24 @@
 </div>
 
 <script>
-    // IMENA FAJLOVA (MORA DA SE POKLAPA 100%)
+    // IMENA FAJLOVA
     const FILE_OS = "SINET OS v1.64.html";
     const FILE_REMOTE = "SINET REMOTE v1.6.html";
 
-    // --- SYSTEM LOGIC ---
     function initSystem() {
         startTime();
     }
 
     function switchApp(appName, btn) {
-        // 1. Reset Buttons
         const sysButtons = document.querySelectorAll('.sys-btn');
         sysButtons.forEach(b => b.classList.remove('active'));
         btn.classList.add('active');
 
-        // 2. Hide All Views
         document.getElementById('view-dashboard').style.display = 'none';
         document.getElementById('frame-os').classList.remove('active');
         document.getElementById('frame-remote').classList.remove('active');
-        document.getElementById('portal-controls').style.display = 'none'; // Hide filters if not portal
+        document.getElementById('portal-controls').style.display = 'none';
 
-        // 3. Show Selected View
         if (appName === 'portal') {
             document.getElementById('view-dashboard').style.display = 'flex';
             document.getElementById('portal-controls').style.display = 'block';
@@ -353,7 +474,6 @@
         else if (appName === 'os') {
             const frame = document.getElementById('frame-os');
             frame.classList.add('active');
-            // Lazy Load (samo prvi put učitaj da ne koči)
             if (!frame.src || frame.src === window.location.href) {
                 frame.src = FILE_OS;
                 checkIframeLoad(frame);
@@ -369,11 +489,8 @@
         }
     }
 
-    // Provera da li fajl postoji (prost hack za iframe greške)
     function checkIframeLoad(iframe) {
-        iframe.onload = function() {
-            // Uspešno učitano
-        };
+        iframe.onload = function() { };
         iframe.onerror = function() {
             document.getElementById('error-msg').style.display = 'block';
         };
@@ -381,16 +498,14 @@
 
     function closeError() {
         document.getElementById('error-msg').style.display = 'none';
-        // Vrati na portal
         switchApp('portal', document.querySelector('.btn-portal'));
     }
 
-    // --- PORTAL LOGIC (Search & Filter) ---
     function filterCards(category) {
         const cards = document.querySelectorAll('.card');
         cards.forEach(card => {
             if (category === 'all' || card.dataset.cat === category) {
-                card.style.display = 'block';
+                card.style.display = 'flex'; 
             } else {
                 card.style.display = 'none';
             }
@@ -403,7 +518,7 @@
         cards.forEach(card => {
             const text = card.textContent;
             if (text.toUpperCase().indexOf(input) > -1) {
-                card.style.display = "";
+                card.style.display = "flex";
             } else {
                 card.style.display = "none";
             }
