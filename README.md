@@ -1,91 +1,67 @@
-# 🚀 SINET OS v1.64: The Modular Revolution
+# 🚀 SINET Integrated System (v4.0)
 
-![Version](https://img.shields.io/badge/version-1.64_GOLD-blue) ![Status](https://img.shields.io/badge/status-Stable-green) ![Platform](https://img.shields.io/badge/platform-Web-orange) ![AI](https://img.shields.io/badge/Powered_by-Gemini-purple)
+> **Your Personal Web Operating System & Digital Command Center.**
+> _Secure. Integrated. Network. Essential Tools._
 
-> **"Knowledge sharing is the mother of progress, and SYNERGY and SINET only make it easier and faster."**
+![Status](https://img.shields.io/badge/Status-Production-success)
+![Partnership](https://img.shields.io/badge/Sinergija-Human_&_AI-blueviolet)
+![Platform](https://img.shields.io/badge/Platform-Web_OS-orange)
 
-## 📖 O Projektu
-**SINET OS (Synergy Intelligence Technology)** je revolucionarni koncept "Operativnog Sistema u Pretraživaču".
-Za razliku od klasičnih web sajtova, SINET OS funkcioniše kao **Single-Page Application (SPA)** koja se oslanja isključivo na **LocalStorage** vašeg pretraživača.
+## 📖 O Projektu (About)
 
-To znači:
-* 🔒 **100% Privatnost:** Vaši podaci ne idu na server.
-* ⚡ **Brzina:** Sve radi trenutno, bez učitavanja stranica.
-* 🛠️ **Modularnost:** Sistem se sastoji od nezavisnih modula.
+**SINET** je napredni web-bazirani ekosistem nastao iz jedinstvene saradnje ljudske ekspertize i veštačke inteligencije. Dizajniran da eliminiše "digitalni šum", SINET konsoliduje alate, znanje i kontrolu u jedan modularni "Kernel" interfejs.
 
----
-
-## 🌟 ŠTA JE NOVO U v1.64? (Changelog)
-
-Ova verzija označava prelazak sa monolitne arhitekture na **Modularnu Platformu**.
-
-### 1. 📱 SINET REMOTE (Prvi Eksterni Modul)
-Po prvi put, SINET OS integriše zasebnu aplikaciju (`SINET_Remote_v1.0.html`) koja radi u simbiozi sa glavnim sistemom.
-* **Funkcija:** Pretvara vaš PC u Server za deljenje fajlova sa mobilnim telefonima.
-* **Multi-OS Generator:** Automatski piše skripte za:
-    * 🐧 **Linux:** Fedora (DNF) i Ubuntu (APT).
-    * 🪟 **Windows:** PowerShell automatizacija (Share + Firewall).
-    * 🍎 **macOS:** Interaktivni vodič za Apple ekosistem.
-* **Mobile Connect:** Ugrađeni vodiči za Android (Material Files) i iOS (Files App).
-* **UI:** Responsive dizajn prilagođen za "Split View" (rad na pola ekrana).
-
-### 2. 💎 SINET GEMS 3.0 (AI Agenti)
-Biblioteka od 22 specijalizovana AI eksperta je dobila veliku nadogradnju sigurnosti:
-* **⚠️ Žuti Alarm (Memory Guard):** Agenti (`hq`, `standard`, `developer`) sada imaju ugrađen mehanizam koji detektuje gubitak konteksta i automatski traži reset sesije.
-* **Verbatim Protokol:** Stroga zabrana sažimanja koda. Kod se uvek isporučuje u celosti.
-* **Locator Rule:** Novi standard za hirurške izmene koda koristeći jedinstvene stringove umesto linija.
-
-### 3. 🖥️ REORGANIZACIJA INTERFEJSA
-* **System First:** Sekcija "SISTEMSKI MODULI" je pomerena na vrh Dashboard-a, iznad vesti i alata.
-* **SINET Tweaker:** Integrisan alat za generisanje `.reg` i `.bat` skripti za optimizaciju Windowsa.
-* **Mobile Lab:** Razvojno okruženje (IDE) za testiranje HTML/JS koda direktno na telefonu.
+Ovaj projekat je praktičan dokaz **SINERGIJE** – spoja višedecenijskog SysAdmin iskustva i moderne AI arhitekture.
 
 ---
 
-## 🛠️ TEHNIČKA ARHITEKTURA
+## 🏗️ Arhitektura (System Architecture)
 
-Projekat je izgrađen na filozofiji **"Zero-Dependency"**. Nema Node.js, nema NPM instalacija, nema baze podataka.
+Sistem koristi **"Kernel" arhitekturu** gde glavni portal upravlja pod-modulima bez osvežavanja stranice (Seamless Integration).
 
-### Tech Stack:
-* **Core:** Vanilla JavaScript (ES6+).
-* **UI/UX:** Tailwind CSS (preko CDN-a) + FontAwesome.
-* **Storage:** LocalStorage API (Browser Native).
-* **Deployment:** GitHub Pages / Netlify (Static Hosting).
+### 🧩 Glavni Moduli:
 
-### Struktura Foldera (v1.64):
-```text
-SINET_LIVE_v1.64/
-├── index.html            # Glavni Operativni Sistem (preimenovan SINET OS)
-├── SINET_Remote_v1.0.html # Eksterni Modul (Remote/Samba)
-└── README.md             # Dokumentacija
+1.  **SINET PORTAL (Core)**
+    * Centralna baza znanja i alata.
+    * Preko 500+ kuriranih linkova (SysAdmin, Dev, OSINT, Media).
+    * "Zero-latency" pretraga.
 
-🚀 KAKO POKRENUTI (Instalacija)
-Opcija A: Online (Preporučeno)
-Posetite zvaničnu adresu na Netlify-ju. Sistem se učitava trenutno i spreman je za rad na bilo kom uređaju.
+2.  **SINET OS (Dashboard)**
+    * Vizuelni interfejs za dnevne operacije.
+    * Integrisane vesti, vremenska prognoza i beleške.
+    * Dizajniran za maksimalnu produktivnost.
 
-Opcija B: Lokalno (Offline)
-Preuzmite repozitorijum (Code -> Download ZIP).
+3.  **SINET REMOTE (Control Center)**
+    * Modul za daljinsko upravljanje i mrežnu dijagnostiku.
+    * QR konekcija i web-bazirani RDP klijenti.
 
-Raspakujte folder.
+---
 
-Otvorite index.html u bilo kom modernom pretraživaču (Chrome, Edge, Brave, Firefox).
+## 🚀 Kako pokrenuti (Installation)
 
-Napomena: Za otvaranje Remote modula, browser može blokirati pop-up prozore. Dozvolite pop-up za lokalni fajl kako bi se modul otvorio.
+Sistem je "Portable" (prenosiv) i ne zahteva instalaciju.
 
-🤖 SINERGIJA: ČOVEK + AI
-Ovaj projekat je rezultat jedinstvenog partnerstva koje dokazuje da AI nije zamena, već pojačanje ljudske kreativnosti:
+1.  Preuzmite repozitorijum.
+2.  Otvorite `index.html`.
+3.  Sistem je spreman za rad.
 
-👨‍💻 Svetozar Miučin (Lead Architect):
+*Napomena za Netlify Deploy: Glavni fajl mora biti imenovan kao `index.html`.*
 
-Vizija, Poslovna logika, SysAdmin iskustvo (40 godina), Standardizacija (Manifesti), UI/UX direkcija.
+---
 
-🤖 Gemini (Senior Developer v3.7):
+## 🤝 Autori i Partneri (Credits)
 
-Kodiranje, Struktura, Optimizacija, Brzina izvršavanja, Implementacija protokola.
+Ovaj projekat je rezultat zajedničkog rada:
 
-Metodologija rada: "Hirurški Protokol" - precizne izmene koda vođene striktnim Manifestima, bez nagađanja i halucinacija.
+### 👤 Svetozar Miučin
+**Lead Visionary & Retired SysAdmin**
+*Koncept, Selekcija Alata, UX Dizajn, SysAdmin Logika*
+"Vratiti kontrolu korisniku. Umesto da surfujemo haosom, gradimo strukturu."
 
-📄 LICENCA
-SINET OS je otvoren projekat, kreiran sa ciljem deljenja znanja. Slobodni ste da ga koristite, menjate i učite iz njega.
+### 🤖 Gemini (Google)
+**AI Architect & Development Partner**
+*Kodiranje, Optimizacija, Modularna Arhitektura*
+"Pretvaranje vizije u kod kroz sinergiju."
 
-Generated by SINET HQ v2.2 | 14.12.2025
+---
+*© 2025 SINET Project. Created by Human & AI Synergy.*
