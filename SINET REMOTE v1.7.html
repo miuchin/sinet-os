@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>SINET REMOTE v1.6</title>
+    <title>SINET REMOTE v1.7 Mobile</title>
     
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
@@ -36,12 +36,26 @@
             linear-gradient(90deg, rgba(255, 255, 255, 0.03) 1px, transparent 1px);
             background-size: 30px 30px;
         }
+        
+        /* MOBILE TWEAKS */
+        @media (max-width: 768px) {
+            .mobile-hidden { display: none; }
+            .mobile-sidebar {
+                position: fixed; top: 64px; left: 0; bottom: 0; width: 100%; z-index: 50;
+                transform: translateX(-100%); transition: transform 0.3s;
+            }
+            .mobile-sidebar.active { transform: translateX(0); }
+        }
     </style>
 </head>
 <body class="bg-slate-950 text-gray-200 font-sans h-screen flex flex-col overflow-hidden selection:bg-cyan-500/30 grid-bg">
 
-    <header class="bg-slate-900/90 border-b border-slate-800 h-16 flex items-center justify-between px-6 shadow-2xl z-50 backdrop-blur-md">
+    <header class="bg-slate-900/90 border-b border-slate-800 h-16 flex items-center justify-between px-4 md:px-6 shadow-2xl z-50 backdrop-blur-md shrink-0">
         <div class="flex items-center gap-4">
+            <button onclick="toggleSidebar()" class="md:hidden text-cyan-400 text-xl border border-slate-700 p-1 rounded hover:bg-slate-800">
+                <i class="fa-solid fa-bars"></i>
+            </button>
+
             <div class="relative w-10 h-10 flex items-center justify-center">
                 <div class="absolute inset-0 bg-cyan-500 blur-xl opacity-20 animate-pulse-slow"></div>
                 <div class="relative w-10 h-10 bg-gradient-to-br from-slate-800 to-slate-900 rounded-lg flex items-center justify-center border border-slate-600/50">
@@ -49,9 +63,9 @@
                 </div>
             </div>
             <div>
-                <h1 class="font-bold text-lg text-white tracking-wide">SINET <span class="text-cyan-400">REMOTE</span></h1>
-                <p class="text-[10px] text-gray-400 font-mono uppercase tracking-widest flex items-center gap-2">
-                    <span class="w-1.5 h-1.5 bg-green-500 rounded-full"></span> SYSTEM v1.6
+                <h1 class="font-bold text-sm md:text-lg text-white tracking-wide">SINET <span class="text-cyan-400">REMOTE</span></h1>
+                <p class="text-[9px] md:text-[10px] text-gray-400 font-mono uppercase tracking-widest flex items-center gap-2">
+                    <span class="w-1.5 h-1.5 bg-green-500 rounded-full"></span> SYSTEM v1.7
                 </p>
             </div>
         </div>
@@ -70,9 +84,9 @@
         </button>
     </header>
 
-    <div class="flex flex-1 overflow-hidden">
+    <div class="flex flex-1 overflow-hidden relative">
         
-        <aside class="w-80 bg-slate-900/95 border-r border-slate-800 flex flex-col z-40 backdrop-blur-sm">
+        <aside id="sidebar" class="mobile-sidebar w-full md:w-80 bg-slate-900/95 border-r border-slate-800 flex flex-col z-40 backdrop-blur-sm md:translate-x-0 md:relative">
             <div class="p-5 border-b border-slate-800 bg-black/20">
                 <div class="flex justify-between items-end mb-2">
                     <h2 class="text-[10px] font-bold text-cyan-500 uppercase tracking-widest flex items-center gap-2">
@@ -85,21 +99,15 @@
                     <div class="absolute inset-0 bg-gradient-to-t from-slate-900/90 to-transparent pointer-events-none"></div>
                 </div>
                 <div class="mt-3 space-y-1 font-mono text-[10px]">
-                    <div class="flex justify-between text-gray-400">
-                        <span>PUBLIC IP:</span>
-                        <span id="net-ip" class="text-white hover:text-cyan-400 cursor-pointer transition">---.---.---.---</span>
-                    </div>
-                    <div class="flex justify-between text-gray-400">
-                        <span>PROVIDER:</span>
-                        <span id="net-isp" class="text-blue-300 truncate w-32 text-right">Scanning...</span>
-                    </div>
+                    <div class="flex justify-between text-gray-400"><span>PUBLIC IP:</span><span id="net-ip" class="text-white hover:text-cyan-400 cursor-pointer transition">---.---.---.---</span></div>
+                    <div class="flex justify-between text-gray-400"><span>PROVIDER:</span><span id="net-isp" class="text-blue-300 truncate w-32 text-right">Scanning...</span></div>
                 </div>
             </div>
 
             <div class="p-5 border-b border-slate-800 overflow-y-auto flex-1 custom-scrollbar">
                 <h2 class="text-[10px] font-bold text-gray-500 uppercase tracking-widest mb-4">SYSTEM TARGET</h2>
                 <div class="space-y-3">
-                    <label class="flex items-center gap-3 p-3 rounded-xl border border-slate-700 bg-slate-800/30 cursor-pointer hover:bg-blue-900/20 hover:border-blue-500 transition group relative overflow-hidden">
+                    <label class="flex items-center gap-3 p-3 rounded-xl border border-slate-700 bg-slate-800/30 cursor-pointer hover:bg-blue-900/20 hover:border-blue-500 transition group relative overflow-hidden" onclick="closeMobileSidebar()">
                         <input type="radio" name="os_select" value="fedora" class="peer hidden" checked onchange="switchSystem('fedora')">
                         <div class="absolute left-0 top-0 bottom-0 w-1 bg-blue-500 opacity-0 peer-checked:opacity-100 transition"></div>
                         <i class="fa-brands fa-fedora text-xl text-blue-500 group-hover:scale-110 transition"></i>
@@ -108,7 +116,7 @@
                             <div class="text-[9px] text-gray-500">DNF Package Manager</div>
                         </div>
                     </label>
-                    <label class="flex items-center gap-3 p-3 rounded-xl border border-slate-700 bg-slate-800/30 cursor-pointer hover:bg-orange-900/20 hover:border-orange-500 transition group relative overflow-hidden">
+                    <label class="flex items-center gap-3 p-3 rounded-xl border border-slate-700 bg-slate-800/30 cursor-pointer hover:bg-orange-900/20 hover:border-orange-500 transition group relative overflow-hidden" onclick="closeMobileSidebar()">
                         <input type="radio" name="os_select" value="ubuntu" class="peer hidden" onchange="switchSystem('ubuntu')">
                         <div class="absolute left-0 top-0 bottom-0 w-1 bg-orange-500 opacity-0 peer-checked:opacity-100 transition"></div>
                         <i class="fa-brands fa-ubuntu text-xl text-orange-500 group-hover:scale-110 transition"></i>
@@ -117,7 +125,7 @@
                             <div class="text-[9px] text-gray-500">APT Package Manager</div>
                         </div>
                     </label>
-                    <label class="flex items-center gap-3 p-3 rounded-xl border border-slate-700 bg-slate-800/30 cursor-pointer hover:bg-blue-900/20 hover:border-blue-400 transition group relative overflow-hidden">
+                    <label class="flex items-center gap-3 p-3 rounded-xl border border-slate-700 bg-slate-800/30 cursor-pointer hover:bg-blue-900/20 hover:border-blue-400 transition group relative overflow-hidden" onclick="closeMobileSidebar()">
                         <input type="radio" name="os_select" value="windows" class="peer hidden" onchange="switchSystem('windows')">
                         <div class="absolute left-0 top-0 bottom-0 w-1 bg-blue-400 opacity-0 peer-checked:opacity-100 transition"></div>
                         <i class="fa-brands fa-windows text-xl text-blue-400 group-hover:scale-110 transition"></i>
@@ -126,7 +134,7 @@
                             <div class="text-[9px] text-gray-500">PowerShell Automation</div>
                         </div>
                     </label>
-                    <label class="flex items-center gap-3 p-3 rounded-xl border border-slate-700 bg-slate-800/30 cursor-pointer hover:bg-gray-800/50 hover:border-gray-400 transition group relative overflow-hidden">
+                    <label class="flex items-center gap-3 p-3 rounded-xl border border-slate-700 bg-slate-800/30 cursor-pointer hover:bg-gray-800/50 hover:border-gray-400 transition group relative overflow-hidden" onclick="closeMobileSidebar()">
                         <input type="radio" name="os_select" value="mac" class="peer hidden" onchange="switchSystem('mac')">
                         <div class="absolute left-0 top-0 bottom-0 w-1 bg-gray-400 opacity-0 peer-checked:opacity-100 transition"></div>
                         <i class="fa-brands fa-apple text-xl text-gray-400 group-hover:scale-110 transition"></i>
@@ -145,63 +153,69 @@
             </div>
         </aside>
 
-        <main class="flex-1 flex flex-col relative">
-            <div class="bg-slate-900/40 p-6 border-b border-slate-800 backdrop-blur-sm">
-                <div class="flex flex-col xl:flex-row justify-between items-center gap-6">
+        <main class="flex-1 flex flex-col relative overflow-hidden">
+            <div class="bg-slate-900/40 p-4 md:p-6 border-b border-slate-800 backdrop-blur-sm shrink-0">
+                <div class="flex flex-col xl:flex-row justify-between items-center gap-4 md:gap-6">
                     <div class="flex-1 text-center xl:text-left">
-                        <h2 class="text-2xl font-bold text-white mb-2 flex items-center justify-center xl:justify-start gap-3">
+                        <h2 class="text-xl md:text-2xl font-bold text-white mb-2 flex items-center justify-center xl:justify-start gap-3">
                             <span id="title-os" class="drop-shadow-[0_0_10px_rgba(59,130,246,0.5)]">SINET CONFIGURATOR</span>
                         </h2>
-                        <p class="text-xs text-gray-400 max-w-2xl font-mono leading-relaxed" id="desc-os">
+                        <p class="text-[10px] md:text-xs text-gray-400 max-w-2xl font-mono leading-relaxed hidden md:block" id="desc-os">
                             System awaiting target selection...
                         </p>
                     </div>
-                    <div class="flex gap-4 shrink-0">
-                        <button onclick="toggleModal('mobileGuide')" class="group relative bg-slate-800 hover:bg-slate-700 text-white px-6 py-3 rounded-xl font-bold text-xs transition border border-slate-600 overflow-hidden shadow-xl">
-                            <div class="absolute inset-0 bg-gradient-to-r from-transparent via-white/10 to-transparent translate-x-[-100%] group-hover:translate-x-[100%] transition-transform duration-700"></div>
-                            <span class="flex items-center gap-2">
+                    <div class="flex gap-2 md:gap-4 shrink-0 w-full md:w-auto justify-center">
+                        <button onclick="toggleModal('mobileGuide')" class="flex-1 md:flex-none group relative bg-slate-800 hover:bg-slate-700 text-white px-4 py-2 md:px-6 md:py-3 rounded-xl font-bold text-xs transition border border-slate-600 overflow-hidden shadow-xl">
+                            <span class="flex items-center justify-center gap-2">
                                 <i class="fa-solid fa-qrcode text-lg text-cyan-400"></i>
-                                <span class="text-left"><span class="block text-[9px] text-gray-400">CONNECT</span><span class="block">MOBILE APP</span></span>
+                                <span class="text-left"><span class="block text-[9px] text-gray-400">CONNECT</span><span class="block">APP</span></span>
                             </span>
                         </button>
-                        <button onclick="downloadScript()" class="group bg-gradient-to-r from-emerald-600 to-green-600 hover:from-emerald-500 hover:to-green-500 text-white px-8 py-3 rounded-xl font-bold text-xs shadow-lg shadow-green-900/30 transition flex items-center gap-3 border border-green-400/30">
+                        <button onclick="downloadScript()" class="flex-1 md:flex-none group bg-gradient-to-r from-emerald-600 to-green-600 hover:from-emerald-500 hover:to-green-500 text-white px-4 py-2 md:px-8 md:py-3 rounded-xl font-bold text-xs shadow-lg shadow-green-900/30 transition flex items-center justify-center gap-3 border border-green-400/30">
                             <i class="fa-solid fa-download text-lg"></i>
-                            <span class="text-left"><span class="block text-[9px] text-green-200">GENERATE</span><span class="block">DOWNLOAD SCRIPT</span></span>
+                            <span class="text-left"><span class="block text-[9px] text-green-200">GET</span><span class="block">SCRIPT</span></span>
                         </button>
                     </div>
                 </div>
             </div>
 
-            <div class="flex-1 p-6 overflow-hidden flex flex-col relative">
-                <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-blue-500/5 rounded-full blur-[100px] pointer-events-none"></div>
+            <div class="flex-1 p-4 md:p-6 overflow-hidden flex flex-col relative">
+                <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[300px] md:w-[600px] h-[300px] md:h-[600px] bg-blue-500/5 rounded-full blur-[100px] pointer-events-none"></div>
                 <div class="bg-slate-950/80 backdrop-blur-xl rounded-2xl border border-slate-800 flex flex-col flex-1 shadow-2xl overflow-hidden relative group z-10">
-                    <div class="bg-slate-900/90 px-5 py-3 flex items-center justify-between border-b border-slate-800">
+                    <div class="bg-slate-900/90 px-4 py-3 flex items-center justify-between border-b border-slate-800">
                         <div class="flex gap-2 opacity-70">
                             <div class="w-3 h-3 rounded-full bg-red-500"></div>
                             <div class="w-3 h-3 rounded-full bg-yellow-500"></div>
                             <div class="w-3 h-3 rounded-full bg-green-500"></div>
                         </div>
-                        <div class="text-xs font-mono text-gray-500 flex items-center gap-2">
+                        <div class="text-[10px] md:text-xs font-mono text-gray-500 flex items-center gap-2">
                             <i class="fa-solid fa-terminal text-blue-500/50"></i>
                             <span id="filename-display" class="text-blue-400/80">root@sinet:~#</span>
                         </div>
                         <button onclick="copyCode()" class="text-[10px] text-gray-500 hover:text-white transition uppercase tracking-widest font-bold flex items-center gap-1">
-                            <i class="fa-regular fa-copy"></i> COPY
+                            <i class="fa-regular fa-copy"></i>
                         </button>
                     </div>
-                    <pre id="code-preview" class="flex-1 p-6 font-mono text-xs md:text-sm text-green-400/90 overflow-y-auto leading-loose custom-scrollbar whitespace-pre-wrap break-words selection:bg-green-900/30"></pre>
-                    <div class="absolute bottom-6 right-8 text-white font-black text-9xl opacity-[0.02] pointer-events-none select-none tracking-tighter">SINET</div>
+                    <pre id="code-preview" class="flex-1 p-4 md:p-6 font-mono text-[10px] md:text-sm text-green-400/90 overflow-y-auto leading-loose custom-scrollbar whitespace-pre-wrap break-words selection:bg-green-900/30"></pre>
                 </div>
             </div>
         </main>
     </div>
 
     <script>
-        // --- SMOOTH GRAPH ENGINE (SLOWED DOWN) ---
+        // --- MOBILE SIDEBAR TOGGLE ---
+        function toggleSidebar() {
+            document.getElementById('sidebar').classList.toggle('active');
+        }
+        function closeMobileSidebar() {
+            document.getElementById('sidebar').classList.remove('active');
+        }
+
+        // --- SMOOTH GRAPH ENGINE ---
         const canvas = document.getElementById('trafficCanvas');
         const ctx = canvas.getContext('2d');
         let dataPoints = new Array(40).fill(15);
-        let frameCount = 0; // Frame limiter
+        let frameCount = 0; 
 
         function resizeCanvas() { canvas.width = canvas.parentElement.offsetWidth; canvas.height = canvas.parentElement.offsetHeight; }
         window.addEventListener('resize', resizeCanvas);
@@ -210,28 +224,21 @@
         function drawGraph() {
             requestAnimationFrame(drawGraph);
             frameCount++;
-            if (frameCount % 6 !== 0) return; // UPDATE ONLY EVERY 6th FRAME (SLOW MOTION)
+            if (frameCount % 6 !== 0) return; 
 
-            // Smaller fluctuation for "smooth" look
             const fluctuation = (Math.random() - 0.5) * 6; 
             dataPoints.push(15 + fluctuation); 
             if (dataPoints.length > canvas.width / 8) dataPoints.shift();
 
             ctx.clearRect(0, 0, canvas.width, canvas.height);
             ctx.beginPath();
-            
-            // Draw Line with Curve
             ctx.moveTo(0, canvas.height - dataPoints[0]);
             for (let i = 1; i < dataPoints.length; i++) { 
-                // Bezier curve approximation or simple line with smoothing
                 let x = i * 8;
                 let y = canvas.height - dataPoints[i];
                 ctx.lineTo(x, y); 
             }
-            
             ctx.strokeStyle = '#06b6d4'; ctx.lineWidth = 2; ctx.shadowBlur = 8; ctx.shadowColor = '#06b6d4'; ctx.stroke();
-            
-            // Fill
             ctx.lineTo(dataPoints.length * 8, canvas.height); ctx.lineTo(0, canvas.height);
             const gradient = ctx.createLinearGradient(0, 0, 0, canvas.height);
             gradient.addColorStop(0, 'rgba(6, 182, 212, 0.15)'); gradient.addColorStop(1, 'rgba(6, 182, 212, 0)');
@@ -239,7 +246,6 @@
         }
         drawGraph();
 
-        // --- NETWORK & IP ---
         setInterval(() => { document.getElementById('clock').innerText = new Date().toLocaleTimeString(); }, 1000);
         async function fetchNetworkInfo() {
             try {
@@ -252,7 +258,6 @@
         }
         fetchNetworkInfo();
 
-        // --- WEBRTC LOCAL IP DETECTION ---
         async function detectLocalIP() {
             return new Promise((resolve, reject) => {
                 const rtc = new RTCPeerConnection({iceServers:[]});
@@ -262,16 +267,12 @@
                     if (!e.candidate) return;
                     const ipRegex = /([0-9]{1,3}(\.[0-9]{1,3}){3})/;
                     const match = e.candidate.candidate.match(ipRegex);
-                    if (match && match[1] !== '0.0.0.0') {
-                        resolve(match[1]);
-                        rtc.close();
-                    }
+                    if (match && match[1] !== '0.0.0.0') { resolve(match[1]); rtc.close(); }
                 };
                 setTimeout(() => reject('Timeout'), 2000);
             });
         }
 
-        // --- QR GENERATOR (AUTO) ---
         function updateQR() {
             const ip = document.getElementById('qr-ip-input').value;
             const user = document.getElementById('qr-user-input').value;
@@ -286,17 +287,13 @@
             });
         }
 
-        // --- MODAL LOGIC WITH AUTO-DETECT ---
         async function openMobileGuide() {
             document.getElementById('mobileGuide').classList.remove('hidden');
             const ipInput = document.getElementById('qr-ip-input');
             const statusText = document.getElementById('ip-status-text');
-            
             if(ipInput.value) return;
-
             statusText.innerText = "🛰️ Scanning Local Network...";
             statusText.className = "text-[10px] text-yellow-400 font-mono animate-pulse";
-            
             try {
                 const localIP = await detectLocalIP();
                 ipInput.value = localIP;
@@ -304,14 +301,12 @@
                 statusText.className = "text-[10px] text-green-400 font-mono";
                 updateQR(); 
             } catch (err) {
-                // FIXED ERROR MESSAGE - HERE IS THE CHANGE:
                 statusText.innerHTML = "⚠️ IP Hidden. Run command: <code class='bg-slate-700 px-2 py-1 rounded text-white select-all'>hostname -I</code>";
                 statusText.className = "text-[10px] text-orange-400 font-mono flex items-center gap-2 justify-center";
                 ipInput.focus();
             }
         }
 
-        // --- TEMPLATES ---
         let currentOS = 'fedora';
         const SCRIPT_FEDORA = `#!/bin/bash\n# SINET REMOTE: FEDORA SETUP v1.6\nset -e\necho "[SINET] 1. Update..."\nsudo dnf -y update\necho "[SINET] 2. Install Samba..."\nsudo dnf install -y samba policycoreutils-python-utils\necho "[SINET] 3. Configure..."\nif id "sinet_master" &>/dev/null; then echo "User exists"; else sudo useradd -m sinet_master; fi\necho "Set Password for 'sinet_master':"\nsudo smbpasswd -a sinet_master\nsudo mkdir -p /home/sinet_master/SINET_Share\nsudo chmod -R 777 /home/sinet_master/SINET_Share\nsudo firewall-cmd --add-service=samba --permanent\nsudo firewall-cmd --reload\nsudo setsebool -P samba_export_all_rw 1\nsudo bash -c 'cat > /etc/samba/smb.conf <<EOF\n[global]\n   workgroup = SINET_WORKGROUP\n   server string = SINET Remote\n   security = user\n   min protocol = SMB2\n[SINET_Box]\n   path = /home/sinet_master/SINET_Share\n   valid users = sinet_master\n   browsable = yes\n   writable = yes\n   guest ok = no\n   create mask = 0777\nEOF'\nsudo systemctl enable smb nmb\nsudo systemctl restart smb nmb\necho "✅ DONE! Your IP: $(hostname -I | awk '{print $1}')"`;
         const SCRIPT_UBUNTU = `#!/bin/bash\n# SINET REMOTE: UBUNTU SETUP v1.6\nset -e\necho "[SINET] 1. Update..."\nsudo apt update && sudo apt upgrade -y\nsudo apt install -y samba\nif id "sinet_master" &>/dev/null; then echo "User exists"; else sudo useradd -m sinet_master; fi\necho "Set Password:"\nsudo smbpasswd -a sinet_master\nsudo mkdir -p /home/sinet_master/SINET_Share\nsudo chmod -R 777 /home/sinet_master/SINET_Share\nsudo ufw allow samba\nsudo bash -c 'cat > /etc/samba/smb.conf <<EOF\n[global]\n   workgroup = SINET_WORKGROUP\n   server string = SINET Remote\n   security = user\n   min protocol = SMB2\n[SINET_Box]\n   path = /home/sinet_master/SINET_Share\n   valid users = sinet_master\n   browsable = yes\n   writable = yes\n   guest ok = no\n   create mask = 0777\nEOF'\nsudo systemctl restart smbd nmbd\necho "✅ DONE! Your IP: $(hostname -I | awk '{print $1}')"`;
@@ -347,30 +342,26 @@
             const el = document.getElementById(id);
             if (el.classList.contains('hidden')) { openMobileGuide(); } else { el.classList.add('hidden'); }
         }
-        
         switchSystem('fedora');
     </script>
 
     <div id="mobileGuide" class="fixed inset-0 bg-black/90 backdrop-blur-md z-[100] hidden flex items-center justify-center p-4 fade-in">
         <div class="bg-slate-900 rounded-3xl border border-slate-700 w-full max-w-5xl shadow-2xl overflow-hidden flex flex-col md:flex-row max-h-[90vh]">
             <div class="w-full md:w-1/2 p-8 border-b md:border-b-0 md:border-r border-slate-800 bg-slate-800/50">
-                <h3 class="text-2xl font-bold text-white mb-6 flex items-center gap-3"><i class="fa-solid fa-mobile-screen-button text-blue-500"></i> MANUAL SETUP</h3>
+                <h3 class="text-xl md:text-2xl font-bold text-white mb-6 flex items-center gap-3"><i class="fa-solid fa-mobile-screen-button text-blue-500"></i> MANUAL SETUP</h3>
                 <div class="space-y-6">
                     <div class="bg-slate-900 p-5 rounded-xl border border-slate-700"><h4 class="text-green-400 font-bold mb-2"><i class="fa-brands fa-android"></i> ANDROID</h4><p class="text-xs text-gray-400">App: Material Files / Owlfiles</p><p class="text-xs text-gray-400 mt-1">Connect: SMB -> IP -> User: sinet_master</p></div>
                     <div class="bg-slate-900 p-5 rounded-xl border border-slate-700"><h4 class="text-blue-400 font-bold mb-2"><i class="fa-brands fa-apple"></i> iOS</h4><p class="text-xs text-gray-400">App: Files -> Connect to Server</p><p class="text-xs text-gray-400 mt-1">Addr: smb://IP_ADRESA</p></div>
                 </div>
             </div>
-
             <div class="w-full md:w-1/2 p-8 bg-slate-950 flex flex-col items-center justify-center text-center relative overflow-hidden">
                 <div class="absolute top-0 right-0 p-4"><button onclick="toggleModal('mobileGuide')" class="text-gray-500 hover:text-white"><i class="fa-solid fa-times text-2xl"></i></button></div>
                 <h3 class="text-xl font-bold text-white mb-2"><i class="fa-solid fa-qrcode text-cyan-400 mr-2"></i> QR CONNECT</h3>
                 <p class="text-xs text-gray-500 mb-4" id="ip-status-text">Ready to scan...</p>
-
                 <div class="w-full max-w-xs space-y-3 mb-6 relative z-10">
                     <input type="text" id="qr-ip-input" placeholder="Type IP (e.g. 192.168.1.15)" oninput="updateQR()" class="w-full bg-slate-900 border border-slate-700 text-white px-4 py-3 rounded-lg text-center font-mono focus:border-cyan-500 focus:outline-none transition">
                     <input type="text" id="qr-user-input" value="sinet_master" class="w-full bg-slate-900 border border-slate-700 text-gray-400 px-4 py-2 rounded-lg text-center font-mono text-xs focus:outline-none" readonly>
                 </div>
-
                 <div id="qr-container" class="animate-in fade-in zoom-in duration-300">
                     <div class="bg-white p-4 rounded-xl shadow-2xl inline-block"><canvas id="qr-canvas"></canvas></div>
                     <p class="text-xs text-green-400 mt-3 font-bold">Scan with Camera app!</p>
