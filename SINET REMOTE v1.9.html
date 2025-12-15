@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html lang="sr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>SINET REMOTE v1.95 Full</title>
+    
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/qrious/4.0.2/qrious.min.js"></script>
+    
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
+
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    fontFamily: { sans: ['Inter', 'sans-serif'], mono: ['JetBrains Mono', 'monospace'] },
+                    colors: { sinet: { dark: '#020617', panel: '#0f172a', primary: '#3b82f6' } },
+                    animation: { 'pulse-slow': 'pulse 3s cubic-bezier(0.4, 0, 0.6, 1) infinite' }
+                }
+            }
+        }
+    </script>
+    <style>
+        ::-webkit-scrollbar { width: 6px; height: 6px; }
+        ::-webkit-scrollbar-track { background: #020617; }
+        ::-webkit-scrollbar-thumb { background: #1e293b; border-radius: 3px; }
+        .grid-bg {
+            background-image: linear-gradient(rgba(255, 255, 255, 0.03) 1px, transparent 1px),
+            linear-gradient(90deg, rgba(255, 255, 255, 0.03) 1px, transparent 1px);
+            background-size: 30px 30px;
+        }
+    </style>
+</head>
+<body class="bg-slate-950 text-gray-200 font-sans h-screen flex flex-col overflow-hidden selection:bg-cyan-500/30 grid-bg">
+
+    <header class="bg-slate-900/95 border-b border-slate-800 h-14 md:h-16 flex items-center justify-between px-4 shadow-2xl z-50 shrink-0">
+        <div class="flex items-center gap-3">
+            <div class="relative w-8 h-8 md:w-10 md:h-10 flex items-center justify-center">
+                <div class="absolute inset-0 bg-cyan-500 blur-xl opacity-20 animate-pulse-slow"></div>
+                <div class="relative w-full h-full bg-gradient-to-br from-slate-800 to-slate-900 rounded-lg flex items-center justify-center border border-slate-600/50">
+                    <i class="fa-solid fa-satellite-dish text-cyan-400 text-sm md:text-lg"></i>
+                </div>
+            </div>
+            <div>
+                <h1 class="font-bold text-xs md:text-lg text-white tracking-wide">SINET <span class="text-cyan-400">REMOTE</span></h1>
+                <p class="text-[8px] md:text-[9px] text-gray-400 font-mono uppercase tracking-widest">v1.95 FULL CODE</p>
+            </div>
+        </div>
+        <button onclick="window.close()" class="text-slate-500 hover:text-red-500 text-lg"><i class="fa-solid fa-power-off"></i></button>
+    </header>
+
+    <div class="flex flex-col md:flex-row flex-1 overflow-hidden relative">
+        
+        <aside class="w-full md:w-80 bg-slate-900/95 border-b md:border-b-0 md:border-r border-slate-800 flex flex-col z-40 shrink-0 max-h-[40vh] md:max-h-full overflow-y-auto">
+            
+            <div class="p-3 md:p-5 border-b border-slate-800 bg-black/20 flex md:block items-center justify-between gap-4">
+                <div class="md:mb-2">
+                    <h2 class="text-[10px] font-bold text-cyan-500 uppercase tracking-widest flex items-center gap-2">
+                        <i class="fa-solid fa-wave-square"></i> <span class="hidden md:inline">LIVE TRAFFIC</span><span class="md:hidden">NET</span>
+                    </h2>
+                    <div class="flex md:block gap-3 text-[10px] font-mono text-gray-400 mt-1">
+                        <span>IP: <span id="net-ip" class="text-white">...</span></span>
+                    </div>
+                </div>
+                <div class="h-8 w-24 md:w-full md:h-24 bg-slate-900/50 rounded border border-slate-700/50 relative overflow-hidden">
+                    <canvas id="trafficCanvas" class="w-full h-full opacity-90"></canvas>
+                </div>
+            </div>
+
+            <div class="p-3 md:p-5">
+                <h2 class="text-[10px] font-bold text-gray-500 uppercase tracking-widest mb-2 md:mb-4">IZABERI SISTEM:</h2>
+                <div class="grid grid-cols-2 md:grid-cols-1 gap-2 md:gap-3">
+                    <label class="flex items-center gap-2 md:gap-3 p-2 md:p-3 rounded-lg border border-slate-700 bg-slate-800/30 cursor-pointer active:bg-blue-900/40 transition group relative overflow-hidden">
+                        <input type="radio" name="os_select" value="fedora" class="peer hidden" checked onchange="switchSystem('fedora')">
+                        <div class="absolute inset-0 border-2 border-blue-500 opacity-0 peer-checked:opacity-100 rounded-lg transition"></div>
+                        <i class="fa-brands fa-fedora text-lg md:text-xl text-blue-500"></i>
+                        <div class="text-xs md:text-sm font-bold text-gray-300 peer-checked:text-white">Fedora</div>
+                    </label>
+                    <label class="flex items-center gap-2 md:gap-3 p-2 md:p-3 rounded-lg border border-slate-700 bg-slate-800/30 cursor-pointer active:bg-orange-900/40 transition group relative overflow-hidden">
+                        <input type="radio" name="os_select" value="ubuntu" class="peer hidden" onchange="switchSystem('ubuntu')">
+                        <div class="absolute inset-0 border-2 border-orange-500 opacity-0 peer-checked:opacity-100 rounded-lg transition"></div>
+                        <i class="fa-brands fa-ubuntu text-lg md:text-xl text-orange-500"></i>
+                        <div class="text-xs md:text-sm font-bold text-gray-300 peer-checked:text-white">Ubuntu</div>
+                    </label>
+                    <label class="flex items-center gap-2 md:gap-3 p-2 md:p-3 rounded-lg border border-slate-700 bg-slate-800/30 cursor-pointer active:bg-blue-900/40 transition group relative overflow-hidden">
+                        <input type="radio" name="os_select" value="windows" class="peer hidden" onchange="switchSystem('windows')">
+                        <div class="absolute inset-0 border-2 border-blue-400 opacity-0 peer-checked:opacity-100 rounded-lg transition"></div>
+                        <i class="fa-brands fa-windows text-lg md:text-xl text-blue-400"></i>
+                        <div class="text-xs md:text-sm font-bold text-gray-300 peer-checked:text-white">Windows</div>
+                    </label>
+                    <label class="flex items-center gap-2 md:gap-3 p-2 md:p-3 rounded-lg border border-slate-700 bg-slate-800/30 cursor-pointer active:bg-gray-800 transition group relative overflow-hidden">
+                        <input type="radio" name="os_select" value="mac" class="peer hidden" onchange="switchSystem('mac')">
+                        <div class="absolute inset-0 border-2 border-gray-400 opacity-0 peer-checked:opacity-100 rounded-lg transition"></div>
+                        <i class="fa-brands fa-apple text-lg md:text-xl text-gray-300"></i>
+                        <div class="text-xs md:text-sm font-bold text-gray-300 peer-checked:text-white">macOS</div>
+                    </label>
+                </div>
+            </div>
+        </aside>
+
+        <main class="flex-1 flex flex-col relative overflow-hidden bg-slate-950">
+            <div class="bg-slate-900/40 p-2 md:p-4 border-b border-slate-800 shrink-0 flex justify-between items-center">
+                <div class="flex items-center gap-2">
+                    <span id="title-os" class="text-xs md:text-sm font-bold text-white bg-blue-600/20 px-2 py-1 rounded border border-blue-500/30 text-blue-300">CONFIG</span>
+                    <span id="filename-display" class="text-[10px] md:text-xs font-mono text-gray-500">script.sh</span>
+                </div>
+                <div class="flex gap-2">
+                    <button onclick="toggleModal('mobileGuide')" class="bg-slate-800 text-cyan-400 p-1.5 md:p-2 rounded border border-slate-700"><i class="fa-solid fa-qrcode"></i> <span class="hidden md:inline text-xs ml-1">Connect</span></button>
+                    <button onclick="copyCode()" class="bg-green-700 text-white p-1.5 md:p-2 rounded border border-green-600 font-bold text-xs flex items-center gap-1"><i class="fa-regular fa-copy"></i> <span class="hidden md:inline">COPY</span></button>
+                </div>
+            </div>
+
+            <div class="flex-1 p-2 md:p-4 overflow-hidden flex flex-col">
+                <div class="bg-slate-950 rounded-lg border border-slate-800 flex flex-col shadow-inner overflow-hidden h-full relative">
+                    <div class="flex-1 overflow-y-auto p-3 md:p-4 custom-scrollbar bg-slate-950/50">
+                        <pre id="code-preview" class="font-mono text-[10px] md:text-sm text-green-400 leading-relaxed whitespace-pre-wrap break-all"></pre>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <div id="mobileGuide" class="fixed inset-0 bg-black/95 z-[100] hidden flex items-center justify-center p-4">
+        <div class="bg-slate-900 rounded-2xl border border-slate-700 w-full max-w-sm p-6 relative">
+            <button onclick="toggleModal('mobileGuide')" class="absolute top-4 right-4 text-gray-500 hover:text-white"><i class="fa-solid fa-times text-xl"></i></button>
+            <h3 class="text-lg font-bold text-white mb-4 text-center">QR CONNECT</h3>
+            <div class="bg-white p-4 rounded-xl mx-auto w-fit mb-4"><canvas id="qr-canvas"></canvas></div>
+            <input type="text" id="qr-ip-input" placeholder="Enter IP" oninput="updateQR()" class="w-full bg-slate-800 border border-slate-700 text-white px-3 py-2 rounded mb-2 text-center font-mono text-sm">
+            <input type="text" id="qr-user-input" value="sinet_master" class="w-full bg-slate-800 border border-slate-700 text-gray-400 px-3 py-2 rounded text-center font-mono text-xs" readonly>
+            <p class="text-[10px] text-center text-gray-500 mt-4">Scan with phone camera.</p>
+        </div>
+    </div>
+
+    <script>
+        function toggleModal(id) { const el = document.getElementById(id); if (el.classList.contains('hidden')) { openMobileGuide(); } else { el.classList.add('hidden'); } }
+
+        // --- RESTORED ORIGINAL V1.6 SCRIPTS (FULL VERSIONS) ---
+        const SCRIPT_FEDORA = `#!/bin/bash\n# SINET REMOTE: FEDORA SETUP v1.6\nset -e\necho "[SINET] 1. Update..."\nsudo dnf -y update\necho "[SINET] 2. Install Samba..."\nsudo dnf install -y samba policycoreutils-python-utils\necho "[SINET] 3. Configure..."\nif id "sinet_master" &>/dev/null; then echo "User exists"; else sudo useradd -m sinet_master; fi\necho "Set Password for 'sinet_master':"\nsudo smbpasswd -a sinet_master\nsudo mkdir -p /home/sinet_master/SINET_Share\nsudo chmod -R 777 /home/sinet_master/SINET_Share\nsudo firewall-cmd --add-service=samba --permanent\nsudo firewall-cmd --reload\nsudo setsebool -P samba_export_all_rw 1\nsudo bash -c 'cat > /etc/samba/smb.conf <<EOF\n[global]\n   workgroup = SINET_WORKGROUP\n   server string = SINET Remote\n   security = user\n   min protocol = SMB2\n[SINET_Box]\n   path = /home/sinet_master/SINET_Share\n   valid users = sinet_master\n   browsable = yes\n   writable = yes\n   guest ok = no\n   create mask = 0777\nEOF'\nsudo systemctl enable smb nmb\nsudo systemctl restart smb nmb\necho "✅ DONE! Your IP: $(hostname -I | awk '{print $1}')"`;
+        
+        const SCRIPT_UBUNTU = `#!/bin/bash\n# SINET REMOTE: UBUNTU SETUP v1.6\nset -e\necho "[SINET] 1. Update..."\nsudo apt update && sudo apt upgrade -y\nsudo apt install -y samba\nif id "sinet_master" &>/dev/null; then echo "User exists"; else sudo useradd -m sinet_master; fi\necho "Set Password:"\nsudo smbpasswd -a sinet_master\nsudo mkdir -p /home/sinet_master/SINET_Share\nsudo chmod -R 777 /home/sinet_master/SINET_Share\nsudo ufw allow samba\nsudo bash -c 'cat > /etc/samba/smb.conf <<EOF\n[global]\n   workgroup = SINET_WORKGROUP\n   server string = SINET Remote\n   security = user\n   min protocol = SMB2\n[SINET_Box]\n   path = /home/sinet_master/SINET_Share\n   valid users = sinet_master\n   browsable = yes\n   writable = yes\n   guest ok = no\n   create mask = 0777\nEOF'\nsudo systemctl restart smbd nmbd\necho "✅ DONE! Your IP: $(hostname -I | awk '{print $1}')"`;
+        
+        const SCRIPT_WINDOWS = `# SINET REMOTE: WINDOWS SETUP v1.6\nWrite-Host "[SINET] Setup..." -ForegroundColor Cyan\nNew-Item -ItemType Directory -Force -Path "C:\\SINET_Share" | Out-Null\nRemove-SmbShare -Name "SINET_Box" -ErrorAction SilentlyContinue\nNew-SmbShare -Name "SINET_Box" -Path "C:\\SINET_Share" -FullAccess $env:USERNAME\nSet-NetFirewallRule -DisplayGroup "File and Printer Sharing" -Enabled True\nRestart-Service LanmanServer -Force\nWrite-Host "✅ READY!" -ForegroundColor Green\nGet-NetIPAddress -AddressFamily IPv4 | Where-Object InterfaceAlias -NotMatch "Loopback" | Select-Object -ExpandProperty IPAddress\nRead-Host "Enter..."`;
+        
+        const GUIDE_MAC = `=== 🍎 macOS SETUP ===\n1. Settings -> General -> Sharing -> File Sharing.\n2. Add Folder -> Options.\n3. Check 'SMB' & Account.\nDONE.`;
+
+        function switchSystem(os) {
+            const titleEl = document.getElementById('title-os');
+            const codeEl = document.getElementById('code-preview');
+            const fileEl = document.getElementById('filename-display');
+            if(os === 'fedora') { titleEl.innerText = 'FEDORA'; codeEl.innerText = SCRIPT_FEDORA; fileEl.innerText = "install_fedora.sh"; }
+            else if (os === 'ubuntu') { titleEl.innerText = 'UBUNTU'; codeEl.innerText = SCRIPT_UBUNTU; fileEl.innerText = "install_ubuntu.sh"; }
+            else if (os === 'windows') { titleEl.innerText = 'WINDOWS'; codeEl.innerText = SCRIPT_WINDOWS; fileEl.innerText = "setup.ps1"; }
+            else if (os === 'mac') { titleEl.innerText = 'MACOS'; codeEl.innerText = GUIDE_MAC; fileEl.innerText = "guide.txt"; }
+        }
+
+        function copyCode() { navigator.clipboard.writeText(document.getElementById('code-preview').innerText).then(() => alert("Copied!")); }
+        function downloadScript() { 
+            let content = document.getElementById('code-preview').innerText;
+            let filename = document.getElementById('filename-display').innerText;
+            const blob = new Blob([content], { type: 'text/plain' });
+            const link = document.createElement('a');
+            link.href = URL.createObjectURL(blob); link.download = filename; document.body.appendChild(link); link.click(); document.body.removeChild(link);
+        }
+
+        function updateQR() {
+            const ip = document.getElementById('qr-ip-input').value;
+            const user = document.getElementById('qr-user-input').value;
+            if(!ip) return;
+            new QRious({ element: document.getElementById('qr-canvas'), value: `smb://${user}@${ip}`, size: 150 });
+        }
+        
+        async function detectLocalIP() {
+            return new Promise((resolve, reject) => {
+                const rtc = new RTCPeerConnection({iceServers:[]});
+                rtc.createDataChannel('');
+                rtc.createOffer().then(o => rtc.setLocalDescription(o));
+                rtc.onicecandidate = e => {
+                    if (!e.candidate) return;
+                    const ipRegex = /([0-9]{1,3}(\.[0-9]{1,3}){3})/;
+                    const match = e.candidate.candidate.match(ipRegex);
+                    if (match && match[1] !== '0.0.0.0') { resolve(match[1]); rtc.close(); }
+                };
+                setTimeout(() => reject('Timeout'), 2000);
+            });
+        }
+
+        async function openMobileGuide() { 
+            document.getElementById('mobileGuide').classList.remove('hidden'); 
+            const ipInput = document.getElementById('qr-ip-input');
+            if(ipInput.value) return;
+            try {
+                const localIP = await detectLocalIP();
+                ipInput.value = localIP;
+                updateQR(); 
+            } catch (err) { }
+        }
+
+        switchSystem('fedora');
+        
+        const canvas = document.getElementById('trafficCanvas');
+        const ctx = canvas.getContext('2d');
+        function resizeCanvas() { canvas.width = canvas.parentElement.offsetWidth; canvas.height = canvas.parentElement.offsetHeight; }
+        window.addEventListener('resize', resizeCanvas); resizeCanvas();
+        function drawGraph() {
+            requestAnimationFrame(drawGraph);
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            ctx.fillStyle = 'rgba(6, 182, 212, 0.1)'; ctx.fillRect(0, canvas.height/2, canvas.width, canvas.height/2);
+        }
+        drawGraph();
+        
+        async function fetchNetworkInfo() {
+            try { const r = await fetch('https://api.ipify.org?format=json'); const d = await r.json(); document.getElementById('net-ip').innerText = d.ip; } 
+            catch(e) { document.getElementById('net-ip').innerText = "Offline"; }
+        }
+        fetchNetworkInfo();
+    </script>
+</body>
+</html>
