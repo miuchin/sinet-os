@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="sr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SINET - Sistemski Backup v1.0</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body class="bg-slate-900 min-h-screen font-sans p-6 text-white flex items-center justify-center">
+
+    <div class="max-w-md w-full bg-slate-800 rounded-[3rem] p-10 shadow-2xl border-4 border-slate-700">
+        <header class="text-center mb-10">
+            <i class="fa-solid fa-shield-halved text-5xl text-blue-500 mb-4"></i>
+            <h1 class="text-2xl font-black uppercase italic italic">SISTEMSKI <span class="text-blue-500">BACKUP</span></h1>
+            <p class="text-[9px] font-bold text-slate-500 uppercase tracking-widest mt-2">SINET Protocol v1.0</p>
+        </header>
+
+        <div class="space-y-6">
+            <div class="p-6 bg-slate-700/50 rounded-3xl border border-slate-600">
+                <h3 class="text-xs font-black uppercase mb-4 text-blue-400">Izvoz podataka</h3>
+                <p class="text-[10px] text-slate-400 mb-4 leading-relaxed">Generiše unificirani fajl sa svim podacima iz INDEX-a, Vitala, Terapije i Podešavanja.</p>
+                <button onclick="exportSinetFull()" class="w-full bg-blue-600 hover:bg-blue-500 text-white font-black py-4 rounded-2xl shadow-lg uppercase text-xs transition">
+                    NAPRAVI BACKUP FAJL
+                </button>
+            </div>
+
+            <div class="p-6 bg-slate-700/50 rounded-3xl border border-slate-600 text-center">
+                <h3 class="text-xs font-black uppercase mb-4 text-green-400">Vraćanje sistema</h3>
+                <input type="file" id="sinet-restore" class="hidden" onchange="importSinetFull(this)">
+                <button onclick="document.getElementById('sinet-restore').click()" class="w-full bg-green-600 hover:bg-green-500 text-white font-black py-4 rounded-2xl shadow-lg uppercase text-xs transition">
+                    UČITAJ BACKUP (RESTORE)
+                </button>
+            </div>
+        </div>
+
+        <footer class="mt-10 text-center">
+            <button onclick="window.location.href='life_hub.html'" class="text-slate-500 font-bold uppercase text-[10px] hover:text-white transition">
+                <i class="fa-solid fa-circle-arrow-left mr-1"></i> Nazad u Hub
+            </button>
+        </footer>
+    </div>
+
+    <script>
+        function exportSinetFull() {
+            // Sakupljanje svih baza
+            const fullData = {
+                index: JSON.parse(localStorage.getItem('sinet_notes')) || [],
+                config: JSON.parse(localStorage.getItem('sinet_life_config')) || {},
+                vitals: JSON.parse(localStorage.getItem('sinet_life_vitals')) || [],
+                meds: JSON.parse(localStorage.getItem('sinet_life_meds')) || [],
+                meds_status: JSON.parse(localStorage.getItem('sinet_meds_status')) || {}
+            };
+
+            const blob = new Blob([JSON.stringify(fullData, null, 2)], {type: 'application/json'});
+            const link = document.createElement('a');
+            const date = new Date().toISOString().slice(0,10);
+            
+            link.href = URL.createObjectURL(blob);
+            link.download = `SINET_TOTAL_BACKUP_${date}.json`;
+            link.click();
+            alert("✅ SINET Total Backup je uspešno kreiran!");
+        }
+
+        function importSinetFull(input) {
+            const file = input.files[0];
+            if (!file) return;
+
+            const reader = new FileReader();
+            reader.onload = (e) => {
+                try {
+                    const data = JSON.parse(e.target.result);
+                    
+                    // Bezbednosna provera formata
+                    if(!data.index || !data.config) throw new Error("Neispravan SINET fajl.");
+
+                    // Upisivanje u LocalStorage
+                    if(data.index) localStorage.setItem('sinet_notes', JSON.stringify(data.index));
+                    if(data.config) localStorage.setItem('sinet_life_config', JSON.stringify(data.config));
+                    if(data.vitals) localStorage.setItem('sinet_life_vitals', JSON.stringify(data.vitals));
+                    if(data.meds) localStorage.setItem('sinet_life_meds', JSON.stringify(data.meds));
+                    if(data.meds_status) localStorage.setItem('sinet_meds_status', JSON.stringify(data.meds_status));
+
+                    alert("🚀 SISTEM USPEŠNO VRAĆEN! Sve baze su osvežene.");
+                    window.location.href = 'life_hub.html';
+                } catch (err) {
+                    alert("❌ GREŠKA: " + err.message);
+                }
+            };
+            reader.readAsText(file);
+        }
+    </script>
+</body>
+</html>

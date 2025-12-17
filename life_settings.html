@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="sr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SINET LIFE - Podešavanja v2.0</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script>
+        tailwind.config = {
+            theme: { extend: { colors: { life: { bg: '#f0f9ff', accent: '#0ea5e9', purple: '#7c3aed' } } } }
+        }
+    </script>
+</head>
+<body class="bg-life-bg min-h-screen font-sans p-4" onload="loadSettings()">
+
+    <header class="max-w-xl mx-auto flex justify-between items-center mb-8">
+        <h1 class="text-2xl font-black text-slate-800 uppercase italic italic">PODEŠAVANJA <span class="text-life-accent">SISTEMA</span></h1>
+        <button onclick="window.location.href='life_hub.html'" class="bg-slate-900 text-white px-6 py-2 rounded-full font-black text-xs uppercase shadow-lg transition hover:scale-105">
+            HUB
+        </button>
+    </header>
+
+    <main class="max-w-xl mx-auto space-y-6">
+        <section class="bg-white p-8 rounded-[3rem] shadow-sm border border-slate-100">
+            <h2 class="text-[10px] font-black text-slate-400 uppercase tracking-widest mb-6 italic">Lični Podaci (BMI & Astro)</h2>
+            <div class="space-y-4">
+                <div>
+                    <label class="text-[9px] font-black text-slate-500 uppercase ml-2 mb-1 block">Visina (cm)</label>
+                    <input type="number" id="s-height" placeholder="Npr. 180" class="w-full p-4 bg-slate-50 rounded-2xl font-bold border-none outline-none focus:ring-2 focus:ring-life-accent">
+                </div>
+                <div>
+                    <label class="text-[9px] font-black text-slate-500 uppercase ml-2 mb-1 block">Grad (Meteo)</label>
+                    <input type="text" id="s-city" placeholder="Novi Sad" class="w-full p-4 bg-slate-50 rounded-2xl font-bold border-none outline-none focus:ring-2 focus:ring-life-accent">
+                </div>
+                <div>
+                    <label class="text-[9px] font-black text-slate-500 uppercase ml-2 mb-1 block">Datum Rođenja (Astro)</label>
+                    <input type="date" id="s-birth" class="w-full p-4 bg-slate-50 rounded-2xl font-bold border-none outline-none focus:ring-2 focus:ring-life-accent">
+                </div>
+            </div>
+            <button onclick="saveSettings()" class="w-full mt-6 bg-life-accent text-white font-black py-4 rounded-2xl shadow-lg uppercase text-xs hover:bg-blue-600 transition">
+                SAČUVAJ IZMENE
+            </button>
+        </section>
+
+        <section class="bg-slate-900 p-8 rounded-[3rem] shadow-2xl border-4 border-slate-800">
+            <div class="flex items-center gap-3 mb-6">
+                <i class="fa-solid fa-user-shield text-blue-400 text-xl"></i>
+                <h3 class="text-xs font-black text-white uppercase tracking-widest italic">Sistem & Bezbednost</h3>
+            </div>
+            
+            <p class="text-[10px] text-slate-400 mb-6 leading-relaxed">
+                Upravljajte celokupnom SINET bazom. Kreirajte rezervnu kopiju svih vaših beleški, merenja i podešavanja.
+            </p>
+
+            <button onclick="window.location.href='sinet_backup.html'" class="w-full bg-slate-800 text-blue-400 border border-blue-900/50 font-black py-4 rounded-2xl shadow-inner uppercase text-xs flex items-center justify-center gap-3 hover:bg-blue-600 hover:text-white transition">
+                <i class="fa-solid fa-shield-halved"></i> OTVORI BACKUP CENTAR
+            </button>
+        </section>
+    </main>
+
+    <script>
+        function loadSettings() {
+            const config = JSON.parse(localStorage.getItem('sinet_life_config')) || {};
+            if(config.height) document.getElementById('s-height').value = config.height;
+            if(config.city) document.getElementById('s-city').value = config.city;
+            if(config.birthdate) document.getElementById('s-birth').value = config.birthdate;
+        }
+
+        function saveSettings() {
+            const config = {
+                height: document.getElementById('s-height').value,
+                city: document.getElementById('s-city').value,
+                birthdate: document.getElementById('s-birth').value
+            };
+            localStorage.setItem('sinet_life_config', JSON.stringify(config));
+            alert("✅ Podešavanja su uspešno ažurirana!");
+            window.location.href = 'life_hub.html';
+        }
+    </script>
+</body>
+</html>

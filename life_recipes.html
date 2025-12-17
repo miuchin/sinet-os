@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="sr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SINET LIFE - Zdrav Recept v1.0</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body class="bg-slate-50 min-h-screen font-sans p-4" onload="loadRecipes()">
+
+    <header class="max-w-xl mx-auto flex justify-between items-center mb-6">
+        <div class="flex items-center gap-3">
+            <i class="fa-solid fa-utensils text-green-600 text-2xl"></i>
+            <h1 class="text-xl font-black text-slate-800 uppercase italic">ZDRAV <span class="text-green-600">RECEPT</span></h1>
+        </div>
+        <button onclick="window.location.href='life_hub.html'" class="bg-slate-900 text-white px-5 py-2 rounded-full font-black text-[10px] uppercase shadow-lg transition hover:scale-105">
+            NAZAD
+        </button>
+    </header>
+
+    <main class="max-w-xl mx-auto space-y-6">
+        <div id="recipe-container" class="space-y-4">
+            </div>
+    </main>
+
+    <script>
+        const recipes = [
+            {
+                id: 101,
+                title: "ČORBA OD BUNDEVE I ĐUMBIRA",
+                desc: "Idealno za imunitet i probavu. Bogato vitaminom A.",
+                ingredients: ["Bundeva 500g", "Đumbir koren 2cm", "Crni luk", "Povrtni bujon"],
+                prep: "Propržiti luk, dodati bundevu i đumbir. Naliti bujonom i kuvati 20 min. Izblendirati.",
+                benefit: "NISAK GLIKEMIJSKI INDEKS - Pogodno za dijabetičare."
+            }
+        ];
+
+        function loadRecipes() {
+            const container = document.getElementById('recipe-container');
+            container.innerHTML = recipes.map(r => `
+                <div class="bg-white p-6 rounded-[2.5rem] shadow-sm border border-slate-100">
+                    <h2 class="text-lg font-black text-slate-800 mb-2 uppercase tracking-tighter">${r.title}</h2>
+                    <p class="text-xs text-slate-500 italic mb-4">${r.desc}</p>
+                    
+                    <div class="bg-green-50 p-4 rounded-2xl mb-4 text-[11px]">
+                        <p class="font-black text-green-700 uppercase mb-1">Benefit:</p>
+                        ${r.benefit}
+                    </div>
+
+                    <button onclick="saveRecipeToIndex(${r.id})" class="w-full bg-green-600 text-white font-black py-3 rounded-xl shadow-md uppercase text-[10px] hover:bg-green-700 transition">
+                        <i class="fa-solid fa-address-book mr-2"></i> SAČUVAJ U RECEPTE
+                    </button>
+                </div>
+            `).join('');
+        }
+
+        function saveRecipeToIndex(id) {
+            const r = recipes.find(x => x.id === id);
+            let notes = JSON.parse(localStorage.getItem('sinet_notes')) || [];
+            notes.push({
+                id: Date.now(),
+                title: `ZDRAV RECEPT: ${r.title}`,
+                text: `[ZDRAV RECEPT] ${r.desc}. SASTOJCI: ${r.ingredients.join(', ')}. PRIPREMA: ${r.prep}. SAVET: ${r.benefit}`,
+                date: new Date().toLocaleDateString('sr-RS')
+            });
+            localStorage.setItem('sinet_notes', JSON.stringify(notes));
+            alert("✅ Recept je arhiviran u SINET INDEX (Tab: Recepti).");
+        }
+    </script>
+</body>
+</html>

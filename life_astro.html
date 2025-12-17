@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="sr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SINET LIFE - Astro Centar v5.5</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script>
+        tailwind.config = {
+            theme: { extend: { colors: { life: { bg: '#f0f9ff', accent: '#0ea5e9', purple: '#7c3aed', gold: '#fbbf24' } } } }
+        }
+    </script>
+</head>
+<body class="bg-life-bg min-h-screen font-sans" onload="initAstro()">
+
+    <header class="bg-white shadow-md p-6 sticky top-0 z-50">
+        <div class="max-w-xl mx-auto flex justify-between items-center">
+            <h1 class="text-xl font-black text-slate-800 uppercase italic tracking-tighter">ASTRO <span class="text-life-purple">PROFIL</span></h1>
+            <button onclick="window.location.href='life_hub.html'" class="bg-slate-900 text-white px-6 py-2 rounded-full font-black text-[10px] uppercase shadow-lg hover:scale-105 transition">NAZAD</button>
+        </div>
+    </header>
+
+    <main class="p-4 max-w-xl mx-auto space-y-6 pb-24">
+        <section class="bg-white p-8 rounded-[3rem] shadow-sm border border-slate-100 text-center relative overflow-hidden">
+            <div id="astro-icon" class="text-7xl mb-2 drop-shadow-lg">✨</div>
+            <h2 id="astro-title" class="text-3xl font-black text-slate-800 uppercase tracking-tighter">Vaš Znak</h2>
+            <p id="astro-dates" class="text-[10px] font-bold text-slate-400 uppercase tracking-widest mb-6"></p>
+            
+            <div class="grid grid-cols-1 gap-4 text-left">
+                <div class="p-4 bg-pink-50 rounded-2xl border border-pink-100">
+                    <h4 class="text-[10px] font-black text-pink-600 uppercase mb-1"><i class="fa-solid fa-heart mr-1"></i> Ljubav</h4>
+                    <p id="h-love" class="text-sm text-slate-700 italic">Analiza emocija...</p>
+                </div>
+                <div class="p-4 bg-blue-50 rounded-2xl border border-blue-100">
+                    <h4 class="text-[10px] font-black text-blue-600 uppercase mb-1"><i class="fa-solid fa-briefcase mr-1"></i> Posao</h4>
+                    <p id="h-work" class="text-sm text-slate-700 italic">Poslovni izgledi...</p>
+                </div>
+                <div class="p-4 bg-green-50 rounded-2xl border border-green-100">
+                    <h4 class="text-[10px] font-black text-green-600 uppercase mb-1"><i class="fa-solid fa-notes-medical mr-1"></i> Zdravlje</h4>
+                    <p id="h-health" class="text-sm text-slate-700 italic">Vitalnost...</p>
+                </div>
+            </div>
+        </section>
+
+        <section class="grid grid-cols-2 gap-4">
+            <div class="bg-white p-6 rounded-[2rem] border border-slate-100 text-center">
+                <span class="text-[9px] font-black text-slate-400 uppercase block mb-2">Srećan Broj</span>
+                <span id="lucky-num" class="text-4xl font-black text-life-purple">--</span>
+            </div>
+            <div class="bg-white p-6 rounded-[2rem] border border-slate-100 text-center">
+                <span class="text-[9px] font-black text-slate-400 uppercase block mb-2">Faza Meseca</span>
+                <i id="moon-icon" class="fa-solid fa-moon text-3xl text-slate-300 block mb-1"></i>
+                <span id="moon-text" class="text-[10px] font-bold text-slate-600 uppercase">Provera...</span>
+            </div>
+        </section>
+
+        <section class="bg-white p-8 rounded-[3rem] shadow-sm border border-slate-100">
+            <h3 class="text-[10px] font-black text-slate-400 uppercase tracking-widest mb-6 flex items-center gap-2">
+                <i class="fa-solid fa-wave-square"></i> BIORITAM CIKLUSI
+            </h3>
+            <div class="space-y-6" id="bio-container">
+                </div>
+        </section>
+
+        <button onclick="saveDeepAstroToIndex()" class="w-full bg-slate-900 text-white font-black py-4 rounded-2xl shadow-xl uppercase text-xs hover:bg-black transition">
+            <i class="fa-solid fa-address-book mr-2 text-life-accent"></i> Arhiviraj Kompletan Profil
+        </button>
+    </main>
+
+    <script>
+        const config = JSON.parse(localStorage.getItem('sinet_life_config')) || {};
+        
+        const astroData = {
+            "Rak": { love: "Emocije su stabilne, idealno za razgovor sa partnerom.", work: "Intuicija vas vodi ka dobroj odluci u vezi projekta.", health: "Prijala bi vam šetnja pored vode." },
+            "default": { love: "Povoljan dan za nove susrete.", work: "Mogući su manji izazovi u komunikaciji.", health: "Pronađite vreme za odmor." }
+        };
+
+        function initAstro() {
+            if (!config.birthdate) {
+                alert("Unesite datum rođenja u Podešavanjima!");
+                window.location.href = 'life_settings.html';
+                return;
+            }
+            const zodiac = getZodiac(config.birthdate);
+            renderAstro(zodiac);
+            calculateDetailedBio(config.birthdate);
+            generateLuckyParams();
+            updateMoonPhase();
+        }
+
+        function getZodiac(date) {
+            const d = new Date(date);
+            const m = d.getMonth() + 1; const day = d.getDate();
+            // Logika za Rak (14.07.)
+            if ((m == 6 && day >= 21) || (m == 7 && day <= 22)) return {n: "Rak", i: "♋", d: "21. Jun - 22. Jul"};
+            return {n: "Znak", i: "✨", d: "Astro Period"};
+        }
+
+        function renderAstro(z) {
+            document.getElementById('astro-icon').innerText = z.i;
+            document.getElementById('astro-title').innerText = z.n;
+            document.getElementById('astro-dates').innerText = z.d;
+            
+            const p = astroData[z.n] || astroData.default;
+            document.getElementById('h-love').innerText = p.love;
+            document.getElementById('h-work').innerText = p.work;
+            document.getElementById('h-health').innerText = p.health;
+        }
+
+        function generateLuckyParams() {
+            document.getElementById('lucky-num').innerText = Math.floor(Math.random() * 99) + 1;
+        }
+
+        function updateMoonPhase() {
+            // Pojednostavljena simulacija faze meseca
+            document.getElementById('moon-text').innerText = "Pun Mesec";
+            document.getElementById('moon-icon').className = "fa-solid fa-circle text-life-gold text-3xl block mb-1 drop-shadow-md";
+        }
+
+        function calculateDetailedBio(bd) {
+            const birth = new Date(bd); const today = new Date();
+            const diff = Math.floor((today - birth) / (1000*60*60*24));
+            const ciklusi = [
+                {n: "Fizički", d: 23, v: Math.sin(2*Math.PI*diff/23), c: "bg-red-500"},
+                {n: "Emotivni", d: 28, v: Math.sin(2*Math.PI*diff/28), c: "bg-blue-500"},
+                {n: "Intelektualni", d: 33, v: Math.sin(2*Math.PI*diff/33), c: "bg-green-500"}
+            ];
+
+            document.getElementById('bio-container').innerHTML = ciklusi.map(c => {
+                const perc = Math.round(c.v * 100);
+                return `
+                <div>
+                    <div class="flex justify-between text-[10px] font-black mb-1 uppercase"><span>${c.n}</span><span>${perc}%</span></div>
+                    <div class="w-full bg-slate-100 h-2.5 rounded-full overflow-hidden">
+                        <div class="${c.c} h-full transition-all duration-1000" style="width: ${Math.abs(perc)}%"></div>
+                    </div>
+                </div>`;
+            }).join('');
+        }
+
+        function saveDeepAstroToIndex() {
+            let notes = JSON.parse(localStorage.getItem('sinet_notes')) || [];
+            notes.push({
+                id: Date.now(),
+                title: `DUBOKI ASTRO PROFIL (${document.getElementById('astro-title').innerText})`,
+                text: `[SINET LIFE] LJUBAV: ${document.getElementById('h-love').innerText}. POSAO: ${document.getElementById('h-work').innerText}. ZDRAVLJE: ${document.getElementById('h-health').innerText}. Srećan broj: ${document.getElementById('lucky-num').innerText}.`,
+                date: new Date().toLocaleDateString('sr-RS')
+            });
+            localStorage.setItem('sinet_notes', JSON.stringify(notes));
+            alert("✅ Kompletan dnevni astro profil arhiviran u SINET INDEX.");
+        }
+    </script>
+</body>
+</html>

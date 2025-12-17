@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="sr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>SINET MOLITVENIK - HUB v2.10</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script>
+        tailwind.config = {
+            theme: { extend: { colors: { molitvenik: { bg: '#fff7ed', card: '#ffffff', text: '#44403c', primary: '#7c3aed', accent: '#fbbfbf' } } } }
+        }
+    </script>
+    <style>
+        .serif { font-family: 'Garamond', serif; }
+        .module-card { cursor: pointer; transition: all 0.3s ease; border: 1px solid #e5e7eb; }
+        .module-card:hover { transform: translateY(-5px); border-color: #7c3aed; box-shadow: 0 10px 15px -3px rgba(124, 58, 237, 0.1); }
+    </style>
+</head>
+<body class="bg-molitvenik-bg text-molitvenik-text min-h-screen flex flex-col font-serif">
+
+    <header class="bg-molitvenik-card shadow-sm border-b border-gray-200 p-6 no-print">
+        <div class="max-w-5xl mx-auto flex justify-between items-center">
+            <h1 class="text-3xl font-black text-molitvenik-primary uppercase tracking-tighter italic">SINET MOLITVENIK</h1>
+            <button onclick="window.open('SINET_INDEX.html', '_blank')" class="py-2 px-6 bg-purple-600 text-white font-black rounded-full hover:bg-purple-700 transition flex items-center gap-2 shadow-lg">
+                <i class="fa-solid fa-address-book"></i> SINET INDEX
+            </button>
+        </div>
+    </header>
+
+    <main class="flex-1 p-6 md:p-12 overflow-y-auto">
+        <div class="max-w-5xl mx-auto">
+            <h2 class="text-xl font-bold text-gray-700 mb-8 border-b pb-2 uppercase tracking-widest text-center">Izaberite Modul Molitvenika</h2>
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                <a href="mol_jutarnje.html" class="module-card bg-white p-6 rounded-3xl flex flex-col items-center text-center">
+                    <div class="w-16 h-16 bg-yellow-50 text-yellow-600 rounded-full flex items-center justify-center text-2xl mb-4 shadow-sm"><i class="fa-regular fa-sun"></i></div>
+                    <h3 class="text-lg font-bold text-gray-800 uppercase">Jutarnje</h3>
+                </a>
+                <a href="mol_dnevne.html" class="module-card bg-white p-6 rounded-3xl flex flex-col items-center text-center">
+                    <div class="w-16 h-16 bg-orange-50 text-orange-600 rounded-full flex items-center justify-center text-2xl mb-4 shadow-sm"><i class="fa-solid fa-hourglass-half"></i></div>
+                    <h3 class="text-lg font-bold text-gray-800 uppercase">U toku dana</h3>
+                </a>
+                <a href="mol_vecernje.html" class="module-card bg-white p-6 rounded-3xl flex flex-col items-center text-center">
+                    <div class="w-16 h-16 bg-purple-50 text-purple-600 rounded-full flex items-center justify-center text-2xl mb-4 shadow-sm"><i class="fa-solid fa-moon"></i></div>
+                    <h3 class="text-lg font-bold text-gray-800 uppercase">Večernje</h3>
+                </a>
+                <a href="mol_za_bliznje.html" class="module-card bg-white p-6 rounded-3xl flex flex-col items-center text-center">
+                    <div class="w-16 h-16 bg-pink-50 text-pink-600 rounded-full flex items-center justify-center text-2xl mb-4 shadow-sm"><i class="fa-solid fa-heart"></i></div>
+                    <h3 class="text-lg font-bold text-gray-800 uppercase">Za Bližnje</h3>
+                </a>
+                <a href="mol_potrebe.html" class="module-card bg-white p-6 rounded-3xl flex flex-col items-center text-center">
+                    <div class="w-16 h-16 bg-cyan-50 text-cyan-600 rounded-full flex items-center justify-center text-2xl mb-4 shadow-sm"><i class="fa-solid fa-bed"></i></div>
+                    <h3 class="text-lg font-bold text-gray-800 uppercase">Razne Potrebe</h3>
+                </a>
+                <a href="mol_psaltir.html" class="module-card bg-white p-6 rounded-3xl flex flex-col items-center text-center">
+                    <div class="w-16 h-16 bg-red-50 text-red-600 rounded-full flex items-center justify-center text-2xl mb-4 shadow-sm"><i class="fa-solid fa-book-bible"></i></div>
+                    <h3 class="text-lg font-bold text-gray-800 uppercase">Psaltir</h3>
+                </a>
+            </div>
+        </div>
+    </main>
+
+    <footer class="p-6 bg-white border-t border-gray-200 text-center no-print">
+    <button onclick="window.location.href='life_hub.html'" class="max-w-xs w-full bg-slate-900 text-white py-4 rounded-2xl font-black uppercase text-xs shadow-xl hover:scale-105 transition">
+        <i class="fa-solid fa-house mr-2 text-yellow-500"></i> NAZAD NA LIFE HUB
+    </button>
+</footer>
+
+</body>
+</html>

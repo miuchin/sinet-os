@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="sr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SINET LIFE - Majstor v1.1</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body class="bg-slate-50 min-h-screen font-sans p-4" onload="loadTips()">
+
+    <header class="max-w-xl mx-auto flex justify-between items-center mb-6">
+        <div class="flex items-center gap-3">
+            <i class="fa-solid fa-tools text-red-600 text-2xl"></i>
+            <h1 class="text-xl font-black text-slate-800 uppercase italic">MAJSTOR <span class="text-red-600">U KUĆI</span></h1>
+        </div>
+        <button onclick="window.location.href='life_hub.html'" class="bg-slate-900 text-white px-5 py-2 rounded-full font-black text-[10px] uppercase shadow-lg transition hover:scale-105">
+            NAZAD U HUB
+        </button>
+    </header>
+
+    <main class="max-w-xl mx-auto space-y-6">
+        <div id="tips-container" class="space-y-4">
+            </div>
+    </main>
+
+    <div id="tipModal" class="fixed inset-0 bg-black/90 z-[100] hidden flex items-center justify-center p-4 backdrop-blur-sm">
+        <div class="bg-white w-full max-w-sm rounded-[2.5rem] p-8 border-8 border-white shadow-2xl flex flex-col max-h-[80vh]">
+            <div class="flex-1 overflow-y-auto">
+                <h3 id="modalTitle" class="font-black uppercase text-slate-800 mb-4 text-xl border-b pb-2 italic text-red-600"></h3>
+                <p id="modalDesc" class="text-xs text-slate-400 font-bold uppercase mb-6 tracking-widest"></p>
+                <div class="bg-slate-50 p-6 rounded-3xl border-2 border-slate-100 italic text-lg leading-relaxed text-slate-700" id="modalInstruction"></div>
+            </div>
+            <button onclick="closeModal()" class="mt-6 w-full bg-slate-900 text-white font-black py-4 rounded-2xl uppercase text-xs">Zatvori uputstvo</button>
+        </div>
+    </div>
+
+    <script>
+        const tips = [
+            {
+                id: 201,
+                title: "RAD NA SLAVINAMA",
+                desc: "Osnovna bezbednosna procedura",
+                instruction: "Pre svakog rada na slavinama ili baterijama, OBAVEZNO ZATVORITE glavni ventil za vodu. Proverite da li je pritisak nestao pre odvrtanja bilo kog dela kako biste izbegli poplavu.",
+                safety: "Proverite ispravnost ventila pre početka."
+            },
+            {
+                id: 202,
+                title: "PROVERA OSIGURAČA",
+                desc: "Postupak pri nestanku struje",
+                instruction: "Isključite sve veće potrošače (bojler, šporet) pre podizanja automatskog osigurača. Ako osigurač odmah ponovo 'padne', negde postoji kratak spoj - ne pokušavajte silom!",
+                safety: "Radite suvim rukama."
+            }
+        ];
+
+        function loadTips() {
+            const container = document.getElementById('tips-container');
+            container.innerHTML = tips.map(t => `
+                <div class="bg-white p-6 rounded-[2.5rem] shadow-sm border border-slate-100 cursor-pointer hover:border-red-200 transition" onclick="openTip(${t.id})">
+                    <div class="flex justify-between items-start mb-2">
+                        <h2 class="text-lg font-black text-slate-800 uppercase tracking-tighter">${t.title}</h2>
+                        <i class="fa-solid fa-magnifying-glass-plus text-slate-300"></i>
+                    </div>
+                    <p class="text-[10px] text-slate-400 font-bold uppercase mb-4 italic">${t.desc}</p>
+                    
+                    <button onclick="event.stopPropagation(); saveTipToIndex(${t.id})" class="w-full bg-slate-50 text-slate-800 font-black py-3 rounded-xl border border-slate-100 uppercase text-[9px] hover:bg-slate-900 hover:text-white transition">
+                        <i class="fa-solid fa-address-book mr-2 text-red-500"></i> ZAPAMTI SAVET U INDEX
+                    </button>
+                </div>
+            `).join('');
+        }
+
+        function openTip(id) {
+            const t = tips.find(x => x.id === id);
+            document.getElementById('modalTitle').innerText = t.title;
+            document.getElementById('modalDesc').innerText = t.desc;
+            document.getElementById('modalInstruction').innerText = t.instruction;
+            document.getElementById('tipModal').classList.remove('hidden');
+        }
+
+        function closeModal() { document.getElementById('tipModal').classList.add('hidden'); }
+
+        function saveTipToIndex(id) {
+            const t = tips.find(x => x.id === id);
+            let notes = JSON.parse(localStorage.getItem('sinet_notes')) || [];
+            notes.push({
+                id: Date.now(),
+                title: `MAJSTOR: ${t.title}`,
+                text: `[MAJSTOR] ${t.instruction}.`,
+                date: new Date().toLocaleDateString('sr-RS')
+            });
+            localStorage.setItem('sinet_notes', JSON.stringify(notes));
+            alert("✅ Savet je arhiviran u SINET INDEX (Tab: Majstor).");
+        }
+    </script>
+</body>
+</html>

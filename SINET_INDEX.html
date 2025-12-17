@@ -1,0 +1,301 @@
+<!DOCTYPE html>
+<html lang="sr">
+<head>
+    <meta charset="UTF-8">
+    <title>SINET INDEX v2.10</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        .mol-scroll::-webkit-scrollbar { width: 6px; }
+        .mol-scroll::-webkit-scrollbar-thumb { background: #7c3aed; border-radius: 10px; }
+        .sidebar-btn { 
+            width: 100%; text-align: left; padding: 14px 18px; 
+            font-size: 14px; font-weight: 900; border-radius: 12px;
+            transition: 0.3s; margin-bottom: 4px; display: flex; align-items: center; gap: 10px;
+        }
+        .active-sidebar { background: #7c3aed !important; color: white !important; shadow: 0 4px 12px rgba(124, 58, 237, 0.4); }
+        .sidebar-btn:hover:not(.active-sidebar) { background: #f3e8ff; color: #7c3aed; }
+        .action-btn { font-size: 10px; font-weight: 900; padding: 8px 12px; border-radius: 8px; text-transform: uppercase; transition: 0.2s; }
+
+        @media print {
+            aside, header, footer, .no-print, button, .modal-header { display: none !important; }
+            main { padding: 0 !important; width: 100% !important; background: white !important; }
+            .note-card { border: none !important; border-bottom: 2px solid #000 !important; margin-bottom: 40px !important; padding: 0 !important; page-break-inside: avoid; }
+            body { background: white !important; color: black !important; font-size: 12pt !important; }
+        }
+    </style>
+</head>
+<body class="bg-slate-300 h-screen flex overflow-hidden font-serif" onload="loadAndRender()">
+
+    <aside class="w-72 bg-white border-r border-slate-200 flex flex-col p-5 no-print overflow-y-auto mol-scroll shadow-2xl z-50">
+        <div class="mb-6 text-center border-b pb-4">
+            <h2 class="text-3xl font-black uppercase tracking-tighter italic text-slate-800">SINET <span class="text-purple-600">INDEX</span></h2>
+            <p class="text-[9px] font-black text-slate-400 uppercase tracking-widest mt-1">Audit Protocol v2.10</p>
+        </div>
+
+        <button onclick="window.close()" class="sidebar-btn bg-slate-900 text-white mb-6 border-2 border-purple-500 shadow-xl">
+            <i class="fa-solid fa-circle-arrow-left text-purple-400 text-xl"></i> ZATVORI / NAZAD
+        </button>
+
+        <nav class="flex-1 space-y-1">
+            <button onclick="setTab('all')" id="tab-all" class="sidebar-btn active-sidebar"><i class="fa-solid fa-database"></i> SVE OBJAVE</button>
+            <button onclick="setTab('MOLITVENIK')" id="tab-MOLITVENIK" class="sidebar-btn bg-slate-50 text-slate-600"><i class="fa-solid fa-scroll"></i> MOLITVENIK</button>
+            <button onclick="setTab('ZDRAV RECEPT')" id="tab-ZDRAV RECEPT" class="sidebar-btn bg-slate-50 text-green-700"><i class="fa-solid fa-utensils"></i> RECEPTI</button>
+            <button onclick="setTab('FITNES')" id="tab-FITNES" class="sidebar-btn bg-slate-50 text-blue-700"><i class="fa-solid fa-heart-pulse"></i> FITNES</button>
+            <button onclick="setTab('SAVET')" id="tab-SAVET" class="sidebar-btn bg-slate-50 text-yellow-600"><i class="fa-solid fa-lightbulb"></i> SAVETI</button>
+            <button onclick="setTab('MAJSTOR')" id="tab-MAJSTOR" class="sidebar-btn bg-slate-50 text-red-700"><i class="fa-solid fa-tools"></i> MAJSTOR</button>
+            <button onclick="setTab('AUTO')" id="tab-AUTO" class="sidebar-btn bg-slate-50 text-indigo-700"><i class="fa-solid fa-car"></i> AUTO</button>
+            <button onclick="setTab('LOV')" id="tab-LOV" class="sidebar-btn bg-slate-50 text-orange-700"><i class="fa-solid fa-fish"></i> HOBI</button>
+            <button onclick="setTab('Favoriti')" id="tab-Favoriti" class="sidebar-btn bg-slate-50 text-yellow-500 border-t mt-2"><i class="fa-solid fa-star"></i> FAVORITI</button>
+            <button onclick="openAuditPanel()" class="sidebar-btn bg-slate-800 text-purple-300 mt-4 border border-purple-900/30 shadow-inner">
+                <i class="fa-solid fa-user-shield"></i> ADMIN AUDIT LOG
+            </button>
+        </nav>
+
+        <div class="mt-6 pt-4 border-t border-slate-100 space-y-2">
+            <button onclick="window.location.href='sinet_backup.html'" class="w-full py-3 bg-blue-600 text-white rounded-xl font-black text-[10px] uppercase shadow-md">Backup sistema</button>
+            <button onclick="secureSystemReset()" class="w-full py-3 bg-red-600 text-white rounded-xl font-black text-[10px] uppercase shadow-md">Obriši Index</button>
+        </div>
+    </aside>
+
+    <main class="flex-1 flex flex-col bg-slate-50 relative">
+        <header class="bg-slate-900 p-8 no-print shadow-xl">
+            <div class="max-w-4xl mx-auto flex gap-4 items-center">
+                <div class="relative flex-1">
+                    <i class="fa-solid fa-magnifying-glass absolute left-5 top-4.5 text-slate-500 text-xl"></i>
+                    <input type="text" id="masterSearch" onkeyup="filterNotes()" 
+                           placeholder="Audit Search (Naslov, Sadržaj, Izvor)..." 
+                           class="w-full bg-slate-800 border-2 border-slate-700 rounded-3xl py-4 pl-14 pr-6 text-lg text-white focus:outline-none focus:border-purple-500 transition shadow-inner">
+                </div>
+                <button onclick="document.getElementById('importFile').click()" class="bg-green-600 text-white px-8 py-4 rounded-3xl font-black uppercase text-xs hover:bg-green-700 transition">RESTORE</button>
+                <input type="file" id="importFile" class="hidden" onchange="restoreSystem(this)">
+            </div>
+        </header>
+
+        <div id="notesContainer" class="flex-1 overflow-y-auto p-10 space-y-8 mol-scroll max-w-4xl mx-auto w-full"></div>
+
+        <footer class="p-4 bg-white border-t border-slate-200 flex justify-between items-center no-print px-10 shadow-inner">
+            <span id="noteCount" class="text-xs font-black text-slate-400 uppercase italic">Registrovanih objekata: 0</span>
+            <button onclick="window.print()" class="bg-slate-800 text-white px-6 py-2 rounded-xl font-black text-[10px] uppercase tracking-widest">Štampaj ceo Index</button>
+        </footer>
+    </main>
+
+    <div id="viewModal" class="fixed inset-0 bg-black/95 z-[100] hidden flex items-center justify-center p-4 backdrop-blur-md">
+        <div class="bg-white w-full max-w-3xl rounded-[3rem] overflow-hidden shadow-2xl flex flex-col h-[85vh] border-[12px] border-white">
+            <div class="modal-header p-8 bg-slate-900 text-white flex justify-between items-center">
+                <div class="flex flex-col">
+                    <h3 id="modalTitle" class="font-black uppercase tracking-tight text-2xl text-purple-400"></h3>
+                    <span id="sourceInfo" class="text-[10px] text-slate-400 font-bold uppercase mt-1 italic"></span>
+                </div>
+                <button onclick="closeView()" class="bg-slate-800 w-12 h-12 rounded-full flex items-center justify-center hover:bg-red-600 transition"><i class="fa-solid fa-times text-2xl"></i></button>
+            </div>
+            <div id="viewArea" class="flex-1 p-12 text-xl font-serif overflow-y-auto leading-relaxed bg-white text-slate-900 italic border-b"></div>
+            <textarea id="editArea" class="hidden flex-1 p-12 text-lg font-mono bg-slate-50 focus:outline-none"></textarea>
+
+            <div class="p-8 bg-slate-50 flex justify-between items-center px-12 no-print">
+                <div id="auditLog" class="text-[9px] text-slate-400 font-mono leading-tight uppercase"></div>
+                <div class="flex gap-3">
+                    <button id="btnSource" class="px-8 py-4 bg-indigo-600 text-white font-black rounded-full uppercase text-[10px] shadow-lg">IDI NA IZVOR</button>
+                    <button id="btnSave" onclick="saveChanges()" class="hidden px-8 py-4 bg-green-600 text-white font-black rounded-full uppercase text-[10px]">SAČUVAJ IZMENU</button>
+                    <button onclick="closeView()" class="px-10 py-4 bg-slate-200 text-slate-700 font-black rounded-full uppercase text-[10px]">Zatvori</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="auditPanelModal" class="fixed inset-0 bg-slate-900/95 z-[200] hidden flex items-center justify-center p-6 backdrop-blur-xl">
+        <div class="bg-white w-full max-w-6xl rounded-[2rem] overflow-hidden shadow-2xl flex flex-col h-[90vh]">
+            <div class="p-6 bg-slate-800 text-white flex justify-between items-center">
+                <h3 class="font-black uppercase tracking-widest text-xl"><i class="fa-solid fa-user-shield text-purple-400 mr-2"></i> SISTEMSKI AUDIT PANEL</h3>
+                <button onclick="closeAuditPanel()" class="bg-slate-700 w-10 h-10 rounded-full flex items-center justify-center hover:bg-red-500"><i class="fa-solid fa-times"></i></button>
+            </div>
+            <div class="flex-1 overflow-auto p-6">
+                <table class="w-full text-left border-collapse text-xs">
+                    <thead class="sticky top-0 bg-slate-100 uppercase font-black text-slate-600">
+                        <tr>
+                            <th class="p-3 border">ID (Timestamp)</th>
+                            <th class="p-3 border">Naslov Objekta</th>
+                            <th class="p-3 border">Modul Porekla</th>
+                            <th class="p-3 border">Datum Zapisa</th>
+                            <th class="p-3 border">Status</th>
+                            <th class="p-3 border">Akcija</th>
+                        </tr>
+                    </thead>
+                    <tbody id="auditTableBody" class="font-mono text-slate-700"></tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        let allNotes = [];
+        let currentTab = 'all';
+        let currentEditId = null;
+
+        function loadAndRender() {
+            allNotes = JSON.parse(localStorage.getItem('sinet_notes')) || [];
+            filterNotes();
+        }
+
+        function filterNotes() {
+            const term = document.getElementById('masterSearch').value.toLowerCase();
+            let filtered = allNotes.filter(n => {
+                const content = (n.title + n.text).toLowerCase();
+                if (currentTab === 'Favoriti') return content.includes(term) && n.fav;
+                if (currentTab === 'all') return content.includes(term);
+                return content.includes(term) && n.text.toUpperCase().includes(currentTab);
+            });
+            filtered.sort((a, b) => b.id - a.id);
+            renderNotes(filtered);
+        }
+
+        function renderNotes(notes) {
+            const container = document.getElementById('notesContainer');
+            document.getElementById('noteCount').innerText = `REGISTROVANIH OBJEKATA: ${notes.length}`;
+            if (notes.length === 0) { container.innerHTML = '<div class="text-center mt-20 opacity-30"><i class="fa-solid fa-folder-open text-9xl"></i><p class="text-xl font-black mt-4 uppercase">Sistem je spreman</p></div>'; return; }
+            
+            container.innerHTML = notes.map(n => {
+                const isMolitva = n.text.includes("[МОЛИТВЕНИК]");
+                const sourceMod = isMolitva ? "MOLITVENIK" : "SINET LIFE";
+                const sourceColor = isMolitva ? "bg-slate-900" : "bg-blue-600";
+
+                return `
+                <div class="note-card bg-white p-10 rounded-[3.5rem] border-2 border-slate-100 shadow-xl hover:shadow-2xl transition-all relative">
+                    <div class="flex justify-between items-start mb-6 no-print">
+                        <span class="text-[9px] font-black px-4 py-1.5 rounded-full ${sourceColor} text-white uppercase tracking-widest">${sourceMod}</span>
+                        <div class="flex gap-6 items-center text-slate-300">
+                             <i class="fa-${n.fav ? 'solid text-yellow-500' : 'regular'} fa-star text-2xl cursor-pointer" onclick="event.stopPropagation(); toggleFavorite(${n.id})"></i>
+                             <span class="font-black text-xs">${n.date || '---'}</span>
+                        </div>
+                    </div>
+                    <h4 class="font-black text-slate-900 text-2xl mb-3 uppercase tracking-tighter">${n.title}</h4>
+                    <p class="text-lg text-slate-500 line-clamp-2 italic border-l-8 border-slate-100 pl-6 mb-8">${n.text.replace(/<[^>]*>/g, '').replace(/\[.*?\]/g, '').trim()}</p>
+                    
+                    <div class="flex flex-wrap gap-3 border-t border-slate-50 pt-6 no-print">
+                        <button onclick="viewNote(${n.id}, false)" class="action-btn bg-blue-100 text-blue-700 hover:bg-blue-600 hover:text-white">PREGLED</button>
+                        <button onclick="printSingleNote(${n.id})" class="action-btn bg-green-100 text-green-700 hover:bg-green-600 hover:text-white">ŠTAMPA / PDF</button>
+                        <button onclick="viewNote(${n.id}, true)" class="action-btn bg-orange-100 text-orange-700 hover:bg-orange-600 hover:text-white">IZMENA</button>
+                        <button onclick="deleteNote(${n.id})" class="action-btn bg-red-100 text-red-700 hover:bg-red-600 hover:text-white ml-auto">OBRIŠI</button>
+                    </div>
+                </div>`;
+            }).join('');
+        }
+
+        function openAuditPanel() {
+            document.getElementById('auditPanelModal').classList.remove('hidden');
+            const tbody = document.getElementById('auditTableBody');
+            tbody.innerHTML = allNotes.map(n => `
+                <tr class="hover:bg-slate-50 border-b">
+                    <td class="p-3 border">${n.id}</td>
+                    <td class="p-3 border font-bold">${n.title}</td>
+                    <td class="p-3 border italic">${n.text.includes("[МОЛИТВЕНИК]") ? "mol_hub.html" : "SINET LIFE"}</td>
+                    <td class="p-3 border">${n.date}</td>
+                    <td class="p-3 border text-green-600 font-bold">VERIFIED</td>
+                    <td class="p-3 border">
+                        <button onclick="viewNote(${n.id}, false); closeAuditPanel();" class="text-blue-500 hover:underline">VIEW</button>
+                    </td>
+                </tr>
+            `).join('');
+        }
+        function closeAuditPanel() { document.getElementById('auditPanelModal').classList.add('hidden'); }
+
+        function viewNote(id, isEdit) {
+    currentEditId = id;
+    const note = allNotes.find(n => n.id === id);
+    
+    // SINET PATH LOGIC: Određivanje tačnog fajla na disku
+    const isMolitva = note.text.includes("[MOLITVENIK]");
+    const sourceFile = isMolitva ? "mol_hub.html" : "life_hub.html"; // Mora biti identično imenu fajla
+
+    document.getElementById('modalTitle').innerText = note.title;
+    document.getElementById('sourceInfo').innerText = `MODUL IZVORA: ${sourceFile.toUpperCase()}`;
+    document.getElementById('auditLog').innerHTML = `ID: ${note.id} | TIMESTAMP: ${Date.now()} | SYS: v2.11`;
+
+    const btnSource = document.getElementById('btnSource');
+    // Ispravljeno: Dugme sada otvara stvarni fajl life_hub.html
+    btnSource.onclick = () => window.location.href = sourceFile; 
+
+    if(isEdit) {
+        document.getElementById('viewArea').classList.add('hidden');
+        document.getElementById('editArea').classList.remove('hidden');
+        document.getElementById('editArea').value = note.text;
+        document.getElementById('btnSave').classList.remove('hidden');
+    // Izmenjena linija unutar funkcije viewNote u SINET_INDEX.html
+} else {
+    document.getElementById('editArea').classList.add('hidden');
+    document.getElementById('viewArea').classList.remove('hidden');
+    
+    // SINET FIX: Prikazujemo sav sadržaj, a oznake [MAJSTOR] samo vizuelno ističemo
+    let cleanContent = note.text.replace(/\[(MAJSTOR|ZDRAV RECEPT|SINET LIFE)\]/g, 
+        '<span class="text-purple-600 font-black">[$1]</span>');
+    
+    document.getElementById('viewArea').innerHTML = cleanContent;
+    document.getElementById('btnSave').classList.add('hidden');
+}
+    document.getElementById('viewModal').classList.remove('hidden');
+}
+
+      // --- SINET PRINT ISOLATION PROTOCOL v1.3 (Smart Naming) ---
+function printSingleNote(id) {
+    const note = allNotes.find(n => n.id === id);
+    if (!note) return;
+
+    // SINET SMART NAMING: Čišćenje naslova za ime fajla
+    const cleanTitle = note.title
+        .toUpperCase()
+        .replace(/\s+/g, '_')           // Razmaci postaju donje crte
+        .replace(/[^A-Z0-9_]/g, '')     // Uklanjanje specijalnih karaktera
+        .substring(0, 50);              // Ograničenje dužine
+
+    const fileName = `SINET_PRINT_${cleanTitle}`;
+
+    const printWindow = window.open('', '_blank');
+    
+    // Ključno: Naslov dokumenta u novom prozoru diktira ime PDF fajla
+    printWindow.document.write(`
+        <html>
+            <head>
+                <title>${fileName}</title>
+                <style>
+                    body { font-family: serif; padding: 40px; line-height: 1.6; color: #1e293b; }
+                    h1 { text-transform: uppercase; border-bottom: 2px solid #7c3aed; padding-bottom: 10px; color: #1e293b; font-size: 24pt; margin-bottom: 10px; }
+                    .meta { font-size: 10pt; color: #64748b; margin-bottom: 30px; font-weight: bold; text-transform: uppercase; border-bottom: 1px solid #e2e8f0; padding-bottom: 10px; }
+                    .content { font-size: 14pt; font-style: italic; white-space: pre-wrap; background: #f8fafc; padding: 30px; border-radius: 20px; }
+                    .footer { margin-top: 50px; border-top: 1px solid #e2e8f0; padding-top: 10px; font-size: 8pt; color: #94a3b8; text-align: center; }
+                </style>
+            </head>
+            <body>
+                <h1>${note.title}</h1>
+                <div class="meta">Datum zapisa: ${note.date} | SINET Audit Verified</div>
+                <div class="content">${note.text.replace(/<[^>]*>/g, '').replace(/\[.*?\]/g, '').trim()}</div>
+                <div class="footer">Generisano iz SINET INDEX sistema v2.11. Poverljiv lični dokument.</div>
+            </body>
+        </html>
+    `);
+
+    printWindow.document.close();
+
+    // SINET FOCUS: Osiguravamo da se prozor učita pre poziva za štampu
+    setTimeout(() => {
+        printWindow.print();
+        printWindow.close();
+    }, 500);
+}
+
+        function saveChanges() {
+            const newText = document.getElementById('editArea').value;
+            allNotes = allNotes.map(n => n.id === currentEditId ? {...n, text: newText} : n);
+            localStorage.setItem('sinet_notes', JSON.stringify(allNotes));
+            closeView(); loadAndRender();
+        }
+
+        function setTab(tab) { currentTab = tab; document.querySelectorAll('.sidebar-btn').forEach(btn => btn.classList.remove('active-sidebar')); document.getElementById(`tab-${tab}`).classList.add('active-sidebar'); filterNotes(); }
+        function toggleFavorite(id) { allNotes = allNotes.map(n => n.id === id ? {...n, fav: !n.fav} : n); localStorage.setItem('sinet_notes', JSON.stringify(allNotes)); filterNotes(); }
+        function deleteNote(id) { if(confirm("Trajno obrisati objekat?")) { allNotes = allNotes.filter(n => n.id !== id); localStorage.setItem('sinet_notes', JSON.stringify(allNotes)); filterNotes(); } }
+        function closeView() { document.getElementById('viewModal').classList.add('hidden'); }
+        function exportFullSystem() { const blob = new Blob([JSON.stringify(allNotes, null, 2)], {type: 'application/json'}); const link = document.createElement('a'); link.href = URL.createObjectURL(blob); link.download = `SINET_INDEX_v2.json`; link.click(); }
+        function secureSystemReset() { if (confirm("ADMIN RESET: Brišem sve?") && confirm("POTVRDA: Baza će biti ispražnjena.")) { localStorage.setItem('sinet_trash', JSON.stringify(allNotes)); localStorage.removeItem('sinet_notes'); allNotes = []; loadAndRender(); } }
+        function restoreSystem(input) { const file = input.files[0]; if (!file) return; const reader = new FileReader(); reader.onload = e => { localStorage.setItem('sinet_notes', JSON.stringify(JSON.parse(e.target.result))); loadAndRender(); }; reader.readAsText(file); }
+    </script>
+</body>
+</html>

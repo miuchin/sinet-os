@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="sr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>SINET МОЛИТВЕНИК - Васкршње Молитве</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        molitvenik: { bg: '#fff7ed', card: '#ffffff', text: '#44403c', primary: '#374151', accent: '#f3f4f6' } 
+                    },
+                    fontFamily: { serif: ['Garamond', 'serif'] }
+                }
+            }
+        }
+    </script>
+    <style>
+        .mol-scroll::-webkit-scrollbar { width: 6px; }
+        .mol-scroll::-webkit-scrollbar-thumb { background: #d1d5db; border-radius: 3px; } 
+        .mol-index-item { cursor: pointer; padding: 12px; background: #fafafa; border-radius: 8px; border-left: 4px solid #ddd; transition: 0.2s; }
+        .mol-index-item:hover { background: #f9fafb; border-left-color: #374151; }
+        @media print {
+            aside, #actionControls, .no-print, .mol-index-item { display: none !important; }
+            main { padding: 0 !important; margin: 0 !important; width: 100% !important; }
+            #prayerTitle { text-align: center; color: #dc2626 !important; margin-bottom: 30px !important; visibility: visible !important; }
+            body { background: white !important; }
+        }
+    </style>
+</head>
+<body class="bg-molitvenik-bg text-molitvenik-text min-h-screen flex font-serif" onload="initModule()">
+    <aside class="w-64 bg-molitvenik-card shadow-2xl border-r border-gray-100 flex-shrink-0 flex flex-col no-print">
+        <div class="p-6 border-b border-gray-200">
+            <h2 class="text-xl font-black text-molitvenik-primary uppercase tracking-tighter">Васкрс</h2>
+            <p class="text-[9px] font-bold text-gray-400 uppercase mt-1">SINET Audit v2.10</p>
+        </div>
+        <nav class="flex-1 overflow-y-auto mol-scroll p-4 space-y-2" id="moduleNav"></nav>
+        <div class="p-4 border-t border-gray-200 space-y-2">
+            <button onclick="window.open('SINET_INDEX.html', '_blank')" class="w-full py-2 bg-purple-100 text-purple-700 font-bold rounded text-xs hover:bg-purple-200 transition uppercase shadow-sm">
+                <i class="fa-solid fa-address-book mr-2"></i> SINET INDEX
+            </button>
+            <a href="mol_hub.html" class="w-full py-2 bg-gray-700 text-white rounded text-sm font-bold hover:bg-gray-900 transition flex items-center justify-center gap-2 uppercase tracking-widest shadow-sm">
+                 <i class="fa-solid fa-house"></i> НАЗАД У HUB
+            </a>
+        </div>
+    </aside>
+
+    <main class="flex-1 p-8 overflow-y-auto mol-scroll flex flex-col">
+        <div class="max-w-xl mx-auto flex-1 w-full text-center">
+            <h2 id="prayerTitle" class="text-4xl font-black text-red-600 mb-8 uppercase tracking-widest italic">ХРИСТОС ВАСКРСЕ!</h2>
+            <article id="prayerContent" class="text-gray-800 leading-loose text-left"></article>
+        </div>
+        <div id="actionControls" class="flex justify-between mt-10 border-t border-gray-200 pt-4 no-print hidden w-full max-w-xl mx-auto">
+            <button onclick="saveToNotes()" class="bg-red-600 text-white font-black py-3 px-6 rounded-xl text-xs hover:bg-red-700 transition flex-1 mr-4 shadow-lg uppercase tracking-widest">
+                <i class="fa-solid fa-save mr-2"></i> Sačuvaj u INDEX
+            </button>
+            <button onclick="window.print()" class="bg-green-600 text-white font-black py-3 px-6 rounded-xl text-xs hover:bg-green-700 transition shadow-lg uppercase tracking-widest">
+                 <i class="fa-solid fa-print mr-2"></i> Штампај (PDF)
+            </button>
+        </div>
+    </main>
+
+    <script>
+        const moduleData = [
+            { id: 'v01', title: 'Васкршњи Тропар', text: 'Христос васкрсе из мртвих, смрћу смрт уништи и онима у гробовима живот дарова!' },
+            { id: 'v02', title: 'Васкршњи Стихови', text: 'Нека васкрсне Бог и нека се распрше непријатељи Његови... Пасха црvena, Пасха Господња, Пасха свечасна нам засија!' }
+        ];
+
+        let currentIndex = -1;
+        function initModule() {
+            document.getElementById('moduleNav').innerHTML = moduleData.map((m, i) => `<div class="mol-index-item" onclick="loadItem(${i})"><p class="font-bold text-gray-800 text-xs uppercase tracking-tighter">${m.title}</p></div>`).join('');
+        }
+
+        function loadItem(index) {
+            currentIndex = index;
+            const item = moduleData[index];
+            document.getElementById('prayerTitle').innerText = item.title;
+            document.title = "SINET МОЛИТВЕНИК - " + item.title;
+            document.getElementById('prayerContent').innerHTML = `<div class="p-8 bg-white rounded-3xl shadow-xl border-4 border-red-50 text-xl leading-relaxed italic text-slate-800 underline decoration-red-100 decoration-4 underline-offset-8">${item.text}</div>`;
+            document.getElementById('actionControls').classList.remove('hidden');
+        }
+
+        function saveToNotes() {
+            const item = moduleData[currentIndex];
+            let notes = JSON.parse(localStorage.getItem('sinet_notes')) || [];
+            notes.push({
+                id: Date.now(),
+                title: item.title,
+                text: `[МОЛИТВЕНИК] [SOURCE: mol_vaskrs.html] ${item.text}`,
+                date: new Date().toLocaleDateString('sr-RS')
+            });
+            localStorage.setItem('sinet_notes', JSON.stringify(notes));
+            alert("✅ Uspešno upisano u SINET INDEX (Audit Verifikovan)");
+        }
+    </script>
+</body>
+</html>

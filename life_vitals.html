@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="sr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SINET LIFE - Vitalne Funkcije v5.3</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script>
+        tailwind.config = {
+            theme: { extend: { colors: { life: { bg: '#f0f9ff', accent: '#0ea5e9', health: '#ef4444' } } } }
+        }
+    </script>
+    <style>
+        .vitals-card { transition: transform 0.2s; }
+        .vitals-card:hover { transform: scale(1.01); }
+        /* OPTIMIZOVAN FONT ZA KARTICE (Audit v5.3) */
+        .vitals-val-small { font-size: 1.5rem; line-height: 1.2; font-weight: 800; letter-spacing: -0.02em; }
+    </style>
+</head>
+<body class="bg-life-bg min-h-screen font-sans" onload="initVitals()">
+
+    <header class="bg-white shadow-sm p-5 sticky top-0 z-50 no-print">
+        <div class="max-w-xl mx-auto flex justify-between items-center">
+            <h1 class="text-xl font-black text-slate-800 uppercase italic tracking-tighter">VITALNI <span class="text-life-accent">LOG</span></h1>
+            <button onclick="window.location.href='life_hub.html'" class="bg-slate-900 text-white px-5 py-2 rounded-full font-black text-[10px] uppercase shadow-md hover:bg-black transition">NAZAD U HUB</button>
+        </div>
+    </header>
+
+    <main class="p-4 max-w-xl mx-auto space-y-4 pb-24">
+        <section class="grid grid-cols-3 gap-2 no-print">
+            <button onclick="openForm('bp')" class="bg-white p-3 rounded-2xl border border-slate-100 flex flex-col items-center hover:bg-red-50 transition shadow-sm">
+                <i class="fa-solid fa-heart-pulse text-red-500 mb-1 text-lg"></i>
+                <span class="text-[8px] font-black uppercase text-slate-500">Pritisak</span>
+            </button>
+            <button onclick="openForm('sugar')" class="bg-white p-3 rounded-2xl border border-slate-100 flex flex-col items-center hover:bg-orange-50 transition shadow-sm">
+                <i class="fa-solid fa-cube text-orange-500 mb-1 text-lg"></i>
+                <span class="text-[8px] font-black uppercase text-slate-500">Šećer</span>
+            </button>
+            <button onclick="openForm('oxy')" class="bg-white p-3 rounded-2xl border border-slate-100 flex flex-col items-center hover:bg-blue-50 transition shadow-sm">
+                <i class="fa-solid fa-droplet text-blue-500 mb-1 text-lg"></i>
+                <span class="text-[8px] font-black uppercase text-slate-500">Oksigen</span>
+            </button>
+            <button onclick="openForm('temp')" class="bg-white p-3 rounded-2xl border border-slate-100 flex flex-col items-center hover:bg-yellow-50 transition shadow-sm">
+                <i class="fa-solid fa-thermometer text-yellow-500 mb-1 text-lg"></i>
+                <span class="text-[8px] font-black uppercase text-slate-500">Temp</span>
+            </button>
+            <button onclick="openForm('weight')" class="bg-white p-3 rounded-2xl border border-slate-100 flex flex-col items-center hover:bg-green-50 transition shadow-sm col-span-2">
+                <i class="fa-solid fa-weight-scale text-green-600 mb-1 text-lg"></i>
+                <span class="text-[8px] font-black uppercase text-slate-500">TEŽINA & BMI UNOS</span>
+            </button>
+        </section>
+
+        <section id="vitals-timeline" class="space-y-3">
+            </section>
+    </main>
+
+    <div id="inputModal" class="fixed inset-0 bg-black/80 z-[100] hidden flex items-center justify-center p-4 backdrop-blur-sm">
+        <div class="bg-white w-full max-w-sm rounded-[2rem] p-6 border-4 border-white shadow-2xl">
+            <h3 id="modalTitle" class="font-black uppercase text-slate-800 mb-4 text-xs border-b pb-2 italic">NOVI UNOS</h3>
+            <div id="modalFields" class="space-y-4 text-center"></div>
+            <div class="mt-6 flex gap-2">
+                <button onclick="saveEntry()" class="flex-1 bg-green-500 text-white font-black py-3 rounded-xl shadow-lg uppercase text-[10px]">SAČUVAJ</button>
+                <button onclick="closeModal()" class="bg-slate-100 text-slate-400 px-4 py-3 rounded-xl uppercase text-[9px] font-black italic">X</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        let vitalsStore = JSON.parse(localStorage.getItem('sinet_life_vitals')) || [];
+        let config = JSON.parse(localStorage.getItem('sinet_life_config')) || {};
+        let currentType = '';
+
+        function initVitals() { renderTimeline(); }
+
+        function openForm(type) {
+            currentType = type;
+            const fields = document.getElementById('modalFields');
+            const title = document.getElementById('modalTitle');
+            if(type === 'oxy') { title.innerText = "Kiseonik"; fields.innerHTML = `<input type="number" id="v-val" placeholder="%" class="w-full p-3 bg-slate-50 rounded-xl text-center font-black text-2xl outline-none text-blue-500">`; }
+            else if(type === 'temp') { title.innerText = "Temperatura"; fields.innerHTML = `<input type="number" step="0.1" id="v-val" placeholder="°C" class="w-full p-3 bg-slate-50 rounded-xl text-center font-black text-2xl outline-none text-yellow-600">`; }
+            else if(type === 'weight') { title.innerText = "Težina (kg)"; fields.innerHTML = `<input type="number" step="0.1" id="v-val" placeholder="0.0" class="w-full p-3 bg-slate-50 rounded-xl text-center font-black text-2xl outline-none text-green-600">`; }
+            else if(type === 'bp') { title.innerText = "Pritisak"; fields.innerHTML = `<div class="grid grid-cols-2 gap-2"><input type="number" id="v-sys" placeholder="SYS" class="p-3 bg-slate-50 rounded-xl text-center font-black text-xl"><input type="number" id="v-dia" placeholder="DIA" class="p-3 bg-slate-50 rounded-xl text-center font-black text-xl"></div><input type="number" id="v-hr" placeholder="Puls" class="mt-2 w-full p-3 bg-slate-50 rounded-xl text-center font-black text-lg text-red-500">`; }
+            else if(type === 'sugar') { title.innerText = "Šećer"; fields.innerHTML = `<input type="number" step="0.1" id="v-val" placeholder="mmol/L" class="w-full p-3 bg-slate-50 rounded-xl text-center font-black text-2xl outline-none text-orange-500">`; }
+            document.getElementById('inputModal').classList.remove('hidden');
+        }
+
+        function getBMIInfo(bmi) {
+            if (bmi < 18.5) return { text: "PODHRANJENOST: Indeks ispod normale. Povećajte unos kalorija.", color: "text-blue-500" };
+            if (bmi < 25) return { text: "NORMALNO: Idealna težina. Održavajte balansiranu ishranu.", color: "text-green-500" };
+            if (bmi < 30) return { text: "PREKOMERNO: Povišen rizik. Smanjite šećere i pojačajte kretanje.", color: "text-yellow-600" };
+            return { text: "GOJAZNOST: Visok zdravstveni rizik. Savetujemo pregled kod lekara.", color: "text-red-600" };
+        }
+
+        function saveEntry() {
+            const now = new Date();
+            const entry = { id: Date.now(), type: currentType, date: now.toLocaleDateString('sr-RS'), time: now.toLocaleTimeString('sr-RS', { hour: '2-digit', minute: '2-digit' }) };
+            if(currentType === 'bp') { entry.val = `${document.getElementById('v-sys').value}/${document.getElementById('v-dia').value}`; entry.sub = `PULS: ${document.getElementById('v-hr').value}`; entry.icon = "fa-heart-pulse text-red-500"; }
+            else if(currentType === 'weight') {
+                const w = parseFloat(document.getElementById('v-val').value);
+                entry.val = `${w} kg`;
+                if(config.height) {
+                    const h = config.height / 100;
+                    const bmi = (w / (h * h)).toFixed(1);
+                    const info = getBMIInfo(bmi);
+                    entry.sub = `BMI: ${bmi} - ${info.text}`;
+                    entry.bmiColor = info.color;
+                } else { entry.sub = "UNESITE VISINU U PODEŠAVANJA"; entry.bmiColor = "text-slate-400"; }
+                entry.icon = "fa-weight-scale text-green-600";
+            }
+            else if(currentType === 'oxy') { entry.val = `${document.getElementById('v-val').value}% SpO2`; entry.sub = "KISEONIK U KRVI"; entry.icon = "fa-droplet text-blue-500"; }
+            else if(currentType === 'temp') { entry.val = `${document.getElementById('v-val').value}°C`; entry.sub = "TELESNA TEMPERATURA"; entry.icon = "fa-thermometer text-yellow-500"; }
+            else { entry.val = `${document.getElementById('v-val').value} mmol/L`; entry.sub = "GLUKOZA"; entry.icon = "fa-cube text-orange-500"; }
+
+            vitalsStore.unshift(entry);
+            localStorage.setItem('sinet_life_vitals', JSON.stringify(vitalsStore));
+            closeModal(); renderTimeline();
+        }
+
+        function renderTimeline() {
+            const cont = document.getElementById('vitals-timeline');
+            if(vitalsStore.length === 0) { cont.innerHTML = `<p class="text-center opacity-30 italic py-10">Nema merenja.</p>`; return; }
+            cont.innerHTML = vitalsStore.map(v => `
+                <div class="vitals-card bg-white p-4 rounded-[1.5rem] border border-slate-100 flex justify-between items-center shadow-sm">
+                    <div class="flex items-center gap-4">
+                        <div class="w-10 h-10 bg-slate-50 rounded-full flex items-center justify-center text-xl shadow-inner"><i class="fa-solid ${v.icon}"></i></div>
+                        <div>
+                            <span class="text-[8px] font-mono text-slate-400 block uppercase">${v.date} | ${v.time}</span>
+                            <h4 class="vitals-val-small text-slate-800 tracking-tight">${v.val}</h4>
+                            <p class="text-[9px] font-black uppercase ${v.bmiColor || 'text-slate-400'} leading-tight mt-0.5">${v.sub}</p>
+                        </div>
+                    </div>
+                    <div class="flex gap-2">
+                         <button onclick="sendToIndex(${v.id})" class="text-purple-400 hover:text-purple-600 p-1.5"><i class="fa-solid fa-address-book text-lg"></i></button>
+                         <button onclick="deleteEntry(${v.id})" class="text-slate-200 hover:text-red-500 p-1.5"><i class="fa-solid fa-trash-can text-lg"></i></button>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        function sendToIndex(id) {
+            const v = vitalsStore.find(x => x.id === id);
+            let notes = JSON.parse(localStorage.getItem('sinet_notes')) || [];
+            notes.push({ id: Date.now(), title: `MEDICINSKI LOG: ${v.type.toUpperCase()}`, text: `[SINET LIFE] Rezultat: ${v.val}. ${v.sub}. Zabeleženo dana ${v.date} u ${v.time}.`, date: v.date });
+            localStorage.setItem('sinet_notes', JSON.stringify(notes));
+            alert("✅ Podatak arhiviran u SINET INDEX!");
+        }
+
+        function deleteEntry(id) {
+            if(confirm("Trajno obrisati zapis?")) {
+                vitalsStore = vitalsStore.filter(v => v.id !== id);
+                localStorage.setItem('sinet_life_vitals', JSON.stringify(vitalsStore));
+                renderTimeline();
+            }
+        }
+        function closeModal() { document.getElementById('inputModal').classList.add('hidden'); }
+    </script>
+</body>
+</html>

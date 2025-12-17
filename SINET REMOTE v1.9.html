@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>SINET REMOTE v1.95 Full</title>
+    <title>SINET REMOTE v1.96 Yellow</title>
     
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
@@ -35,19 +35,19 @@
         }
     </style>
 </head>
-<body class="bg-slate-950 text-gray-200 font-sans h-screen flex flex-col overflow-hidden selection:bg-cyan-500/30 grid-bg">
+<body class="bg-slate-950 text-gray-200 font-sans h-screen flex flex-col overflow-hidden selection:bg-yellow-500/30 grid-bg">
 
     <header class="bg-slate-900/95 border-b border-slate-800 h-14 md:h-16 flex items-center justify-between px-4 shadow-2xl z-50 shrink-0">
         <div class="flex items-center gap-3">
             <div class="relative w-8 h-8 md:w-10 md:h-10 flex items-center justify-center">
-                <div class="absolute inset-0 bg-cyan-500 blur-xl opacity-20 animate-pulse-slow"></div>
+                <div class="absolute inset-0 bg-yellow-500 blur-xl opacity-20 animate-pulse-slow"></div>
                 <div class="relative w-full h-full bg-gradient-to-br from-slate-800 to-slate-900 rounded-lg flex items-center justify-center border border-slate-600/50">
-                    <i class="fa-solid fa-satellite-dish text-cyan-400 text-sm md:text-lg"></i>
+                    <i class="fa-solid fa-satellite-dish text-yellow-400 text-sm md:text-lg"></i>
                 </div>
             </div>
             <div>
-                <h1 class="font-bold text-xs md:text-lg text-white tracking-wide">SINET <span class="text-cyan-400">REMOTE</span></h1>
-                <p class="text-[8px] md:text-[9px] text-gray-400 font-mono uppercase tracking-widest">v1.95 FULL CODE</p>
+                <h1 class="font-bold text-xs md:text-lg text-white tracking-wide">SINET <span class="text-yellow-400">REMOTE</span></h1>
+                <p class="text-[8px] md:text-[9px] text-gray-400 font-mono uppercase tracking-widest">v1.96 YELLOW ED.</p>
             </div>
         </div>
         <button onclick="window.close()" class="text-slate-500 hover:text-red-500 text-lg"><i class="fa-solid fa-power-off"></i></button>
@@ -59,8 +59,8 @@
             
             <div class="p-3 md:p-5 border-b border-slate-800 bg-black/20 flex md:block items-center justify-between gap-4">
                 <div class="md:mb-2">
-                    <h2 class="text-[10px] font-bold text-cyan-500 uppercase tracking-widest flex items-center gap-2">
-                        <i class="fa-solid fa-wave-square"></i> <span class="hidden md:inline">LIVE TRAFFIC</span><span class="md:hidden">NET</span>
+                    <h2 class="text-[10px] font-bold text-yellow-400 uppercase tracking-widest flex items-center gap-2 animate-pulse">
+                        <i class="fa-solid fa-bolt"></i> <span class="hidden md:inline">LIVE TRAFFIC</span><span class="md:hidden">NET</span>
                     </h2>
                     <div class="flex md:block gap-3 text-[10px] font-mono text-gray-400 mt-1">
                         <span>IP: <span id="net-ip" class="text-white">...</span></span>
@@ -110,7 +110,8 @@
                 </div>
                 <div class="flex gap-2">
                     <button onclick="toggleModal('mobileGuide')" class="bg-slate-800 text-cyan-400 p-1.5 md:p-2 rounded border border-slate-700"><i class="fa-solid fa-qrcode"></i> <span class="hidden md:inline text-xs ml-1">Connect</span></button>
-                    <button onclick="copyCode()" class="bg-green-700 text-white p-1.5 md:p-2 rounded border border-green-600 font-bold text-xs flex items-center gap-1"><i class="fa-regular fa-copy"></i> <span class="hidden md:inline">COPY</span></button>
+                    <button onclick="downloadScript()" class="bg-green-700 text-white p-1.5 md:p-2 rounded border border-green-600 font-bold text-xs flex items-center gap-1"><i class="fa-solid fa-download"></i></button>
+                    <button onclick="copyCode()" class="bg-slate-700 text-white p-1.5 md:p-2 rounded border border-slate-600 font-bold text-xs flex items-center gap-1"><i class="fa-regular fa-copy"></i></button>
                 </div>
             </div>
 
@@ -138,12 +139,12 @@
     <script>
         function toggleModal(id) { const el = document.getElementById(id); if (el.classList.contains('hidden')) { openMobileGuide(); } else { el.classList.add('hidden'); } }
 
-        // --- RESTORED ORIGINAL V1.6 SCRIPTS (FULL VERSIONS) ---
-        const SCRIPT_FEDORA = `#!/bin/bash\n# SINET REMOTE: FEDORA SETUP v1.6\nset -e\necho "[SINET] 1. Update..."\nsudo dnf -y update\necho "[SINET] 2. Install Samba..."\nsudo dnf install -y samba policycoreutils-python-utils\necho "[SINET] 3. Configure..."\nif id "sinet_master" &>/dev/null; then echo "User exists"; else sudo useradd -m sinet_master; fi\necho "Set Password for 'sinet_master':"\nsudo smbpasswd -a sinet_master\nsudo mkdir -p /home/sinet_master/SINET_Share\nsudo chmod -R 777 /home/sinet_master/SINET_Share\nsudo firewall-cmd --add-service=samba --permanent\nsudo firewall-cmd --reload\nsudo setsebool -P samba_export_all_rw 1\nsudo bash -c 'cat > /etc/samba/smb.conf <<EOF\n[global]\n   workgroup = SINET_WORKGROUP\n   server string = SINET Remote\n   security = user\n   min protocol = SMB2\n[SINET_Box]\n   path = /home/sinet_master/SINET_Share\n   valid users = sinet_master\n   browsable = yes\n   writable = yes\n   guest ok = no\n   create mask = 0777\nEOF'\nsudo systemctl enable smb nmb\nsudo systemctl restart smb nmb\necho "✅ DONE! Your IP: $(hostname -I | awk '{print $1}')"`;
+        // --- FULL ROBUST SCRIPTS (RESTORED) ---
+        const SCRIPT_FEDORA = `#!/bin/bash\n# SINET REMOTE: FEDORA SETUP v1.6 (FULL)\nset -e\necho "[SINET] 1. Update..."\nsudo dnf -y update\necho "[SINET] 2. Install Samba..."\nsudo dnf install -y samba policycoreutils-python-utils\necho "[SINET] 3. Configure..."\nif id "sinet_master" &>/dev/null; then echo "User exists"; else sudo useradd -m sinet_master; fi\necho "Set Password for 'sinet_master':"\nsudo smbpasswd -a sinet_master\nsudo mkdir -p /home/sinet_master/SINET_Share\nsudo chmod -R 777 /home/sinet_master/SINET_Share\nsudo firewall-cmd --add-service=samba --permanent\nsudo firewall-cmd --reload\nsudo setsebool -P samba_export_all_rw 1\nsudo bash -c 'cat > /etc/samba/smb.conf <<EOF\n[global]\n   workgroup = SINET_WORKGROUP\n   server string = SINET Remote\n   security = user\n   min protocol = SMB2\n[SINET_Box]\n   path = /home/sinet_master/SINET_Share\n   valid users = sinet_master\n   browsable = yes\n   writable = yes\n   guest ok = no\n   create mask = 0777\nEOF'\nsudo systemctl enable smb nmb\nsudo systemctl restart smb nmb\necho "✅ DONE! Your IP: $(hostname -I | awk '{print $1}')"`;
         
-        const SCRIPT_UBUNTU = `#!/bin/bash\n# SINET REMOTE: UBUNTU SETUP v1.6\nset -e\necho "[SINET] 1. Update..."\nsudo apt update && sudo apt upgrade -y\nsudo apt install -y samba\nif id "sinet_master" &>/dev/null; then echo "User exists"; else sudo useradd -m sinet_master; fi\necho "Set Password:"\nsudo smbpasswd -a sinet_master\nsudo mkdir -p /home/sinet_master/SINET_Share\nsudo chmod -R 777 /home/sinet_master/SINET_Share\nsudo ufw allow samba\nsudo bash -c 'cat > /etc/samba/smb.conf <<EOF\n[global]\n   workgroup = SINET_WORKGROUP\n   server string = SINET Remote\n   security = user\n   min protocol = SMB2\n[SINET_Box]\n   path = /home/sinet_master/SINET_Share\n   valid users = sinet_master\n   browsable = yes\n   writable = yes\n   guest ok = no\n   create mask = 0777\nEOF'\nsudo systemctl restart smbd nmbd\necho "✅ DONE! Your IP: $(hostname -I | awk '{print $1}')"`;
+        const SCRIPT_UBUNTU = `#!/bin/bash\n# SINET REMOTE: UBUNTU SETUP v1.6 (FULL)\nset -e\necho "[SINET] 1. Update..."\nsudo apt update && sudo apt upgrade -y\nsudo apt install -y samba\nif id "sinet_master" &>/dev/null; then echo "User exists"; else sudo useradd -m sinet_master; fi\necho "Set Password:"\nsudo smbpasswd -a sinet_master\nsudo mkdir -p /home/sinet_master/SINET_Share\nsudo chmod -R 777 /home/sinet_master/SINET_Share\nsudo ufw allow samba\nsudo bash -c 'cat > /etc/samba/smb.conf <<EOF\n[global]\n   workgroup = SINET_WORKGROUP\n   server string = SINET Remote\n   security = user\n   min protocol = SMB2\n[SINET_Box]\n   path = /home/sinet_master/SINET_Share\n   valid users = sinet_master\n   browsable = yes\n   writable = yes\n   guest ok = no\n   create mask = 0777\nEOF'\nsudo systemctl restart smbd nmbd\necho "✅ DONE! Your IP: $(hostname -I | awk '{print $1}')"`;
         
-        const SCRIPT_WINDOWS = `# SINET REMOTE: WINDOWS SETUP v1.6\nWrite-Host "[SINET] Setup..." -ForegroundColor Cyan\nNew-Item -ItemType Directory -Force -Path "C:\\SINET_Share" | Out-Null\nRemove-SmbShare -Name "SINET_Box" -ErrorAction SilentlyContinue\nNew-SmbShare -Name "SINET_Box" -Path "C:\\SINET_Share" -FullAccess $env:USERNAME\nSet-NetFirewallRule -DisplayGroup "File and Printer Sharing" -Enabled True\nRestart-Service LanmanServer -Force\nWrite-Host "✅ READY!" -ForegroundColor Green\nGet-NetIPAddress -AddressFamily IPv4 | Where-Object InterfaceAlias -NotMatch "Loopback" | Select-Object -ExpandProperty IPAddress\nRead-Host "Enter..."`;
+        const SCRIPT_WINDOWS = `# SINET REMOTE: WINDOWS SETUP v1.6 (FULL)\nWrite-Host "[SINET] Setup..." -ForegroundColor Cyan\nNew-Item -ItemType Directory -Force -Path "C:\\SINET_Share" | Out-Null\nRemove-SmbShare -Name "SINET_Box" -ErrorAction SilentlyContinue\nNew-SmbShare -Name "SINET_Box" -Path "C:\\SINET_Share" -FullAccess $env:USERNAME\nSet-NetFirewallRule -DisplayGroup "File and Printer Sharing" -Enabled True\nRestart-Service LanmanServer -Force\nWrite-Host "✅ READY!" -ForegroundColor Green\nGet-NetIPAddress -AddressFamily IPv4 | Where-Object InterfaceAlias -NotMatch "Loopback" | Select-Object -ExpandProperty IPAddress\nRead-Host "Enter..."`;
         
         const GUIDE_MAC = `=== 🍎 macOS SETUP ===\n1. Settings -> General -> Sharing -> File Sharing.\n2. Add Folder -> Options.\n3. Check 'SMB' & Account.\nDONE.`;
 
@@ -201,6 +202,7 @@
 
         switchSystem('fedora');
         
+        // --- YELLOW GRAPH ENGINE ---
         const canvas = document.getElementById('trafficCanvas');
         const ctx = canvas.getContext('2d');
         function resizeCanvas() { canvas.width = canvas.parentElement.offsetWidth; canvas.height = canvas.parentElement.offsetHeight; }
@@ -208,7 +210,16 @@
         function drawGraph() {
             requestAnimationFrame(drawGraph);
             ctx.clearRect(0, 0, canvas.width, canvas.height);
-            ctx.fillStyle = 'rgba(6, 182, 212, 0.1)'; ctx.fillRect(0, canvas.height/2, canvas.width, canvas.height/2);
+            // YELLOW FILL
+            ctx.fillStyle = 'rgba(250, 204, 21, 0.15)'; 
+            ctx.fillRect(0, canvas.height/2, canvas.width, canvas.height/2);
+            // YELLOW LINE
+            ctx.beginPath();
+            ctx.moveTo(0, canvas.height/2);
+            ctx.lineTo(canvas.width, canvas.height/2);
+            ctx.strokeStyle = '#facc15'; // Yellow-400
+            ctx.lineWidth = 2;
+            ctx.stroke();
         }
         drawGraph();
         

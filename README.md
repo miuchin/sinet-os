@@ -1,77 +1,39 @@
-# 🚀 SINET Integrated System (v4.3)
+# 🛡️ SINET INTEGRATED SYSTEM v6.0
 
 > **Your Personal Web Operating System & Digital Command Center.**
 > _Secure. Integrated. Network. Essential Tools._
 
 ![Status](https://img.shields.io/badge/Status-Production-success)
-![Version](https://img.shields.io/badge/Version-v4.3_Mobile-blue)
+![Version](https://img.shields.io/badge/Version-v6.0_Gold_Master-blue)
 ![Partnership](https://img.shields.io/badge/Sinergija-Human_&_AI-blueviolet)
 
 ## 📖 O Projektu (About)
+**SINET** (Secure Integrated Network) je napredni web-bazirani ekosistem koji transformiše način na koji koristimo internet. U verziji 6.0, sistem evoluira u potpunu modularnu arhitekturu sa fokusom na zdravlje, automatizaciju i upravljanje znanjem.
 
-**SINET** (Secure Integrated Network) je napredni web-bazirani ekosistem koji transformiše način na koji koristimo internet. Nastao iz potrebe da se eliminiše "digitalni šum", SINET konsoliduje alate, znanje i kontrolu u jedan modularni "Kernel" interfejs.
-
-Ovaj projekat je praktičan dokaz **SINERGIJE** – spoja višedecenijskog SysAdmin iskustva i moderne AI arhitekture.
-
----
-
-## 🆕 NOVO U VERZIJI v4.3
-* 📱 **Mobile-First Design:** Potpuna podrška za mobilne uređaje (iPhone/Android).
-* 🍔 **Smart Navigation:** "Hamburger" meni na telefonima koji se automatski sklanja radi većeg prostora za čitanje.
-* 📦 **Massive Data Injection:** Preko 80+ kuriranih alata (SysAdmin, OSINT, Dev) integrisanih direktno u sistem.
-* 🛠️ **Grid Fix:** Poboljšan prikaz kartica i skrolovanja.
-
----
+## 🆕 NOVO U VERZIJI v6.0 (Modular Update)
+* 🧬 **SINET LIFE Module:** Potpuno novi podsistem za praćenje vitalnih funkcija, terapije i astro-podataka.
+* 📦 **Knowledge Hub:** Integrisana baza znanja (Majstor u kući, Recepti, Auto & Lov).
+* 🛡️ **Total Backup Protocol:** Jedinstveni sistem za izvoz/uvoz svih korisničkih podataka u jedan .json fajl.
+* 📑 **Audit Verified Index:** Centralna arhiva sa pametnim imenovanjem PDF izvoza.
+* 🚀 **Universal Portal:** Poboljšana navigacija kroz OS, Remote i Life module.
 
 ## 🏗️ Arhitektura (System Architecture)
+Sistem koristi **"Kernel" arhitekturu** gde glavni portal upravlja pod-modulima:
 
-Sistem koristi **"Kernel" arhitekturu** gde glavni portal upravlja pod-modulima bez osvežavanja stranice.
-
-### 🧩 Glavni Moduli:
-
-1.  **SINET PORTAL (Core)**
-    * Centralna baza znanja i alata.
-    * Sadrži stotine linkova (SysAdmin, Dev, OSINT, Media).
-    * Instant pretraga i filtriranje.
-
-2.  **SINET OS (Dashboard)**
-    * Vizuelni interfejs za dnevne operacije.
-    * Integrisane vesti, vremenska prognoza i beleške.
-    * "Offline-first" beležnica i generator lozinki.
-
-3.  **SINET REMOTE (Control Center)**
-    * Modul za daljinsko upravljanje i mrežnu dijagnostiku.
-    * Povezivanje uređaja u lokalnoj mreži.
+1. **SINET PORTAL (Core)**: Centralna navigacija i pristup alatima.
+2. **SINET OS (Dashboard)**: Desktop interfejs za vesti i produktivnost.
+3. **SINET LIFE (Health & Bio)**: Praćenje zdravlja, terapije i duhovni molitvenik.
+4. **SINET REMOTE (Control)**: Mrežna dijagnostika i kontrola uređaja.
 
 ---
 
-## 🚀 Kako pokrenuti (Installation)
-
-### 🌍 Live Demo
-Projekat je dostupan online: **[UBACI TVOJ NETLIFY LINK OVDE]**
-
-### 💻 Lokalno pokretanje
-Sistem je "Portable" (prenosiv) i ne zahteva instalaciju.
-
-1.  Preuzmite repozitorijum.
-2.  Otvorite `index.html`.
-3.  Sistem je spreman za rad.
+## 🚀 Instalacija i Korišćenje
+Sistem je "Portable" (prenosiv) i radi direktno iz pretraživača.
+1. Preuzmite repozitorijum.
+2. Otvorite `SINET PORTAL 5.0 .html`.
+3. Svi moduli su automatski uvezani.
 
 ---
 
-## 🤝 Autori i Partneri (Credits)
-
-Ovaj projekat je rezultat zajedničkog rada:
-
-### 👤 Svetozar Miučin
-**Lead Visionary & Retired SysAdmin**
-*Koncept, Selekcija Alata, UX Dizajn, SysAdmin Logika*
-"Vratiti kontrolu korisniku. Umesto da surfujemo haosom, gradimo strukturu."
-
-### 🤖 Gemini (Google)
-**AI Architect & Development Partner**
-*Kodiranje, Responsive Design, Modularna Arhitektura*
-"Pretvaranje vizije u kod kroz sinergiju."
-
----
-*© 2025 SINET Project. Created by Human & AI Synergy.*
+## 🤝 Autori i Partneri
+**Svetozar Miučin** (Lead Visionary & Architect) & **Gemini AI** (Engineering Support).
