@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="sr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SINET LIFE - Agro Savetnik v1.0</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body class="bg-slate-50 min-h-screen font-sans p-4" onload="loadAgroTips()">
+
+    <header class="max-w-xl mx-auto flex justify-between items-center mb-6">
+        <div class="flex items-center gap-3">
+            <i class="fa-solid fa-wheat-awn text-emerald-600 text-2xl"></i>
+            <h1 class="text-xl font-black text-slate-800 uppercase italic">SINET <span class="text-emerald-600">AGRO</span></h1>
+        </div>
+        <button onclick="window.location.href='life_hub.html'" class="bg-slate-900 text-white px-5 py-2 rounded-full font-black text-[10px] uppercase shadow-lg transition hover:scale-105">
+            NAZAD
+        </button>
+    </header>
+
+    <main class="max-w-xl mx-auto space-y-4">
+        <div id="agro-container" class="space-y-4">
+            </div>
+    </main>
+
+    <div id="agroModal" class="fixed inset-0 bg-black/90 z-[100] hidden flex items-center justify-center p-4 backdrop-blur-sm">
+        <div class="bg-white w-full max-w-sm rounded-[2.5rem] p-8 border-8 border-emerald-100 shadow-2xl flex flex-col max-h-[80vh]">
+            <div class="flex-1 overflow-y-auto">
+                <h3 id="modalTitle" class="font-black uppercase text-slate-800 mb-4 text-xl border-b pb-2 italic text-emerald-700"></h3>
+                <div class="bg-emerald-50 p-6 rounded-3xl border-2 border-emerald-100 italic text-lg leading-relaxed text-slate-700" id="modalContent"></div>
+            </div>
+            <button onclick="closeModal()" class="mt-6 w-full bg-slate-900 text-white font-black py-4 rounded-2xl uppercase text-xs">Zatvori</button>
+        </div>
+    </div>
+
+    <script>
+			/* ===================================================
+		   🚩 POČETAK BLOKA: AGRO DATA INJECTION v1.0
+		   FUNKCIJA: Punjenje baze podacima za decembar/proleće
+		   =================================================== */
+		const agroTips = [
+			{
+				id: 401,
+				title: "ZIMSKO PRSKANJE (PLAVO)",
+				desc: "Zaštita voćnjaka u fazi mirovanja.",
+				content: "Obavezno uraditi 'plavo prskanje' bakarnim preparatima dok su voćke u fazi mirovanja. Ovo eliminiše prezimljujuće oblike patogena poput kovrdžavosti lista breskve i monilije."
+			},
+			{
+				id: 402,
+				title: "SETVA PAPRIKE ZA RASAD",
+				desc: "Planiranje za februar/mart.",
+				content: "Paprika zahteva dugu vegetaciju. Setvu za rasad u toplim lejama planirati od kraja februara. Ključ je temperatura supstrata: ne sme pasti ispod 18°C za sigurno klijanje."
+			},
+			{
+				id: 403,
+				title: "ČUVANJE KROMPIRA",
+				desc: "Kontrola u podrumima.",
+				content: "Redovno provetravati podrume gde se čuva krompir. Idealna temperatura je 4-6°C. Ako krene klijavost, obavezno ukloniti klice kako bi krtola zadržala čvrstinu i hranljivost."
+			},
+			{
+				id: 404,
+				title: "PRIPREMA ZEMLJIŠTA (AZOT)",
+				desc: "Analiza i prihrana.",
+				content: "Ako zemljište nije zamrznuto, januar je idealan za uzimanje uzoraka za analizu. Nemojte bacati azot napamet; analiza vam štedi novac i sprečava ispiranje đubriva u podzemne vode."
+			},
+			{
+				id: 405,
+				title: "SETVA PARADAJZA (RANI)",
+				desc: "Optimalni uslovi za rasad.",
+				content: "Setva u zatvorenom prostoru (kontejneri) počinje početkom marta. Paradajz voli svetlost; čim nikne, spustite temperaturu na 16°C noću da se rasad ne bi izdužio."
+			},
+			{
+				id: 406,
+				title: "KALEMLJENJE VOĆA",
+				desc: "Tehnika 'na procep'.",
+				content: "Kraj marta je idealan za kalemljenje na procep. Koristite oštar alat i obavezno premažite kalem voskom kako biste sprečili isušivanje i prodor patogena."
+			},
+		];
+		/* ===================================================
+		   🏁 KRAJ BLOKA: AGRO DATA INJECTION v1.0
+		   =================================================== */
+
+        function loadAgroTips() {
+            const container = document.getElementById('agro-container');
+            container.innerHTML = agroTips.map(t => `
+                <div class="bg-white p-6 rounded-[2.5rem] shadow-sm border border-slate-100 cursor-pointer hover:border-emerald-200 transition" onclick="openAgro(${t.id})">
+                    <h2 class="text-lg font-black text-slate-800 uppercase tracking-tighter">${t.title}</h2>
+                    <p class="text-[10px] text-slate-400 font-bold uppercase mb-4 italic">${t.desc}</p>
+                    <button onclick="event.stopPropagation(); saveAgroToIndex(${t.id})" class="w-full bg-emerald-50 text-emerald-700 font-black py-3 rounded-xl border border-emerald-100 uppercase text-[9px] hover:bg-emerald-600 hover:text-white transition">
+                        <i class="fa-solid fa-address-book mr-2"></i> ARHIVIRAJ U INDEX
+                    </button>
+                </div>
+            `).join('');
+        }
+
+        function openAgro(id) {
+            const t = agroTips.find(x => x.id === id);
+            document.getElementById('modalTitle').innerText = t.title;
+            document.getElementById('modalContent').innerText = t.content;
+            document.getElementById('agroModal').classList.remove('hidden');
+        }
+
+        function closeModal() { document.getElementById('agroModal').classList.add('hidden'); }
+
+        function saveAgroToIndex(id) {
+            const t = agroTips.find(x => x.id === id);
+            let notes = JSON.parse(localStorage.getItem('sinet_notes')) || [];
+            notes.push({
+                id: Date.now(),
+                title: `AGRO: ${t.title}`,
+                text: `[AGRO] ${t.content}`,
+                date: new Date().toLocaleDateString('sr-RS')
+            });
+            localStorage.setItem('sinet_notes', JSON.stringify(notes));
+            alert("✅ Agro savet je sačuvan u SINET INDEX.");
+        }
+    </script>
+</body>
+</html>

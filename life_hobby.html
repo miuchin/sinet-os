@@ -3,93 +3,92 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>SINET LIFE - Auto & Lov v1.0</title>
+    <title>SINET LIFE - Auto Savetnik v1.1</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 </head>
-<body class="bg-slate-50 min-h-screen font-sans p-4" onload="loadHobbyTips()">
+<body class="bg-slate-50 min-h-screen font-sans p-4" onload="loadAutoTips()">
 
     <header class="max-w-xl mx-auto flex justify-between items-center mb-6">
         <div class="flex items-center gap-3">
-            <i class="fa-solid fa-car text-indigo-600 text-2xl"></i>
-            <h1 class="text-xl font-black text-slate-800 uppercase italic">AUTO <span class="text-indigo-600">& LOV</span></h1>
+            <i class="fa-solid fa-car text-indigo-700 text-2xl"></i>
+            <h1 class="text-xl font-black text-slate-800 uppercase italic">SINET <span class="text-indigo-700">AUTO</span></h1>
         </div>
         <button onclick="window.location.href='life_hub.html'" class="bg-slate-900 text-white px-5 py-2 rounded-full font-black text-[10px] uppercase shadow-lg transition hover:scale-105">
             NAZAD
         </button>
     </header>
 
-    <main class="max-w-xl mx-auto space-y-4">
-        <div id="hobby-container" class="space-y-4">
-            </div>
-    </main>
+    <main class="max-w-xl mx-auto space-y-4" id="auto-container">
+        </main>
 
-    <div id="hobbyModal" class="fixed inset-0 bg-black/90 z-[100] hidden flex items-center justify-center p-4 backdrop-blur-sm">
-        <div class="bg-white w-full max-w-sm rounded-[2.5rem] p-8 border-8 border-white shadow-2xl flex flex-col max-h-[80vh]">
+    <div id="autoModal" class="fixed inset-0 bg-black/90 z-[100] hidden flex items-center justify-center p-4 backdrop-blur-sm">
+        <div class="bg-white w-full max-w-sm rounded-[2.5rem] p-8 border-8 border-indigo-100 shadow-2xl flex flex-col max-h-[80vh]">
             <div class="flex-1 overflow-y-auto">
-                <h3 id="modalTitle" class="font-black uppercase text-slate-800 mb-4 text-xl border-b pb-2 italic text-indigo-600"></h3>
-                <div class="bg-slate-50 p-6 rounded-3xl border-2 border-slate-100 italic text-lg leading-relaxed text-slate-700" id="modalContent"></div>
+                <h3 id="modalTitle" class="font-black uppercase text-slate-800 mb-4 text-xl border-b pb-2 italic text-indigo-700"></h3>
+                <div class="bg-indigo-50 p-6 rounded-3xl border-2 border-indigo-100 italic text-lg leading-relaxed text-slate-700" id="modalContent"></div>
             </div>
             <button onclick="closeModal()" class="mt-6 w-full bg-slate-900 text-white font-black py-4 rounded-2xl uppercase text-xs">Zatvori</button>
         </div>
     </div>
 
     <script>
-        const hobbyTips = [
+        const autoTips = [
             {
-                id: 301,
-                cat: "AUTO",
-                title: "ZIMSKI AKUMULATOR",
-                desc: "Održavanje napona tokom mraza.",
-                content: "Pre prvih mrazeva, očistite kleme akumulatora mešavinom sode bikarbone i vode, pa ih premažite tankim slojem vazelina. To sprečava koroziju i gubitak struje pri paljenju na minusu."
+                id: 501,
+                title: "PROVERA ANTIFRIZA",
+                desc: "Zimska preventiva.",
+                content: "Pre niskih temperatura proveriti tačku mržnjenja rashladne tečnosti. Ako je iznad -25°C, zameniti ili doliti koncentrat radi zaštite bloka motora."
             },
             {
-                id: 302,
-                cat: "LOV",
-                title: "ODRŽAVANJE OPTIKE",
-                desc: "Zaštita sočiva u vlažnim uslovima.",
-                content: "Nikada ne brišite sočiva prstima ili grubim krpama na terenu. Koristite isključivo meku mikrofiber krpicu. Ako je optika pokisla, pustite je da se osuši na sobnoj temperaturi pre odlaganja u futrolu."
+                id: 502,
+                title: "SERVISNI INTERVAL: ULJE",
+                desc: "Mali servis (10.000 km).",
+                content: "Zameniti motorno ulje i sve filtere (ulje, vazduh, gorivo, kabina). Koristiti gradaciju specifikovanu od strane proizvođača (npr. 5W-30)."
+            },
+            {
+                id: 503,
+                title: "AKUMULATOR: TEST",
+                desc: "Održavanje napona.",
+                content: "Očistiti kleme od korozije i proveriti napon. Ako je pri gašenju motora ispod 12.4V, akumulator je zreo za dopunu ili zamenu pre mraza."
             }
         ];
 
-        function loadHobbyTips() {
-            const container = document.getElementById('hobby-container');
-            container.innerHTML = hobbyTips.map(t => `
-                <div class="bg-white p-6 rounded-[2.5rem] shadow-sm border border-slate-100 cursor-pointer hover:border-indigo-200 transition" onclick="openHobby(${t.id})">
-                    <div class="flex justify-between items-start mb-2">
-                        <span class="text-[8px] font-black px-3 py-1 bg-slate-100 rounded-full text-indigo-600 uppercase tracking-widest">${t.cat}</span>
-                        <i class="fa-solid fa-expand text-slate-200"></i>
-                    </div>
+        function loadAutoTips() {
+            const container = document.getElementById('auto-container');
+            container.innerHTML = autoTips.map(t => `
+                <div class="bg-white p-6 rounded-[2.5rem] shadow-sm border border-slate-100 mb-4 cursor-pointer hover:border-indigo-200 transition" onclick="openAuto(${t.id})">
                     <h2 class="text-lg font-black text-slate-800 uppercase tracking-tighter">${t.title}</h2>
                     <p class="text-[10px] text-slate-400 font-bold uppercase mb-4 italic">${t.desc}</p>
-                    
-                    <button onclick="event.stopPropagation(); saveHobbyToIndex(${t.id})" class="w-full bg-slate-50 text-slate-800 font-black py-3 rounded-xl border border-slate-100 uppercase text-[9px] hover:bg-indigo-600 hover:text-white transition">
-                        <i class="fa-solid fa-address-book mr-2 text-indigo-500"></i> ARHIVIRAJ U INDEX
+                    <button onclick="event.stopPropagation(); saveAutoToIndex(${t.id})" class="w-full bg-indigo-50 text-indigo-700 font-black py-3 rounded-xl border border-indigo-100 uppercase text-[9px] hover:bg-indigo-600 hover:text-white transition">
+                        <i class="fa-solid fa-address-book mr-2"></i> ARHIVIRAJ U INDEX
                     </button>
                 </div>
             `).join('');
         }
 
-        function openHobby(id) {
-            const t = hobbyTips.find(x => x.id === id);
+        function openAuto(id) {
+            const t = autoTips.find(x => x.id === id);
             document.getElementById('modalTitle').innerText = t.title;
             document.getElementById('modalContent').innerText = t.content;
-            document.getElementById('hobbyModal').classList.remove('hidden');
+            document.getElementById('autoModal').classList.remove('hidden');
         }
 
-        function closeModal() { document.getElementById('hobbyModal').classList.add('hidden'); }
+        function closeModal() {
+            document.getElementById('autoModal').classList.add('hidden');
+        }
 
-        function saveHobbyToIndex(id) {
-            const t = hobbyTips.find(x => x.id === id);
+        function saveAutoToIndex(id) {
+            const t = autoTips.find(x => x.id === id);
             let notes = JSON.parse(localStorage.getItem('sinet_notes')) || [];
             notes.push({
                 id: Date.now(),
-                title: `${t.cat}: ${t.title}`,
-                text: `[${t.cat}] ${t.content}`,
+                title: `AUTO: ${t.title}`,
+                text: `[AUTO SERVIS] ${t.content}`,
                 date: new Date().toLocaleDateString('sr-RS')
             });
             localStorage.setItem('sinet_notes', JSON.stringify(notes));
-            alert("✅ Savet je arhiviran u SINET INDEX.");
+            alert("✅ Servisni podatak je sačuvan u SINET INDEX.");
         }
     </script>
 </body>

@@ -36,11 +36,23 @@
                 <h2 class="text-[9px] font-black text-slate-400 uppercase tracking-widest italic">OKRUŽENJE & STANJE</h2>
                 <span id="loc-tag" class="text-[8px] font-bold text-blue-500 bg-blue-50 px-3 py-1 rounded-full uppercase">LOKACIJA: NOVI SAD</span>
             </div>
-            <div class="grid grid-cols-3 gap-2 text-center">
-                <div><p class="text-[8px] font-black text-slate-400 uppercase">TEMP</p><p class="text-2xl font-black text-slate-800">14°C</p></div>
-                <div><p class="text-[8px] font-black text-slate-400 uppercase">VLAŽNOST</p><p class="text-2xl font-black text-slate-800">65%</p></div>
-                <div><p class="text-[8px] font-black text-slate-400 uppercase">PRITISAK</p><p class="text-2xl font-black text-slate-800">1015</p></div>
-            </div>
+            <div class="grid grid-cols-3 gap-4 text-center mt-2 px-2">
+			<div class="flex flex-col items-center">
+				<p class="text-[8px] font-black text-slate-400 uppercase mb-1">Temperatura</p>
+				<p id="meteo-temp" class="text-3xl font-black text-slate-800 tracking-tighter">--°C</p>
+			</div>
+			<div class="flex flex-col items-center border-x border-slate-100 px-2">
+				<p class="text-[8px] font-black text-slate-400 uppercase mb-1">Vlažnost</p>
+				<p id="meteo-hum" class="text-3xl font-black text-slate-800 tracking-tighter">--%</p>
+			</div>
+			<div class="flex flex-col items-center">
+				<p class="text-[8px] font-black text-slate-400 uppercase mb-1">Vetar</p>
+				<div class="flex items-baseline gap-1">
+					<span id="meteo-wind" class="text-3xl font-black text-slate-800 tracking-tighter">--</span>
+					<span class="text-[10px] font-bold text-slate-400 uppercase">km/h</span>
+				</div>
+			</div>
+		</div>
         </section>
 
         <section class="bg-gradient-to-r from-indigo-600 to-life-purple p-8 rounded-[2.5rem] text-white shadow-xl relative overflow-hidden">
@@ -54,7 +66,9 @@
             <i class="fa-solid fa-church absolute -bottom-4 -right-4 text-white/10 text-9xl"></i>
         </section>
 
-        <section class="grid grid-cols-2 gap-4">
+			
+			<section class="grid grid-cols-2 sm:grid-cols-3 gap-4">
+			
             <button onclick="window.location.href='life_vitals.html'" class="bg-white p-6 rounded-[2rem] shadow-sm border border-slate-50 flex flex-col items-center hover:bg-red-50 transition">
                 <i class="fa-solid fa-gauge-high text-red-500 text-3xl mb-3"></i>
                 <span class="text-[10px] font-black uppercase text-slate-700">Vitalne Funkcije</span>
@@ -84,16 +98,59 @@
                 <i class="fa-solid fa-car text-indigo-700 text-3xl mb-3"></i>
                 <span class="text-[10px] font-black uppercase text-slate-700">Auto & Lov</span>
             </button>
+            
+          
+			<button onclick="window.location.href='life_agro.html'" class="bg-white p-6 rounded-[2rem] shadow-sm border border-slate-50 flex flex-col items-center hover:bg-emerald-50 transition shadow-md">
+				<i class="fa-solid fa-wheat-awn text-emerald-600 text-3xl mb-3"></i>
+				<span class="text-[10px] font-black uppercase text-emerald-700 font-bold">SINET AGRO</span>
+			</button>
+			
+            
         </section>
     </main>
 
     <script>
-        function initHub() {
-            const config = JSON.parse(localStorage.getItem('sinet_life_config')) || {};
-            if(config.city) {
-                document.getElementById('loc-tag').innerText = "LOKACIJA: " + config.city.toUpperCase();
-            }
-        }
+			/* ===================================================
+		   🚩 POČETAK BLOKA: METEO ENGINE v2.0 (Verified)
+		   =================================================== */
+		async function fetchMeteoData() {
+			try {
+				// Podaci za Novi Sad (Latitude: 45.26, Longitude: 19.83)
+				const res = await fetch('https://api.open-meteo.com/v1/forecast?latitude=45.26&longitude=19.83&current_weather=true&hourly=relativehumidity_2m');
+				const data = await res.json();
+				
+				document.getElementById('meteo-temp').innerText = Math.round(data.current_weather.temperature) + "°C";
+				document.getElementById('meteo-hum').innerText = data.hourly.relativehumidity_2m[0] + "%";
+				document.getElementById('meteo-wind').innerText = Math.round(data.current_weather.windspeed) + " km/h";
+				
+				localStorage.setItem('sinet_last_meteo', Date.now());
+				console.log("SINET: Meteo podaci osveženi.");
+			} catch (e) {
+				console.error("SINET: Meteo API Error", e);
+			}
+		}
+
+		function initHub() {
+			// 1. Učitaj lokaciju iz podešavanja
+			const config = JSON.parse(localStorage.getItem('sinet_life_config')) || {};
+			if(config.city) {
+				document.getElementById('loc-tag').innerText = "LOKACIJA: " + config.city.toUpperCase();
+			}
+			
+			// 2. Proveri tajming (30 min)
+			const lastUpdate = localStorage.getItem('sinet_last_meteo');
+			const interval = 30 * 60 * 1000;
+
+			if (!lastUpdate || (Date.now() - lastUpdate) > interval) {
+				fetchMeteoData();
+			} else {
+				// Ako nije prošlo 30 min, bar pročitaj temperaturu koju smo već jednom dobili (ako želimo punu stabilnost)
+				fetchMeteoData(); // Za prvi test pokrećemo odmah
+			}
+		}
+		/* ===================================================
+		   🏁 KRAJ BLOKA: METEO ENGINE v2.0
+		   =================================================== */
     </script>
 </body>
 </html>
